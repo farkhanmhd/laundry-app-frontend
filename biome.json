@@ -28,11 +28,18 @@
       "performance": {
         "noNamespaceImport": "off"
       },
+      "correctness": {
+        "useExhaustiveDependencies": "info"
+      },
       "nursery": {
         "useConsistentTypeDefinitions": "off"
       },
       "style": {
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "off",
+        "noMagicNumbers": "off"
+      },
+      "suspicious": {
+        "noConsole": "info"
       }
     },
     "domains": {

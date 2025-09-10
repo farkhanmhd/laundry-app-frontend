@@ -53,7 +53,7 @@ export function PosProductCard({ product }: Props) {
           width={1000}
         />
         <CardFooter className="flex items-center justify-between p-0">
-          <span className="font-medium">{product.name}</span>
+          <span className="line-clamp-1 font-medium">{product.name}</span>
           <span className="font-semibold text-lg">
             {formatCurrency(product.price)}
           </span>

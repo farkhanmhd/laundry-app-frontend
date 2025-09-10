@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
-import { Urbanist } from 'next/font/google';
+import { Geist } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'sonner';
 import { Providers } from '@/components/providers';
 
-const urbanist = Urbanist({ subsets: ['latin'] });
+const geistSans = Geist({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Beringin Coin Laundry',
-    default: 'Beringin Coin Laundry',
+    template: '%s | Laundry App',
+    default: 'Laundry App',
   },
 };
 
@@ -20,10 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${urbanist.className} bg-background antialiased`}>
+      <body className={`${geistSans.className} bg-background antialiased`}>
         <Providers>
           {children}
-          <Toaster />
+          <Toaster expand richColors />
         </Providers>
       </body>
     </html>

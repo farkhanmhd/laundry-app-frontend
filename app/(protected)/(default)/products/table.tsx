@@ -21,7 +21,11 @@ import {
   useSearchQueryParams,
   useTablePaginationSearchParams,
 } from '@/lib/search-params';
+import AddProductDialog from './add-product-dialog';
+import AdjustQuantityDialog from './adjust-quantity-dialog';
 import type { ProductData } from './data';
+import DeleteProductDialog from './delete-product-dialog';
+import UpdateProductDialog from './update-product-dialog';
 
 interface ProductsTableProps<TData extends ProductData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -68,6 +72,7 @@ const ProductsTable = <TData extends ProductData, TValue>({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <DataTableSearch
+            className="min-w-xs max-w-lg"
             onChange={setGlobalFilter}
             placeholder="Search Products..."
             table={table}
@@ -89,16 +94,20 @@ const ProductsTable = <TData extends ProductData, TValue>({
         </div>
         <div className="flex items-center gap-3">
           <DataTableViewOptions table={table} />
+          <AddProductDialog />
         </div>
       </div>
 
       <DataTable
-        className="max-w-[calc(100vw-32px)]"
+        className="max-h-[calc(100dvh-218px)] max-w-[calc(100svw-32px)]"
         columns={columns}
         table={table}
       />
 
       <DataTablePagination table={table} />
+      <UpdateProductDialog />
+      <AdjustQuantityDialog />
+      <DeleteProductDialog />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import { headers } from 'next/headers';
-import { eden } from '@/treaty';
+import { elysia } from '@/treaty';
 
 export const getProducts = async () => {
-  const { data: response } = await eden.products.get({
+  const { data: response } = await elysia.products.get({
     fetch: {
       headers: await headers(),
     },

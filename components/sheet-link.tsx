@@ -28,12 +28,12 @@ export function SheetLink({ item }: Props) {
           <div className={cn('rounded-full bg-primary/10 p-3')}>
             <item.icon
               className={cn('text-muted-foreground', {
-                'text-white': isActive,
+                'text-primary': isActive,
               })}
             />
           </div>
           <span
-            className={cn('font-medium text-lg group-hover:text-primary', {
+            className={cn('text-lg group-hover:text-primary', {
               'text-primary': isActive,
             })}
           >

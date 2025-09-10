@@ -13,7 +13,7 @@ export function ProductCardSkeleton() {
         <Skeleton className="aspect-square max-h-[300px] rounded-md" />
 
         {/* Footer placeholders: name and price */}
-        <CardFooter className="flex h-[28px] items-center justify-between p-0">
+        <CardFooter className="flex h-[28px] items-center justify-between gap-2 p-0">
           <Skeleton className="h-4 w-2/3" />
           <Skeleton className="h-5 w-16" />
         </CardFooter>

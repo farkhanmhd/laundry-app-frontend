@@ -3,7 +3,6 @@ import {
   flexRender,
   type Table as TableType,
 } from '@tanstack/react-table';
-import React from 'react';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import {
@@ -18,20 +17,20 @@ import {
 type Props<TData, TValue> = {
   table: TableType<TData>;
   columns: ColumnDef<TData, TValue>[];
-  className: string;
   selectableRows?: boolean;
+  className?: string;
 };
 
 const DataTable = <TData, TValue>({
   table,
   columns,
-  className,
   selectableRows = false,
+  className,
 }: Props<TData, TValue>) => {
   return (
     <ScrollArea className={cn('rounded-md border', className)}>
-      <Table className="overflow-hidden">
-        <TableHeader>
+      <Table>
+        <TableHeader className="sticky top-0 z-50 bg-background">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {

@@ -22,3 +22,7 @@ interface MapItemsProps<T> {
 export const MapItems = <T>({ of, render }: MapItemsProps<T>): ReactNode[] => {
   return Children.toArray(of.map((item, index) => render(item, index)));
 };
+
+export const delay = async (ms: number): Promise<void> => {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+};

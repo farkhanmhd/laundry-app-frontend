@@ -7,25 +7,62 @@ declare const app: Elysia<"", {
 }, {
     typebox: {
         Import: <Key extends never>(key: Key, options?: import("@sinclair/typebox").SchemaOptions) => import("@sinclair/typebox").TImport<{}, Key>;
-        readonly defaultResponse: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TLiteral<"success">, import("@sinclair/typebox").TLiteral<"failed">]>;
+        readonly succesResponse: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TLiteral<"success">;
             message: import("@sinclair/typebox").TString;
         }>;
+        readonly failedResponse: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TLiteral<"failed">;
+            message: import("@sinclair/typebox").TString;
+        }>;
+        readonly ProductEventSchema: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TObject<{
+            type: import("@sinclair/typebox").TLiteral<"PRODUCT_CREATED">;
+            payload: import("@sinclair/typebox").TObject<{
+                id: import("@sinclair/typebox").TString;
+                name: import("@sinclair/typebox").TString;
+                image: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+                price: import("@sinclair/typebox").TInteger;
+                currentQuantity: import("@sinclair/typebox").TInteger;
+                reorderPoint: import("@sinclair/typebox").TInteger;
+            }>;
+        }>, import("@sinclair/typebox").TObject<{
+            type: import("@sinclair/typebox").TLiteral<"PRODUCT_UPDATED">;
+            payload: import("@sinclair/typebox").TObject<{
+                id: import("@sinclair/typebox").TString;
+                name: import("@sinclair/typebox").TString;
+                image: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+                price: import("@sinclair/typebox").TInteger;
+                currentQuantity: import("@sinclair/typebox").TInteger;
+                reorderPoint: import("@sinclair/typebox").TInteger;
+            }>;
+        }>, import("@sinclair/typebox").TObject<{
+            type: import("@sinclair/typebox").TLiteral<"STOCK_UPDATED">;
+            payload: import("@sinclair/typebox").TObject<{
+                id: import("@sinclair/typebox").TString;
+                stock: import("@sinclair/typebox").TNumber;
+            }>;
+        }>, import("@sinclair/typebox").TObject<{
+            type: import("@sinclair/typebox").TLiteral<"PRODUCT_DELETED">;
+            payload: import("@sinclair/typebox").TObject<{
+                id: import("@sinclair/typebox").TString;
+            }>;
+        }>]>;
         readonly addProduct: import("@sinclair/typebox").TObject<{
             name: import("@sinclair/typebox").TString;
             image: import("@sinclair/typebox").TUnsafe<File>;
-            price: import("@sinclair/typebox").TInteger;
-            currentQuantity: import("@sinclair/typebox").TInteger;
+            price: import("@sinclair/typebox").TNumber;
+            currentQuantity: import("@sinclair/typebox").TNumber;
+            reorderPoint: import("@sinclair/typebox").TNumber;
         }>;
         readonly addProductResponse: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TLiteral<"success">, import("@sinclair/typebox").TLiteral<"failed">]>;
+            status: import("@sinclair/typebox").TLiteral<"success">;
             message: import("@sinclair/typebox").TString;
             data: import("@sinclair/typebox").TObject<{
                 id: import("@sinclair/typebox").TString;
             }>;
         }>;
         readonly getProducts: import("@sinclair/typebox").TObject<{
-            status: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TLiteral<"success">, import("@sinclair/typebox").TLiteral<"failed">]>;
+            status: import("@sinclair/typebox").TLiteral<"success">;
             message: import("@sinclair/typebox").TString;
             data: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TObject<{
                 id: import("@sinclair/typebox").TString;
@@ -33,7 +70,20 @@ declare const app: Elysia<"", {
                 image: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
                 price: import("@sinclair/typebox").TInteger;
                 currentQuantity: import("@sinclair/typebox").TInteger;
+                reorderPoint: import("@sinclair/typebox").TInteger;
             }>>;
+        }>;
+        readonly updateProduct: import("@sinclair/typebox").TObject<{
+            name: import("@sinclair/typebox").TString;
+            price: import("@sinclair/typebox").TNumber;
+            reorderPoint: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TNumber>;
+        }>;
+        readonly updateProductImage: import("@sinclair/typebox").TObject<{
+            image: import("@sinclair/typebox").TUnsafe<File>;
+        }>;
+        readonly adjustQuantity: import("@sinclair/typebox").TObject<{
+            newQuantity: import("@sinclair/typebox").TNumber;
+            reason: import("@sinclair/typebox").TString;
         }>;
     };
     error: {
@@ -611,7 +661,30 @@ declare const app: Elysia<"", {
                     readonly "Not Extended": 510;
                     readonly "Network Authentication Required": 511;
                 }[Code] : Code>;
-            }) => Promise<void>;
+            }) => Promise<{
+                user: {
+                    id: string;
+                    email: string;
+                    emailVerified: boolean;
+                    name: string;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    image?: string | null | undefined | undefined;
+                    role: string;
+                    username?: string | null | undefined;
+                    displayUsername?: string | null | undefined;
+                };
+                session: {
+                    id: string;
+                    userId: string;
+                    expiresAt: Date;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    token: string;
+                    ipAddress?: string | null | undefined | undefined;
+                    userAgent?: string | null | undefined | undefined;
+                };
+            }>;
         };
     };
     parser: {};
@@ -631,6 +704,49 @@ declare const app: Elysia<"", {
     products: {};
 } & {
     products: {
+        rt: {
+            subscribe: {
+                body: unknown;
+                params: {};
+                query: unknown;
+                headers: unknown;
+                response: {
+                    type: "PRODUCT_CREATED";
+                    payload: {
+                        id: string;
+                        name: string;
+                        image: string | null;
+                        price: number;
+                        currentQuantity: number;
+                        reorderPoint: number;
+                    };
+                } | {
+                    type: "PRODUCT_UPDATED";
+                    payload: {
+                        id: string;
+                        name: string;
+                        image: string | null;
+                        price: number;
+                        currentQuantity: number;
+                        reorderPoint: number;
+                    };
+                } | {
+                    type: "STOCK_UPDATED";
+                    payload: {
+                        id: string;
+                        stock: number;
+                    };
+                } | {
+                    type: "PRODUCT_DELETED";
+                    payload: {
+                        id: string;
+                    };
+                };
+            };
+        };
+    };
+} & {
+    products: {
         get: {
             body: unknown;
             params: {};
@@ -644,8 +760,9 @@ declare const app: Elysia<"", {
                         image: string | null;
                         price: number;
                         currentQuantity: number;
+                        reorderPoint: number;
                     }[];
-                    status: "success" | "failed";
+                    status: "success";
                     message: string;
                 } & {
                     data: {
@@ -654,8 +771,9 @@ declare const app: Elysia<"", {
                         image: string | null;
                         price: number;
                         currentQuantity: number;
+                        reorderPoint: number;
                     }[];
-                    status: "success" | "failed";
+                    status: "success";
                     message: string;
                 };
                 422: {
@@ -672,12 +790,13 @@ declare const app: Elysia<"", {
     };
 } & {
     products: {
-        put: {
+        post: {
             body: {
                 name: string;
                 image: File;
                 price: number;
                 currentQuantity: number;
+                reorderPoint: number;
             };
             params: {};
             query: unknown;
@@ -694,7 +813,7 @@ declare const app: Elysia<"", {
                     data: {
                         id: string;
                     };
-                    status: "success" | "failed";
+                    status: "success";
                     message: string;
                 };
                 422: {
@@ -705,6 +824,131 @@ declare const app: Elysia<"", {
                     found?: unknown;
                     property?: string;
                     expected?: string;
+                };
+            };
+        };
+    };
+} & {
+    products: {
+        ":id": {
+            patch: {
+                body: {
+                    reorderPoint?: number | undefined;
+                    name: string;
+                    price: number;
+                };
+                params: {
+                    id: string;
+                };
+                query: unknown;
+                headers: unknown;
+                response: {
+                    200: {
+                        readonly status: "success";
+                        readonly message: "Product updated";
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                };
+            };
+        };
+    };
+} & {
+    products: {
+        ":id": {
+            image: {
+                patch: {
+                    body: {
+                        image: File;
+                    };
+                    params: {
+                        id: string;
+                    };
+                    query: unknown;
+                    headers: unknown;
+                    response: {
+                        200: {
+                            readonly status: "success";
+                            readonly message: "Product updated";
+                        };
+                        422: {
+                            type: "validation";
+                            on: string;
+                            summary?: string;
+                            message?: string;
+                            found?: unknown;
+                            property?: string;
+                            expected?: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
+} & {
+    products: {
+        ":id": {
+            stock: {
+                patch: {
+                    body: {
+                        newQuantity: number;
+                        reason: string;
+                    };
+                    params: {
+                        id: string;
+                    };
+                    query: unknown;
+                    headers: unknown;
+                    response: {
+                        200: {
+                            readonly status: "success";
+                            readonly message: "Quantity Updated";
+                        };
+                        422: {
+                            type: "validation";
+                            on: string;
+                            summary?: string;
+                            message?: string;
+                            found?: unknown;
+                            property?: string;
+                            expected?: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
+} & {
+    products: {
+        ":id": {
+            delete: {
+                body: unknown;
+                params: {
+                    id: string;
+                };
+                query: unknown;
+                headers: unknown;
+                response: {
+                    200: {
+                        readonly status: "success";
+                        readonly message: "Product deleted";
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
                 };
             };
         };

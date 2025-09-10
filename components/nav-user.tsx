@@ -36,11 +36,12 @@ export function NavUser({
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
+          localStorage.removeItem('bearer_token');
+          setIsPending(false);
           push('/login');
         },
       },
     });
-    setIsPending(false);
   };
 
   return (

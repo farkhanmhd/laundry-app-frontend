@@ -1,5 +1,3 @@
-// lib/auth-client.ts
-
 import {
   inferAdditionalFields,
   usernameClient,
