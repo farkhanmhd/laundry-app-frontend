@@ -3,6 +3,7 @@ import {
   IconClock,
   IconDashboard,
   IconHeart,
+  IconMessage,
   IconPackage,
   IconReportAnalytics,
   IconReportMoney,
@@ -184,5 +185,10 @@ export const adminSheetData: SidebarItem[] = [
     title: 'Staff',
     url: '/staff',
     icon: IconUser,
+  },
+  {
+    title: 'Chat',
+    url: '/chat',
+    icon: IconMessage,
   },
 ];

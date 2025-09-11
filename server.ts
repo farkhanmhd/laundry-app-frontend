@@ -15,38 +15,14 @@ declare const app: Elysia<"", {
             status: import("@sinclair/typebox").TLiteral<"failed">;
             message: import("@sinclair/typebox").TString;
         }>;
-        readonly ProductEventSchema: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TObject<{
-            type: import("@sinclair/typebox").TLiteral<"PRODUCT_CREATED">;
-            payload: import("@sinclair/typebox").TObject<{
-                id: import("@sinclair/typebox").TString;
-                name: import("@sinclair/typebox").TString;
-                image: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                price: import("@sinclair/typebox").TInteger;
-                currentQuantity: import("@sinclair/typebox").TInteger;
-                reorderPoint: import("@sinclair/typebox").TInteger;
-            }>;
-        }>, import("@sinclair/typebox").TObject<{
-            type: import("@sinclair/typebox").TLiteral<"PRODUCT_UPDATED">;
-            payload: import("@sinclair/typebox").TObject<{
-                id: import("@sinclair/typebox").TString;
-                name: import("@sinclair/typebox").TString;
-                image: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
-                price: import("@sinclair/typebox").TInteger;
-                currentQuantity: import("@sinclair/typebox").TInteger;
-                reorderPoint: import("@sinclair/typebox").TInteger;
-            }>;
-        }>, import("@sinclair/typebox").TObject<{
-            type: import("@sinclair/typebox").TLiteral<"STOCK_UPDATED">;
-            payload: import("@sinclair/typebox").TObject<{
-                id: import("@sinclair/typebox").TString;
-                stock: import("@sinclair/typebox").TNumber;
-            }>;
-        }>, import("@sinclair/typebox").TObject<{
-            type: import("@sinclair/typebox").TLiteral<"PRODUCT_DELETED">;
-            payload: import("@sinclair/typebox").TObject<{
-                id: import("@sinclair/typebox").TString;
-            }>;
-        }>]>;
+        readonly message: import("@sinclair/typebox").TObject<{
+            message: import("@sinclair/typebox").TString;
+        }>;
+        readonly response: import("@sinclair/typebox").TObject<{
+            message: import("@sinclair/typebox").TString;
+            author: import("@sinclair/typebox").TString;
+            time: import("@sinclair/typebox").TNumber;
+        }>;
         readonly addProduct: import("@sinclair/typebox").TObject<{
             name: import("@sinclair/typebox").TString;
             image: import("@sinclair/typebox").TUnsafe<File>;
@@ -701,50 +677,43 @@ declare const app: Elysia<"", {
         };
     };
 } & {
-    products: {};
-} & {
-    products: {
-        rt: {
-            subscribe: {
-                body: unknown;
-                params: {};
-                query: unknown;
-                headers: unknown;
-                response: {
-                    type: "PRODUCT_CREATED";
-                    payload: {
-                        id: string;
-                        name: string;
-                        image: string | null;
-                        price: number;
-                        currentQuantity: number;
-                        reorderPoint: number;
-                    };
-                } | {
-                    type: "PRODUCT_UPDATED";
-                    payload: {
-                        id: string;
-                        name: string;
-                        image: string | null;
-                        price: number;
-                        currentQuantity: number;
-                        reorderPoint: number;
-                    };
-                } | {
-                    type: "STOCK_UPDATED";
-                    payload: {
-                        id: string;
-                        stock: number;
-                    };
-                } | {
-                    type: "PRODUCT_DELETED";
-                    payload: {
-                        id: string;
-                    };
+    chat: {
+        get: {
+            body: unknown;
+            params: {};
+            query: unknown;
+            headers: unknown;
+            response: {
+                200: {
+                    readonly status: "success";
+                    readonly message: "Messages retrieved";
+                    readonly data: {
+                        message: string;
+                        author: string;
+                        time: number;
+                    }[];
                 };
             };
         };
     };
+} & {
+    chat: {
+        subscribe: {
+            body: {
+                message: string;
+            };
+            params: {};
+            query: unknown;
+            headers: unknown;
+            response: {
+                message: string;
+                author: string;
+                time: number;
+            };
+        };
+    };
+} & {
+    products: {};
 } & {
     products: {
         get: {
