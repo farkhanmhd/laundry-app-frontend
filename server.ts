@@ -23,6 +23,17 @@ declare const app: Elysia<"", {
             author: import("@sinclair/typebox").TString;
             time: import("@sinclair/typebox").TNumber;
         }>;
+        readonly createChatBody: import("@sinclair/typebox").TObject<{
+            userId: import("@sinclair/typebox").TString;
+            participantId: import("@sinclair/typebox").TString;
+        }>;
+        readonly createChatResponse: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TLiteral<"success">;
+            message: import("@sinclair/typebox").TString;
+            data: import("@sinclair/typebox").TObject<{
+                id: import("@sinclair/typebox").TString;
+            }>;
+        }>;
         readonly addProduct: import("@sinclair/typebox").TObject<{
             name: import("@sinclair/typebox").TString;
             image: import("@sinclair/typebox").TUnsafe<File>;
@@ -677,6 +688,8 @@ declare const app: Elysia<"", {
         };
     };
 } & {
+    chat: {};
+} & {
     chat: {
         get: {
             body: unknown;
@@ -709,6 +722,43 @@ declare const app: Elysia<"", {
                 message: string;
                 author: string;
                 time: number;
+            };
+        };
+    };
+} & {
+    chat: {
+        post: {
+            body: {
+                userId: string;
+                participantId: string;
+            };
+            params: {};
+            query: unknown;
+            headers: unknown;
+            response: {
+                200: {
+                    readonly status: "success";
+                    readonly message: "Chat ID Retrieved";
+                    readonly data: {
+                        readonly id: string;
+                    };
+                };
+                201: {
+                    readonly status: "created";
+                    readonly message: "New Chat ID Created";
+                    readonly data: {
+                        readonly id: string;
+                    };
+                };
+                422: {
+                    type: "validation";
+                    on: string;
+                    summary?: string;
+                    message?: string;
+                    found?: unknown;
+                    property?: string;
+                    expected?: string;
+                };
             };
         };
     };

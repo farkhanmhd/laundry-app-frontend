@@ -12,7 +12,7 @@ interface Props {
 
 export function SheetLink({ item }: Props) {
   const pathname = usePathname();
-  const isActive = pathname === item.url;
+  const isActive = pathname.split('/')[1] === item.url.split('/')[1];
   return (
     <li>
       <SheetClose asChild>

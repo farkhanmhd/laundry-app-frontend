@@ -1,6 +1,13 @@
 import { clsx, type ClassValue } from 'clsx';
 import { Children, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
+import {
+  differenceInDays,
+  format,
+  isToday,
+  isYesterday,
+  parseISO,
+} from 'date-fns';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -25,4 +32,33 @@ export const MapItems = <T>({ of, render }: MapItemsProps<T>): ReactNode[] => {
 
 export const delay = async (ms: number): Promise<void> => {
   await new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+export const chatDateFormat = (dateString: string) => {
+  if(!dateString) {
+    return ''
+  }
+
+  // date string example: '2025-04-21T14:10:52.612Z'
+  const date = parseISO(dateString);
+  const now = new Date();
+
+  // todo. convert date string to desire format
+  // if its today, show the current time,
+  if (isToday(date)) {
+    return format(date, 'p');
+  }
+
+  // if its yesterday, print yesterday,
+  if (isYesterday(date)) {
+    return 'Yesterday';
+  }
+
+  // if its within a week print the day of the week,
+  if (differenceInDays(now, date) < 7) {
+    return format(date, 'EEEE');
+  }
+
+  // if its more than 7 day earlier, show date in dd/mm/yy format
+  return format(date, 'dd/MM/yy');
 };
