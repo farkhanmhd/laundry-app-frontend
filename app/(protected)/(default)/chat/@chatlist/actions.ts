@@ -1,5 +1,6 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { z } from 'zod';
 import { actionClient } from '@/lib/safe-action';
 import { elysia } from '@/treaty';
@@ -14,7 +15,11 @@ export type CreateChatBody = z.infer<typeof createChatSchema>;
 export const createChatAction = actionClient
   .inputSchema(createChatSchema)
   .action(async ({ parsedInput }) => {
-    const { data: response } = await elysia.chat.post(parsedInput);
+    const { data: response } = await elysia.chat.post(parsedInput, {
+      fetch: {
+        headers: await headers(),
+      },
+    });
 
     if (!response) {
       return {

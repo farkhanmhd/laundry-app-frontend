@@ -5,11 +5,17 @@ import type * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
+interface ScrollAreaProps
+  extends React.ComponentProps<typeof ScrollAreaPrimitive.Root> {
+  itemAsChild?: boolean;
+}
+
 function ScrollArea({
   className,
   children,
+  itemAsChild = false,
   ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.Root>) {
+}: ScrollAreaProps) {
   return (
     <ScrollAreaPrimitive.Root
       className={cn('relative', className)}
@@ -17,6 +23,7 @@ function ScrollArea({
       {...props}
     >
       <ScrollAreaPrimitive.Viewport
+        asChild={itemAsChild}
         className="size-full rounded-[inherit] outline-none transition-[color,box-shadow] focus-visible:outline-1 focus-visible:ring-[3px] focus-visible:ring-ring/50"
         data-slot="scroll-area-viewport"
       >

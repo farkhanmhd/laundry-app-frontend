@@ -1,34 +1,36 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { authClient } from '@/lib/auth-client';
 import { elysia } from '@/treaty';
 
-interface Message {
-  author: string;
-  message: string;
-  time: number;
-}
+type Socket = ReturnType<ReturnType<typeof elysia.chat>['subscribe']>;
+type Message = NonNullable<Awaited<ReturnType<typeof getMessages>>>[number];
 
-type Socket = ReturnType<typeof elysia.chat.subscribe> | undefined;
-
-const getMessages = async () => {
-  const { data: response } = await elysia.chat.get();
+const getMessages = async (id: string) => {
+  const { data: response } = await elysia.chat({ id }).get({
+    fetch: {
+      credentials: 'include',
+    },
+  });
 
   if (response) {
     return response.data;
   }
 };
 
-export const useRealtimeChat = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+export const useRealtimeChat = (id: string) => {
   const [socket, setSocket] = useState<Socket | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const { data: session } = authClient.useSession();
+  const authorId = session?.user.id as string;
 
   useEffect(() => {
-    const newSocket = elysia.chat.subscribe();
+    const newSocket = elysia.chat({ id }).subscribe();
     setSocket(newSocket);
 
     newSocket.on('open', async () => {
-      const data = await getMessages();
+      const data = await getMessages(id);
       if (data) {
         setMessages(data);
       }
@@ -41,13 +43,13 @@ export const useRealtimeChat = () => {
     return () => {
       newSocket.close();
     };
-  }, []);
+  }, [id]);
 
   const sendMessage = (message: string) => {
     socket?.send({ message });
     setMessages((prev) => [
       ...prev,
-      { message, author: 'me', time: Date.now() },
+      { content: message, authorId, id: '', createdAt: '' },
     ]);
   };
 

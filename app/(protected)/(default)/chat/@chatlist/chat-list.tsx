@@ -1,42 +1,73 @@
 'use client';
 
+import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useAction } from 'next-safe-action/hooks';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { authClient } from '@/lib/auth-client';
 import { MapItems } from '@/lib/utils';
+import { elysia } from '@/treaty';
 import { type CreateChatBody, createChatAction } from './actions';
 import type { Chat } from './chat-item';
 import { ChatItem } from './chat-item';
 import { ChatLink } from './chat-link';
+import type { ChatUser } from './data';
 
 type Props = {
-  chats: Chat[];
+  initialChats: Chat[];
+  chatUsers: ChatUser[];
 };
 
-const ChatList = ({ chats }: Props) => {
+const ChatList = ({ initialChats, chatUsers }: Props) => {
   const [search, setSearch] = useState('');
+  const [chats, setChats] = useState<Chat[]>(initialChats);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { push } = useRouter();
+  const { data: session } = authClient.useSession();
   const { execute, isPending } = useAction(createChatAction, {
     onSettled: ({ result }) => {
-      if (result.data && result.data.status === 'created') {
+      if (
+        result.data &&
+        (result.data.status === 'created' || result.data.status === 'success')
+      ) {
         push(`/chat/${result.data.data.id}`);
       }
     },
   });
 
-  const users = [
-    {
-      id: 'R1jIRThnURRMUWbGOQjD9NDMF5ydwsMU',
-      name: 'staff',
-    },
-    {
-      id: 'Or5AUBKlCrBGc9v5U57O6SPCK7XmoMR1',
-      name: 'admin',
-    },
-  ];
+  useEffect(() => {
+    const newSocket = elysia.chat.list.subscribe();
+
+    newSocket.on('message', (event) => {
+      const newData = event.data;
+      setChats((prevChats) => {
+        const chatToUpdate = prevChats.find(
+          (chat) => chat.chatId === newData.chatId
+        );
+
+        if (!chatToUpdate) {
+          return prevChats;
+        }
+
+        const updatedChat: Chat = {
+          ...chatToUpdate,
+          lastMessage: newData.lastMessage,
+          lastMessageTime: format(
+            new Date(newData.lastMessageTime),
+            'yyyy-MM-dd HH:mm:ss.SSSSSS'
+          ),
+        };
+
+        const remainingChats = prevChats.filter(
+          (chat) => chat.chatId !== newData.chatId
+        );
+
+        return [updatedChat, ...remainingChats];
+      });
+    });
+  }, []);
 
   const renderChatList = () => {
     if (chats.length > 0) {
@@ -44,7 +75,7 @@ const ChatList = ({ chats }: Props) => {
         <ul className="h-full w-full">
           <MapItems
             of={chats}
-            render={(chat) => <ChatLink chat={chat} key={chat.id} />}
+            render={(chat) => <ChatLink chat={chat} key={chat.chatId} />}
           />
         </ul>
       );
@@ -60,17 +91,17 @@ const ChatList = ({ chats }: Props) => {
     );
   };
 
-  const handleCreateChat = () => {
+  const handleCreateChat = (participantId: string) => {
     const data: CreateChatBody = {
-      userId: users[1].id,
-      participantId: users[0].id,
+      userId: session?.user.id as string,
+      participantId,
     };
 
     execute(data);
   };
 
   const renderUserSearch = (query: string) => {
-    const filteredUsers = users.filter((user) =>
+    const filteredUsers = chatUsers.filter((user) =>
       user.name.toLowerCase().includes(query.toLowerCase())
     );
 
@@ -84,11 +115,11 @@ const ChatList = ({ chats }: Props) => {
               <Button
                 className="flex h-full w-full cursor-pointer justify-between rounded-none p-3 duration-200 hover:bg-secondary/50 dark:hover:bg-secondary/50"
                 disabled={isPending}
-                onClick={handleCreateChat}
+                onClick={() => handleCreateChat(item.id)}
                 variant="ghost"
               >
                 <ChatItem
-                  id={item.id}
+                  chatId={item.id}
                   key={item.id}
                   recipientName={item.name}
                 />

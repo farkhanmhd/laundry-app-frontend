@@ -66,7 +66,7 @@ const SidebarSheet = () => {
                 alt="user-image"
                 className="rounded-full"
                 height={50}
-                src="placeholder.svg"
+                src="/placeholder.svg"
                 width={50}
               />
               <div className="flex flex-col justify-center gap-0.5">

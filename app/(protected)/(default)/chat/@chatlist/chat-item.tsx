@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { chatDateFormat } from '@/lib/utils';
 
 export type Chat = {
-  id: string;
+  chatId: string;
   recipientImage?: string;
   recipientName: string;
   lastMessage?: string;

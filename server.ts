@@ -15,14 +15,6 @@ declare const app: Elysia<"", {
             status: import("@sinclair/typebox").TLiteral<"failed">;
             message: import("@sinclair/typebox").TString;
         }>;
-        readonly message: import("@sinclair/typebox").TObject<{
-            message: import("@sinclair/typebox").TString;
-        }>;
-        readonly response: import("@sinclair/typebox").TObject<{
-            message: import("@sinclair/typebox").TString;
-            author: import("@sinclair/typebox").TString;
-            time: import("@sinclair/typebox").TNumber;
-        }>;
         readonly createChatBody: import("@sinclair/typebox").TObject<{
             userId: import("@sinclair/typebox").TString;
             participantId: import("@sinclair/typebox").TString;
@@ -33,6 +25,24 @@ declare const app: Elysia<"", {
             data: import("@sinclair/typebox").TObject<{
                 id: import("@sinclair/typebox").TString;
             }>;
+        }>;
+        readonly newMessage: import("@sinclair/typebox").TObject<{
+            message: import("@sinclair/typebox").TString;
+        }>;
+        readonly messageResponse: import("@sinclair/typebox").TObject<{
+            id: import("@sinclair/typebox").TString;
+            createdAt: import("@sinclair/typebox").TString;
+            authorId: import("@sinclair/typebox").TString;
+            content: import("@sinclair/typebox").TString;
+        }>;
+        readonly chatListUpdate: import("@sinclair/typebox").TObject<{
+            chatId: import("@sinclair/typebox").TString;
+            lastMessage: import("@sinclair/typebox").TString;
+            lastMessageTime: import("@sinclair/typebox").TString;
+        }>;
+        readonly getUserResponse: import("@sinclair/typebox").TObject<{
+            id: import("@sinclair/typebox").TString;
+            name: import("@sinclair/typebox").TString;
         }>;
         readonly addProduct: import("@sinclair/typebox").TObject<{
             name: import("@sinclair/typebox").TString;
@@ -691,6 +701,43 @@ declare const app: Elysia<"", {
     chat: {};
 } & {
     chat: {
+        user: {
+            get: {
+                body: unknown;
+                params: {};
+                query: unknown;
+                headers: unknown;
+                response: {
+                    200: {
+                        readonly status: "success";
+                        readonly message: "User retrieved";
+                        readonly data: {
+                            id: string;
+                            name: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+} & {
+    chat: {
+        list: {
+            subscribe: {
+                body: unknown;
+                params: {};
+                query: unknown;
+                headers: unknown;
+                response: {
+                    chatId: string;
+                    lastMessage: string;
+                    lastMessageTime: string;
+                };
+            };
+        };
+    };
+} & {
+    chat: {
         get: {
             body: unknown;
             params: {};
@@ -699,29 +746,15 @@ declare const app: Elysia<"", {
             response: {
                 200: {
                     readonly status: "success";
-                    readonly message: "Messages retrieved";
+                    readonly message: "Chat list retrieved";
                     readonly data: {
-                        message: string;
-                        author: string;
-                        time: number;
+                        chatId: string | null;
+                        recipientName: string;
+                        recipientImage: string | null;
+                        lastMessage: string | null;
+                        lastMessageTime: string | null;
                     }[];
                 };
-            };
-        };
-    };
-} & {
-    chat: {
-        subscribe: {
-            body: {
-                message: string;
-            };
-            params: {};
-            query: unknown;
-            headers: unknown;
-            response: {
-                message: string;
-                author: string;
-                time: number;
             };
         };
     };
@@ -758,6 +791,61 @@ declare const app: Elysia<"", {
                     found?: unknown;
                     property?: string;
                     expected?: string;
+                };
+            };
+        };
+    };
+} & {
+    chat: {
+        ":id": {
+            get: {
+                body: unknown;
+                params: {
+                    id: string;
+                };
+                query: unknown;
+                headers: unknown;
+                response: {
+                    200: {
+                        readonly status: "success";
+                        readonly message: "Messages retrieved";
+                        readonly data: {
+                            id: string;
+                            content: string;
+                            authorId: string;
+                            createdAt: string;
+                        }[];
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                };
+            };
+        };
+    };
+} & {
+    chat: {
+        ":id": {
+            subscribe: {
+                body: {
+                    message: string;
+                };
+                params: {
+                    id: string;
+                };
+                query: unknown;
+                headers: unknown;
+                response: {
+                    id: string;
+                    createdAt: string;
+                    authorId: string;
+                    content: string;
                 };
             };
         };

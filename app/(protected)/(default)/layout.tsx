@@ -16,7 +16,9 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   const pathname = usePathname();
-  const pageTitle = adminSheetData.find((item) => item.url === pathname)?.title;
+  const pageTitle = adminSheetData.find(
+    (item) => item.url.split('/')[1] === pathname.split('/')[1]
+  )?.title;
 
   return (
     <>
