@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Provider as JotaiProvider } from 'jotai';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import type * as React from 'react';
+import { Provider as JotaiProvider } from "jotai";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import type * as React from "react";
 
 export function Providers({
   children,

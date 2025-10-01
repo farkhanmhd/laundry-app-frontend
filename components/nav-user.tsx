@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { IconLogout } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { IconLogout } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,11 +13,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { SidebarMenu, SidebarMenuItem } from '@/components/ui/sidebar';
-import { authClient } from '@/lib/auth-client';
-import { Button } from './ui/button';
+} from "@/components/ui/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";
+import { authClient } from "@/lib/auth-client";
+import { Button } from "./ui/button";
 
 export function NavUser({
   user,
@@ -36,9 +36,9 @@ export function NavUser({
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          localStorage.removeItem('bearer_token');
+          localStorage.removeItem("bearer_token");
           setIsPending(false);
-          push('/login');
+          push("/login");
         },
       },
     });

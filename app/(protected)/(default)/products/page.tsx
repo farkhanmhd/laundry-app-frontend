@@ -1,8 +1,8 @@
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { delay } from '@/lib/utils';
-import { columns } from './columns';
-import { getProducts } from './data';
-import ProductsTable from './table';
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { delay } from "@/lib/utils";
+import { columns } from "./columns";
+import { getProducts } from "./data";
+import ProductsTable from "./table";
 
 const ProductsPage = async () => {
   await delay(2000);

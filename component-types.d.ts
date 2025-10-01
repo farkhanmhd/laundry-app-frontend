@@ -1,4 +1,4 @@
-import type { Icon } from '@tabler/icons-react';
+import type { Icon } from "@tabler/icons-react";
 
 export interface SidebarUserData {
   name: string;

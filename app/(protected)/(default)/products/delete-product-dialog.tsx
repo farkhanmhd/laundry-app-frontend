@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useAction } from 'next-safe-action/hooks';
-import { toast } from 'sonner';
+import { useAction } from "next-safe-action/hooks";
+import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -10,10 +10,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle, // Using Title for better semantics and accessibility
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
-import { deleteProductAction } from './actions';
-import { type ProductID, useProductDialog } from './state';
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { deleteProductAction } from "./actions";
+import { type ProductID, useProductDialog } from "./state";
 
 const DeleteProductDialog = () => {
   const { productState, close } = useProductDialog<ProductID>();
@@ -22,7 +22,7 @@ const DeleteProductDialog = () => {
     deleteProductAction,
     {
       onSuccess: (result) => {
-        if (result.data?.status === 'success') {
+        if (result.data?.status === "success") {
           close();
         }
         toast(result.data?.message);
@@ -31,7 +31,7 @@ const DeleteProductDialog = () => {
   );
 
   return (
-    <AlertDialog onOpenChange={close} open={productState?.open === 'delete'}>
+    <AlertDialog onOpenChange={close} open={productState?.open === "delete"}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -51,7 +51,7 @@ const DeleteProductDialog = () => {
             }
             variant="destructive"
           >
-            {isPending ? 'Deleting...' : 'Yes, delete product'}
+            {isPending ? "Deleting..." : "Yes, delete product"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

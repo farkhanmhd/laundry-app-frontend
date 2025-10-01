@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { IconInnerShadowTop } from '@tabler/icons-react';
-import Link from 'next/link';
-import type * as React from 'react';
-import type { SidebarUserData } from '@/component-types';
-import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-user';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { IconInnerShadowTop } from "@tabler/icons-react";
+import Link from "next/link";
+import type * as React from "react";
+import type { SidebarUserData } from "@/component-types";
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sidebar,
   SidebarContent,
@@ -15,16 +15,16 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { adminNavData, staffNavData } from '@/lib/constants';
-import ThemeSwitcher from './theme-switcher';
+} from "@/components/ui/sidebar";
+import { adminNavData, staffNavData } from "@/lib/constants";
+import ThemeSwitcher from "./theme-switcher";
 
 interface Props extends React.ComponentProps<typeof Sidebar> {
   user: SidebarUserData;
 }
 
 export function AppSidebar({ user, ...props }: Props) {
-  const navData = user.role === 'admin' ? adminNavData : staffNavData;
+  const navData = user.role === "admin" ? adminNavData : staffNavData;
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>

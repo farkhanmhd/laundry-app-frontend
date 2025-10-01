@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useAction } from 'next-safe-action/hooks';
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
-import ImageUploadDropzone from '@/components/image-dropzone';
+import { useAction } from "next-safe-action/hooks";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import ImageUploadDropzone from "@/components/image-dropzone";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -11,17 +11,17 @@ import {
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { updateProductAction } from './actions';
-import type { AddProductBody } from './data';
-import { type UpdateData, useProductDialog } from './state';
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { updateProductAction } from "./actions";
+import type { AddProductBody } from "./data";
+import { type UpdateData, useProductDialog } from "./state";
 
 interface InputFormData
-  extends Omit<AddProductBody, 'image' | 'currentQuantity'> {
+  extends Omit<AddProductBody, "image" | "currentQuantity"> {
   id: string;
   image?: File | string | null;
 }
@@ -30,8 +30,8 @@ export default function UpdateProductDialog() {
   const { productState, close } = useProductDialog<UpdateData>();
 
   const [formData, setFormData] = useState<InputFormData>({
-    id: '',
-    name: '',
+    id: "",
+    name: "",
     image: null,
     price: 0,
     reorderPoint: 0,
@@ -51,8 +51,8 @@ export default function UpdateProductDialog() {
 
   const resetForm = () => {
     setFormData({
-      id: '',
-      name: '',
+      id: "",
+      name: "",
       image: null,
       price: 0,
       reorderPoint: 0,
@@ -61,7 +61,7 @@ export default function UpdateProductDialog() {
 
   const { execute, isPending } = useAction(updateProductAction, {
     onSuccess: (actionResult) => {
-      if (actionResult.data?.status === 'success') {
+      if (actionResult.data?.status === "success") {
         close();
         resetForm();
       }
@@ -92,7 +92,7 @@ export default function UpdateProductDialog() {
   };
 
   return (
-    <AlertDialog onOpenChange={close} open={productState?.open === 'update'}>
+    <AlertDialog onOpenChange={close} open={productState?.open === "update"}>
       <AlertDialogContent className="max-w-xl p-0">
         <ScrollArea className="max-h-dvh p-6">
           <AlertDialogHeader className="mb-6">
@@ -106,7 +106,7 @@ export default function UpdateProductDialog() {
             {/* Product Name */}
             <ImageUploadDropzone
               image={formData.image!}
-              setImage={(file) => handleInputChange('image', file)}
+              setImage={(file) => handleInputChange("image", file)}
             />
 
             <div className="space-y-3">
@@ -115,7 +115,7 @@ export default function UpdateProductDialog() {
                 autoComplete="off"
                 disabled={isPending}
                 id="name"
-                onChange={(e) => handleInputChange('name', e.target.value)}
+                onChange={(e) => handleInputChange("name", e.target.value)}
                 placeholder="Enter product name"
                 value={formData.name}
               />
@@ -133,8 +133,8 @@ export default function UpdateProductDialog() {
                 name="price"
                 onChange={(e) =>
                   handleInputChange(
-                    'price',
-                    Number(e.target.value.replace(/[^0-9]/g, ''))
+                    "price",
+                    Number(e.target.value.replace(/[^0-9]/g, ""))
                   )
                 }
                 placeholder="0"
@@ -153,8 +153,8 @@ export default function UpdateProductDialog() {
                 name="reorderPoint"
                 onChange={(e) =>
                   handleInputChange(
-                    'reorderPoint',
-                    Number(e.target.value.replace(/[^0-9]/g, ''))
+                    "reorderPoint",
+                    Number(e.target.value.replace(/[^0-9]/g, ""))
                   )
                 }
                 placeholder="0"

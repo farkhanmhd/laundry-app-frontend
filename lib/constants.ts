@@ -11,86 +11,86 @@ import {
   IconTools,
   IconUser,
   IconUsers,
-} from '@tabler/icons-react';
-import type { ISidebarGroup, SidebarItem } from '@/component-types';
+} from "@tabler/icons-react";
+import type { ISidebarGroup, SidebarItem } from "@/component-types";
 
 export const adminNavData: ISidebarGroup[] = [
   {
-    label: 'General',
+    label: "General",
     items: [
       {
-        title: 'Dashboard',
-        url: '#',
+        title: "Dashboard",
+        url: "#",
         icon: IconDashboard,
       },
       {
-        title: 'Point of Sales',
-        url: '#',
+        title: "Point of Sales",
+        url: "#",
         icon: IconCash,
       },
     ],
   },
   {
-    label: 'Operations',
+    label: "Operations",
     items: [
       {
-        title: 'Orders',
-        url: '#',
+        title: "Orders",
+        url: "#",
         icon: IconShoppingCart,
       },
       {
-        title: 'Shifts',
-        url: '#',
+        title: "Shifts",
+        url: "#",
         icon: IconClock,
       },
       {
-        title: 'Customers',
-        url: '#',
+        title: "Customers",
+        url: "#",
         icon: IconUsers,
       },
     ],
   },
   {
-    label: 'Reports',
+    label: "Reports",
     items: [
       {
-        title: 'Sales Report',
-        url: '#',
+        title: "Sales Report",
+        url: "#",
         icon: IconReportMoney,
       },
       {
-        title: 'Profit Report',
-        url: '#',
+        title: "Profit Report",
+        url: "#",
         icon: IconReportAnalytics,
       },
       {
-        title: 'Loyalty Report',
-        url: '#',
+        title: "Loyalty Report",
+        url: "#",
         icon: IconHeart,
       },
     ],
   },
   {
-    label: 'Management',
+    label: "Management",
     items: [
       {
-        title: 'Inventory',
-        url: '/products',
+        title: "Inventory",
+        url: "/products",
         icon: IconPackage,
       },
       {
-        title: 'Services',
-        url: '#',
+        title: "Services",
+        url: "#",
         icon: IconTools,
       },
       {
-        title: 'Vouchers',
-        url: '#',
+        title: "Vouchers",
+        url: "#",
         icon: IconTicket,
       },
       {
-        title: 'Staff',
-        url: '#',
+        title: "Staff",
+        url: "#",
         icon: IconUser,
       },
     ],
@@ -99,36 +99,36 @@ export const adminNavData: ISidebarGroup[] = [
 
 export const staffNavData: ISidebarGroup[] = [
   {
-    label: 'Main',
+    label: "Main",
     items: [
       {
-        title: 'Point of Sales',
-        url: '#',
+        title: "Point of Sales",
+        url: "#",
         icon: IconCash,
       },
       {
-        title: 'Shift',
-        url: '#',
+        title: "Shift",
+        url: "#",
         icon: IconClock,
       },
     ],
   },
   {
-    label: 'View',
+    label: "View",
     items: [
       {
-        title: 'Orders',
-        url: '#',
+        title: "Orders",
+        url: "#",
         icon: IconShoppingCart,
       },
       {
-        title: 'Customers',
-        url: '#',
+        title: "Customers",
+        url: "#",
         icon: IconUsers,
       },
       {
-        title: 'Inventory',
-        url: '/products',
+        title: "Inventory",
+        url: "/products",
         icon: IconPackage,
       },
     ],
@@ -137,52 +137,52 @@ export const staffNavData: ISidebarGroup[] = [
 
 export const staffSheetData: SidebarItem[] = [
   {
-    title: 'Point of Sales',
-    url: '/pos',
+    title: "Point of Sales",
+    url: "/pos",
     icon: IconCash,
   },
   {
-    title: 'Shifts',
-    url: '#',
+    title: "Shifts",
+    url: "#",
     icon: IconClock,
   },
   {
-    title: 'Customers',
-    url: '#',
+    title: "Customers",
+    url: "#",
     icon: IconUsers,
   },
   {
-    title: 'Orders',
-    url: '#',
+    title: "Orders",
+    url: "#",
     icon: IconShoppingCart,
   },
 ];
 
 export const adminSheetData: SidebarItem[] = [
   {
-    title: 'Report',
-    url: '/dashboard',
+    title: "Report",
+    url: "/dashboard",
     icon: IconDashboard,
   },
   ...staffSheetData,
   {
-    title: 'Inventory',
-    url: '/products',
+    title: "Inventory",
+    url: "/products",
     icon: IconPackage,
   },
   {
-    title: 'Services',
-    url: '/services',
+    title: "Services",
+    url: "/services",
     icon: IconTools,
   },
   {
-    title: 'Vouchers',
-    url: '/vouchers',
+    title: "Vouchers",
+    url: "/vouchers",
     icon: IconTicket,
   },
   {
-    title: 'Staff',
-    url: '/staff',
+    title: "Staff",
+    url: "/staff",
     icon: IconUser,
   },
 ];

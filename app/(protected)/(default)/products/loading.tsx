@@ -1,5 +1,5 @@
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Skeleton } from '@/components/ui/skeleton';
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -7,8 +7,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { MapItems } from '@/lib/utils';
+} from "@/components/ui/table";
+import { MapItems } from "@/lib/utils";
 
 const Loading = () => {
   const arrays = Array.from({ length: 5 });

@@ -1,5 +1,5 @@
-import { MapItems } from '@/lib/utils';
-import { ProductCardSkeleton } from './pos-product-card-skeleton';
+import { MapItems } from "@/lib/utils";
+import { ProductCardSkeleton } from "./pos-product-card-skeleton";
 
 const Loading = () => {
   return (

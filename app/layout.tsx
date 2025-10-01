@@ -1,15 +1,15 @@
-import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
-import './globals.css';
-import { Toaster } from 'sonner';
-import { Providers } from '@/components/providers';
+import type { Metadata } from "next";
+import { Geist } from "next/font/google";
+import "./globals.css";
+import { Toaster } from "sonner";
+import { Providers } from "@/components/providers";
 
-const geistSans = Geist({ subsets: ['latin'] });
+const geistSans = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Laundry App',
-    default: 'Laundry App',
+    template: "%s | Laundry App",
+    default: "Laundry App",
   },
 };
 

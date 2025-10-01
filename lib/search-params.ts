@@ -4,7 +4,7 @@ import {
   parseAsString,
   useQueryState,
   useQueryStates,
-} from 'nuqs';
+} from "nuqs";
 
 const paginationParsers = {
   pageIndex: parseAsIndex.withDefault(0),
@@ -12,8 +12,8 @@ const paginationParsers = {
 };
 
 const paginationUrlKeys = {
-  pageIndex: 'page',
-  pageSize: 'rows',
+  pageIndex: "page",
+  pageSize: "rows",
 };
 
 export function useTablePaginationSearchParams() {
@@ -23,5 +23,5 @@ export function useTablePaginationSearchParams() {
 }
 
 export function useSearchQueryParams() {
-  return useQueryState('search', parseAsString.withDefault(''));
+  return useQueryState("search", parseAsString.withDefault(""));
 }

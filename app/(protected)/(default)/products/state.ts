@@ -1,16 +1,16 @@
-import { atom, useAtom } from 'jotai';
-import type { ProductData } from './data';
+import { atom, useAtom } from "jotai";
+import type { ProductData } from "./data";
 
-export type ProductID = Pick<ProductData, 'id'>;
-export type UpdateData = Omit<ProductData, 'currentQuantity'>;
+export type ProductID = Pick<ProductData, "id">;
+export type UpdateData = Omit<ProductData, "currentQuantity">;
 export interface UpdateQTY
-  extends Pick<ProductData, 'id' | 'currentQuantity' | 'name'> {
+  extends Pick<ProductData, "id" | "currentQuantity" | "name"> {
   newQuantity: number;
   reason: string;
 }
 
 type ProductDialogState<T> = {
-  open: 'update' | 'delete' | 'adjust';
+  open: "update" | "delete" | "adjust";
   data: T;
 };
 

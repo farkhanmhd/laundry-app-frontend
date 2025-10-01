@@ -1,6 +1,6 @@
-import { useAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
-import type { ProductData } from './data';
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
+import type { ProductData } from "./data";
 
 export interface PosProduct {
   quantity: number;
@@ -8,7 +8,7 @@ export interface PosProduct {
 }
 
 const posProductsAtom = atomWithStorage<PosProduct[]>(
-  'pos-selected-products',
+  "pos-selected-products",
   []
 );
 

@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { IconAdjustments, IconEdit, IconTrash } from '@tabler/icons-react';
-import type { ColumnDef } from '@tanstack/react-table';
-import Image from 'next/image';
-import { DataTableColumnHeader } from '@/components/table/data-table-column-header';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { formatCurrency } from '@/lib/utils';
-import type { ProductData } from './data';
+import { IconAdjustments, IconEdit, IconTrash } from "@tabler/icons-react";
+import type { ColumnDef } from "@tanstack/react-table";
+import Image from "next/image";
+import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { formatCurrency } from "@/lib/utils";
+import type { ProductData } from "./data";
 import {
   type ProductID,
   type UpdateData,
   type UpdateQTY,
   useProductDialog,
-} from './state';
+} from "./state";
 
 export const columns: ColumnDef<ProductData>[] = [
   {
-    accessorKey: 'image',
+    accessorKey: "image",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Image" />
     ),
@@ -27,81 +27,81 @@ export const columns: ColumnDef<ProductData>[] = [
           alt="Product Image"
           className="max-h-[60px] rounded-lg"
           height={60}
-          src={row.getValue('image')}
+          src={row.getValue("image")}
           width={60}
         />
       </div>
     ),
   },
   {
-    accessorKey: 'id',
+    accessorKey: "id",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="ID" />
     ),
     cell: ({ row }) => (
       <div className="line-clamp-1 min-w-max font-medium uppercase">
-        {row.getValue('id')}
+        {row.getValue("id")}
       </div>
     ),
   },
   {
-    accessorKey: 'name',
+    accessorKey: "name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => (
       <div className="line-clamp-1 min-w-max font-medium">
-        {row.getValue('name')}
+        {row.getValue("name")}
       </div>
     ),
   },
   {
-    accessorKey: 'price',
+    accessorKey: "price",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Price" />
     ),
     cell: ({ row }) => (
       <div className="line-clamp-1 min-w-max font-medium">
-        {formatCurrency(row.getValue('price'))}
+        {formatCurrency(row.getValue("price"))}
       </div>
     ),
   },
   {
-    accessorKey: 'currentQuantity',
+    accessorKey: "currentQuantity",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Current Quantity" />
     ),
     cell: ({ row }) => (
       <div className="line-clamp-1 min-w-max font-medium uppercase">
-        {row.getValue('currentQuantity')}
+        {row.getValue("currentQuantity")}
       </div>
     ),
   },
   {
-    accessorKey: 'reorderPoint',
+    accessorKey: "reorderPoint",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Reorder Point" />
     ),
     cell: ({ row }) => (
       <div className="line-clamp-1 min-w-max font-medium uppercase">
-        {row.getValue('reorderPoint')}
+        {row.getValue("reorderPoint")}
       </div>
     ),
   },
   {
-    id: 'stockStatus',
+    id: "stockStatus",
     header: () => <div>Status</div>,
     cell: ({ row }) => {
       const stockStatus =
         row.original.currentQuantity >= row.original.reorderPoint
-          ? 'Sufficient'
-          : 'Shortage';
+          ? "Sufficient"
+          : "Shortage";
 
       return (
-        <div className="line-clamp-1 min-w-max font-medium uppercase">
+        <div className="min-w-max font-medium uppercase">
           <Badge
             className="font-bold"
-            variant={stockStatus === 'Shortage' ? 'destructive' : 'default'}
+            variant={stockStatus === "Shortage" ? "destructive" : "default"}
           >
             {stockStatus}
           </Badge>
@@ -110,7 +110,7 @@ export const columns: ColumnDef<ProductData>[] = [
     },
   },
   {
-    id: 'actions',
+    id: "actions",
     enableHiding: false,
     header: () => <div>Actions</div>,
     cell: ({ row }) => {
@@ -120,7 +120,7 @@ export const columns: ColumnDef<ProductData>[] = [
 
       const openDeleteDialog = () => {
         setProductState({
-          open: 'delete',
+          open: "delete",
           data: {
             id: row.original.id,
           },
@@ -129,7 +129,7 @@ export const columns: ColumnDef<ProductData>[] = [
 
       const openAdjustDialog = () => {
         setProductState({
-          open: 'adjust',
+          open: "adjust",
           data: {
             id: row.original.id,
             name: row.original.name,
@@ -140,7 +140,7 @@ export const columns: ColumnDef<ProductData>[] = [
 
       const openUpdateDialog = () => {
         setProductState({
-          open: 'update',
+          open: "update",
           data: row.original,
         });
       };

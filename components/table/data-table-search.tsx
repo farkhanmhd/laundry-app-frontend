@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import type { Table } from '@tanstack/react-table';
-import type { Dispatch, SetStateAction } from 'react';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+import type { Table } from "@tanstack/react-table";
+import type { Dispatch, SetStateAction } from "react";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 type Props<TData> = {
   value: string;
@@ -16,7 +16,7 @@ type Props<TData> = {
 const DataTableSearch = <TData,>({
   value,
   onChange,
-  placeholder = 'Search all columns...',
+  placeholder = "Search all columns...",
   table,
   className,
 }: Props<TData>) => {
@@ -26,10 +26,10 @@ const DataTableSearch = <TData,>({
   };
   return (
     <Input
-      className={cn('ml-0.5', className)}
+      className={cn("ml-0.5", className)}
       onChange={(e) => handleTableSearchChange(e.target.value)}
       placeholder={placeholder}
-      value={value ?? ''}
+      value={value ?? ""}
     />
   );
 };

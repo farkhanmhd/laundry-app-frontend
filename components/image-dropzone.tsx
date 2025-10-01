@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { File, FilePenLine, Trash, Upload } from 'lucide-react';
-import Image from 'next/image';
-import type React from 'react';
-import { useCallback, useMemo, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
+import { File, FilePenLine, Trash, Upload } from "lucide-react";
+import Image from "next/image";
+import type React from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 type Props = {
   label?: string;
@@ -29,15 +29,15 @@ const ImageUploadDropzone: React.FC<Props> = ({
   const [fileName, setFileName] = useState<string | null>(null);
 
   const previewUrl = useMemo(() => {
-    if (typeof image === 'string') {
+    if (typeof image === "string") {
       return image;
     }
 
     if (
       image &&
-      typeof image === 'object' &&
-      'name' in image &&
-      'size' in image
+      typeof image === "object" &&
+      "name" in image &&
+      "size" in image
     ) {
       return URL.createObjectURL(image);
     }
@@ -59,7 +59,7 @@ const ImageUploadDropzone: React.FC<Props> = ({
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
-      'image/*': [],
+      "image/*": [],
     },
     multiple: false,
   });
@@ -73,15 +73,15 @@ const ImageUploadDropzone: React.FC<Props> = ({
     <div className="mx-auto w-full">
       {label && (
         <Label
-          className={cn('mb-4 flex gap-x-2 font-semibold', {
-            'sr-only': hideLabel,
+          className={cn("mb-4 flex gap-x-2 font-semibold", {
+            "sr-only": hideLabel,
           })}
           htmlFor={id}
         >
           <span>{label}</span>
           {error && (
             <span className="text-red-500">
-              {error.map((errMsg) => `* ${errMsg}`).join(', ') || '*'}
+              {error.map((errMsg) => `* ${errMsg}`).join(", ") || "*"}
             </span>
           )}
         </Label>
@@ -89,8 +89,8 @@ const ImageUploadDropzone: React.FC<Props> = ({
       <div
         {...getRootProps()}
         className={cn(
-          'flex h-full flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition-colors',
-          image ? 'bg-secondary' : 'cursor-pointer'
+          "flex h-full flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition-colors",
+          image ? "bg-secondary" : "cursor-pointer"
         )}
       >
         {image ? (
@@ -107,7 +107,7 @@ const ImageUploadDropzone: React.FC<Props> = ({
                 <Button
                   onClick={(e) => {
                     e.stopPropagation();
-                    document.getElementById('image-upload')?.click();
+                    document.getElementById("image-upload")?.click();
                   }}
                   size="sm"
                   type="button"

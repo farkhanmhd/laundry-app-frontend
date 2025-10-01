@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { IconPlus } from '@tabler/icons-react';
-import { useAction } from 'next-safe-action/hooks';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import ImageUploadDropzone from '@/components/image-dropzone';
+import { IconPlus } from "@tabler/icons-react";
+import { useAction } from "next-safe-action/hooks";
+import { useState } from "react";
+import { toast } from "sonner";
+import ImageUploadDropzone from "@/components/image-dropzone";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -13,22 +13,22 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { addProductAction } from './actions';
-import type { AddProductBody } from './data';
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { addProductAction } from "./actions";
+import type { AddProductBody } from "./data";
 
-interface InputFormData extends Omit<AddProductBody, 'image'> {
+interface InputFormData extends Omit<AddProductBody, "image"> {
   image: File | null;
 }
 
 export default function AddProductDialog() {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState<InputFormData>({
-    name: '',
+    name: "",
     image: null,
     price: 0,
     currentQuantity: 0,
@@ -37,7 +37,7 @@ export default function AddProductDialog() {
 
   const resetForm = () => {
     setFormData({
-      name: '',
+      name: "",
       image: null,
       price: 0,
       currentQuantity: 0,
@@ -47,7 +47,7 @@ export default function AddProductDialog() {
 
   const { execute, isPending } = useAction(addProductAction, {
     onSuccess: (actionResult) => {
-      if (actionResult.data?.status === 'success') {
+      if (actionResult.data?.status === "success") {
         setOpen(false);
         resetForm();
       }
@@ -100,7 +100,7 @@ export default function AddProductDialog() {
                 autoComplete="off"
                 disabled={isPending}
                 id="name"
-                onChange={(e) => handleInputChange('name', e.target.value)}
+                onChange={(e) => handleInputChange("name", e.target.value)}
                 placeholder="Enter product name"
                 value={formData.name}
               />
@@ -118,8 +118,8 @@ export default function AddProductDialog() {
                 name="price"
                 onChange={(e) =>
                   handleInputChange(
-                    'price',
-                    Number(e.target.value.replace(/[^0-9]/g, ''))
+                    "price",
+                    Number(e.target.value.replace(/[^0-9]/g, ""))
                   )
                 }
                 placeholder="0"
@@ -139,8 +139,8 @@ export default function AddProductDialog() {
                 name="currentQuantity"
                 onChange={(e) =>
                   handleInputChange(
-                    'currentQuantity',
-                    Number(e.target.value.replace(/[^0-9]/g, ''))
+                    "currentQuantity",
+                    Number(e.target.value.replace(/[^0-9]/g, ""))
                   )
                 }
                 placeholder="0"
@@ -159,8 +159,8 @@ export default function AddProductDialog() {
                 name="reorderPoint"
                 onChange={(e) =>
                   handleInputChange(
-                    'reorderPoint',
-                    Number(e.target.value.replace(/[^0-9]/g, ''))
+                    "reorderPoint",
+                    Number(e.target.value.replace(/[^0-9]/g, ""))
                   )
                 }
                 placeholder="0"
@@ -170,7 +170,7 @@ export default function AddProductDialog() {
 
             <ImageUploadDropzone
               image={formData.image}
-              setImage={(file) => handleInputChange('image', file)}
+              setImage={(file) => handleInputChange("image", file)}
             />
 
             <div className="flex items-center justify-end gap-3">

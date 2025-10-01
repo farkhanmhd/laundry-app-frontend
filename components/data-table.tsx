@@ -2,9 +2,9 @@ import {
   type ColumnDef,
   flexRender,
   type Table as TableType,
-} from '@tanstack/react-table';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { cn } from '@/lib/utils';
+} from "@tanstack/react-table";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
 import {
   Table,
   TableBody,
@@ -12,7 +12,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from './ui/table';
+} from "./ui/table";
 
 type Props<TData, TValue> = {
   table: TableType<TData>;
@@ -28,7 +28,7 @@ const DataTable = <TData, TValue>({
   selectableRows,
 }: Props<TData, TValue>) => {
   return (
-    <ScrollArea className={cn('rounded-md border', className)}>
+    <ScrollArea className={cn("rounded-md border", className)}>
       <Table className="overflow-hidden">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -53,9 +53,9 @@ const DataTable = <TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 className={cn({
-                  'cursor-pointer': selectableRows,
+                  "cursor-pointer": selectableRows,
                 })}
-                data-state={row.getIsSelected() && 'selected'}
+                data-state={row.getIsSelected() && "selected"}
                 key={row.id}
                 onClick={() => selectableRows && row.toggleSelected()}
               >

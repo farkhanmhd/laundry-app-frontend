@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import type { ReactNode } from 'react';
-import { CurrentDate } from '@/components/current-date';
-import { SiteHeader } from '@/components/site-header';
-import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useIsMobile } from '@/hooks/use-mobile';
-import OrderProductsSheet from './order-products-sheet';
-import { PosOrderProducts } from './pos-order-products';
+import type { ReactNode } from "react";
+import { CurrentDate } from "@/components/current-date";
+import { SiteHeader } from "@/components/site-header";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useIsMobile } from "@/hooks/use-mobile";
+import OrderProductsSheet from "./order-products-sheet";
+import { PosOrderProducts } from "./pos-order-products";
 
 const PosLayout = ({ children }: { children: ReactNode }) => {
   const isMobile = useIsMobile();

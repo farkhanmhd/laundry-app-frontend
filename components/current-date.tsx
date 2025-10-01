@@ -1,5 +1,5 @@
-import { IconCalendarWeek } from '@tabler/icons-react';
-import { format } from 'date-fns';
+import { IconCalendarWeek } from "@tabler/icons-react";
+import { format } from "date-fns";
 
 export function CurrentDate() {
   return (
@@ -7,7 +7,7 @@ export function CurrentDate() {
       <div className="rounded-full bg-primary/10 p-1.5">
         <IconCalendarWeek className="text-primary" />
       </div>
-      <span>{format(new Date(), 'eee, dd MMMM yyyy')}</span>
+      <span>{format(new Date(), "eee, dd MMMM yyyy")}</span>
     </div>
   );
 }

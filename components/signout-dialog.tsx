@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { IconLogout2 } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { IconLogout2 } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -10,10 +10,10 @@ import {
   AlertDialogDescription,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { authClient } from '@/lib/auth-client';
-import { AlertDialogFooter, AlertDialogHeader } from './ui/alert-dialog';
-import { Button } from './ui/button';
+} from "@/components/ui/alert-dialog";
+import { authClient } from "@/lib/auth-client";
+import { AlertDialogFooter, AlertDialogHeader } from "./ui/alert-dialog";
+import { Button } from "./ui/button";
 
 const SignoutDialog = () => {
   const [isPending, setIsPending] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const SignoutDialog = () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          push('/login');
+          push("/login");
         },
       },
     });

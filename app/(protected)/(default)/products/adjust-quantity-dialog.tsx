@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useAction } from 'next-safe-action/hooks';
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
+import { useAction } from "next-safe-action/hooks";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -10,23 +10,23 @@ import {
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { type AdjustQuantitySchema, adjustQuantityAction } from './actions';
-import { type UpdateQTY, useProductDialog } from './state';
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { type AdjustQuantitySchema, adjustQuantityAction } from "./actions";
+import { type UpdateQTY, useProductDialog } from "./state";
 
 export default function AdjustQuantityDialog() {
   const { productState, close } = useProductDialog<UpdateQTY>();
 
   const [formInput, setFormInput] = useState<UpdateQTY>({
-    id: '',
-    name: '',
+    id: "",
+    name: "",
     currentQuantity: 0,
     newQuantity: 0,
-    reason: '',
+    reason: "",
   });
 
   useEffect(() => {
@@ -42,17 +42,17 @@ export default function AdjustQuantityDialog() {
 
   const resetForm = () => {
     setFormInput({
-      id: '',
-      name: '',
+      id: "",
+      name: "",
       currentQuantity: 0,
-      reason: '',
+      reason: "",
       newQuantity: 0,
     });
   };
 
   const { execute, isPending } = useAction(adjustQuantityAction, {
     onSuccess: (actionResult) => {
-      if (actionResult.data?.status === 'success') {
+      if (actionResult.data?.status === "success") {
         close();
         resetForm();
       }
@@ -83,7 +83,7 @@ export default function AdjustQuantityDialog() {
   };
 
   return (
-    <AlertDialog onOpenChange={close} open={productState?.open === 'adjust'}>
+    <AlertDialog onOpenChange={close} open={productState?.open === "adjust"}>
       <AlertDialogContent className="max-w-md p-0">
         <ScrollArea className="max-h-dvh p-6">
           <AlertDialogHeader className="mb-6">
@@ -132,8 +132,8 @@ export default function AdjustQuantityDialog() {
                 name="newQuantity"
                 onChange={(e) =>
                   handleInputChange(
-                    'newQuantity',
-                    Number(e.target.value.replace(/[^0-9]/g, ''))
+                    "newQuantity",
+                    Number(e.target.value.replace(/[^0-9]/g, ""))
                   )
                 }
                 placeholder="0"
@@ -147,7 +147,7 @@ export default function AdjustQuantityDialog() {
                 autoComplete="off"
                 disabled={isPending}
                 id="reason"
-                onChange={(e) => handleInputChange('reason', e.target.value)}
+                onChange={(e) => handleInputChange("reason", e.target.value)}
                 placeholder="Reason"
                 value={formInput.reason}
               />

@@ -1,5 +1,5 @@
-import { headers } from 'next/headers';
-import { elysia } from '@/treaty';
+import { headers } from "next/headers";
+import { elysia } from "@/elysia/treaty";
 
 export const getProducts = async () => {
   const { data: response } = await elysia.products.get({

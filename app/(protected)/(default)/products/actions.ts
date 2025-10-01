@@ -1,22 +1,22 @@
-'use server';
+"use server";
 
-import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
-import { zfd } from 'zod-form-data';
-import { actionClient } from '@/lib/safe-action';
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
+import { zfd } from "zod-form-data";
+import { actionClient } from "@/lib/safe-action";
 import {
   addProduct,
   adjustQuantity,
   deleteProduct,
   updateProduct,
-} from './data';
+} from "./data";
 
 const addProductSchema = z.object({
-  name: z.string().min(1, 'Product name is required'),
+  name: z.string().min(1, "Product name is required"),
   image: zfd.file(),
-  price: z.int().min(0, 'Price must be a positive number'),
-  currentQuantity: z.int().min(0, 'Current quantity must be a positive number'),
-  reorderPoint: z.int().min(0, 'Reorder point must be a positive number'),
+  price: z.int().min(0, "Price must be a positive number"),
+  currentQuantity: z.int().min(0, "Current quantity must be a positive number"),
+  reorderPoint: z.int().min(0, "Reorder point must be a positive number"),
 });
 
 export const addProductAction = actionClient
@@ -26,23 +26,23 @@ export const addProductAction = actionClient
 
     if (!result) {
       return {
-        status: 'error',
-        message: 'Something went wrong',
+        status: "error",
+        message: "Something went wrong",
       };
     }
 
     if (result.status !== 201) {
       return {
-        status: 'error',
+        status: "error",
         message: `Something went wrong. ${result.error?.value?.message}`,
       };
     }
 
     if (result.data) {
-      revalidatePath('/products');
+      revalidatePath("/products");
       return {
-        status: 'success',
-        message: 'New Product added',
+        status: "success",
+        message: "New Product added",
       };
     }
   });
@@ -58,41 +58,41 @@ export const deleteProductAction = actionClient
 
     if (!result) {
       return {
-        status: 'error',
-        message: 'Something went wrong',
+        status: "error",
+        message: "Something went wrong",
       };
     }
 
     if (result.status !== 200) {
       return {
-        status: 'error',
-        message: 'Something went wrong',
+        status: "error",
+        message: "Something went wrong",
       };
     }
 
-    revalidatePath('/products');
+    revalidatePath("/products");
     return {
-      status: 'success',
+      status: "success",
       message: result.data?.message,
     };
   });
 
 const updateProductSchema = zfd.formData({
-  id: zfd.text(z.string().min(1, 'Product id is required')),
-  name: zfd.text(z.string().min(1, 'Product name is required')),
+  id: zfd.text(z.string().min(1, "Product id is required")),
+  name: zfd.text(z.string().min(1, "Product name is required")),
   image: zfd.file().optional(),
-  price: zfd.numeric(z.number().min(0, 'Price must be a positive number')),
+  price: zfd.numeric(z.number().min(0, "Price must be a positive number")),
   reorderPoint: zfd
-    .numeric(z.number().min(0, 'Reorder point must be a positive number'))
+    .numeric(z.number().min(0, "Reorder point must be a positive number"))
     .optional(),
 });
 
 type UpdateProductSchema = z.infer<typeof updateProductSchema>;
-export type UpdateProductBody = Omit<UpdateProductSchema, 'id'>;
+export type UpdateProductBody = Omit<UpdateProductSchema, "id">;
 
 const errorResult = {
-  status: 'error',
-  message: 'Something went wrong',
+  status: "error",
+  message: "Something went wrong",
 };
 
 export const updateProductAction = actionClient
@@ -113,17 +113,17 @@ export const updateProductAction = actionClient
       return errorResult;
     }
 
-    revalidatePath('/products');
+    revalidatePath("/products");
     return {
-      status: 'success',
-      message: 'Product updated',
+      status: "success",
+      message: "Product updated",
     };
   });
 
 const adjustQuantitySchema = z.object({
-  productId: z.string().min(1, 'Product id cannot be empty'),
-  newQuantity: z.number().min(1, 'New Quantity must be a positive number'),
-  reason: z.string().min(3, 'Reason is required'),
+  productId: z.string().min(1, "Product id cannot be empty"),
+  newQuantity: z.number().min(1, "New Quantity must be a positive number"),
+  reason: z.string().min(3, "Reason is required"),
 });
 
 export type AdjustQuantitySchema = z.infer<typeof adjustQuantitySchema>;
@@ -138,9 +138,9 @@ export const adjustQuantityAction = actionClient
       return errorResult;
     }
 
-    revalidatePath('/products');
+    revalidatePath("/products");
     return {
-      status: 'success',
-      message: 'Quantity Adjusted',
+      status: "success",
+      message: "Quantity Adjusted",
     };
   });

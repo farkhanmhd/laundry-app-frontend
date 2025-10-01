@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import type { ReactNode } from 'react';
-import { CurrentDate } from '@/components/current-date';
-import { SiteHeader } from '@/components/site-header';
-import { buttonVariants } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { adminSheetData } from '@/lib/constants';
-import { cn } from '@/lib/utils';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
+import { CurrentDate } from "@/components/current-date";
+import { SiteHeader } from "@/components/site-header";
+import { buttonVariants } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { adminSheetData } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 interface Props {
   children: ReactNode;
@@ -26,8 +26,8 @@ const Layout = ({ children }: Props) => {
           <CurrentDate />
           <Link
             className={cn(
-              buttonVariants({ variant: 'outline' }),
-              'h-12 rounded-full border-3 bg-background font-semibold'
+              buttonVariants({ variant: "outline" }),
+              "h-12 rounded-full border-3 bg-background font-semibold"
             )}
             href="/pos"
           >

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   type ColumnDef,
@@ -9,23 +9,23 @@ import {
   getSortedRowModel,
   type SortingState,
   useReactTable,
-} from '@tanstack/react-table';
-import { X } from 'lucide-react';
-import { useState } from 'react';
-import DataTable from '@/components/table/data-table';
-import { DataTablePagination } from '@/components/table/data-table-pagination';
-import DataTableSearch from '@/components/table/data-table-search';
-import { DataTableViewOptions } from '@/components/table/data-table-view-options';
-import { Button } from '@/components/ui/button';
+} from "@tanstack/react-table";
+import { X } from "lucide-react";
+import { useState } from "react";
+import DataTable from "@/components/table/data-table";
+import { DataTablePagination } from "@/components/table/data-table-pagination";
+import DataTableSearch from "@/components/table/data-table-search";
+import { DataTableViewOptions } from "@/components/table/data-table-view-options";
+import { Button } from "@/components/ui/button";
 import {
   useSearchQueryParams,
   useTablePaginationSearchParams,
-} from '@/lib/search-params';
-import AddProductDialog from './add-product-dialog';
-import AdjustQuantityDialog from './adjust-quantity-dialog';
-import type { ProductData } from './data';
-import DeleteProductDialog from './delete-product-dialog';
-import UpdateProductDialog from './update-product-dialog';
+} from "@/lib/search-params";
+import AddProductDialog from "./add-product-dialog";
+import AdjustQuantityDialog from "./adjust-quantity-dialog";
+import type { ProductData } from "./data";
+import DeleteProductDialog from "./delete-product-dialog";
+import UpdateProductDialog from "./update-product-dialog";
 
 interface ProductsTableProps<TData extends ProductData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -83,7 +83,7 @@ const ProductsTable = <TData extends ProductData, TValue>({
               className="h-8 px-2 lg:px-3"
               onClick={() => {
                 table.resetColumnFilters();
-                setGlobalFilter('');
+                setGlobalFilter("");
               }}
               variant="ghost"
             >
@@ -99,7 +99,7 @@ const ProductsTable = <TData extends ProductData, TValue>({
       </div>
 
       <DataTable
-        className="max-h-[calc(100dvh-218px)] max-w-[calc(100svw-32px)]"
+        className="max-h-[calc(100dvh-224px)] max-w-[calc(100svw-48px)]"
         columns={columns}
         table={table}
       />
@@ -113,3 +113,4 @@ const ProductsTable = <TData extends ProductData, TValue>({
 };
 
 export default ProductsTable;
+// 80 + 41 + 36 + 36 + 24 + 24

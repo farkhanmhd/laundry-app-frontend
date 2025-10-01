@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import type { ISidebarGroup } from '@/component-types';
+import Link from "next/link";
+import type { ISidebarGroup } from "@/component-types";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -9,7 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
+} from "@/components/ui/sidebar";
 
 export function NavMain({ label, items }: ISidebarGroup) {
   return (

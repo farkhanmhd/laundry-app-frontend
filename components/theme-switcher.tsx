@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { IconDeviceDesktop, IconMoonStars, IconSun } from '@tabler/icons-react';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { IconDeviceDesktop, IconMoonStars, IconSun } from "@tabler/icons-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar';
-import { MapItems } from '@/lib/utils';
+} from "@/components/ui/sidebar";
+import { MapItems } from "@/lib/utils";
 
 const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
@@ -53,7 +53,7 @@ const ThemeSwitcher = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            side={state === 'expanded' ? 'top' : 'right'}
+            side={state === "expanded" ? "top" : "right"}
             sideOffset={4}
           >
             <MapItems

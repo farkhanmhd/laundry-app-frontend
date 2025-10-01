@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { IconPencil } from '@tabler/icons-react';
-import Image from 'next/image';
-import NumberInput from '@/components/number-input';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { cn, formatCurrency, MapItems } from '@/lib/utils';
-import { type PosProduct, usePosProducts } from './state';
+import { IconPencil } from "@tabler/icons-react";
+import Image from "next/image";
+import NumberInput from "@/components/number-input";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn, formatCurrency, MapItems } from "@/lib/utils";
+import { type PosProduct, usePosProducts } from "./state";
 
 interface Props {
   className?: string;
@@ -49,7 +49,7 @@ export function PosOrderProducts({ className }: Props) {
     orderProduct: PosProduct
   ) => {
     // 1. Sanitize the input to get a valid number.
-    const newQuantity = Number(e.target.value.replace(/[^0-9]/g, ''));
+    const newQuantity = Number(e.target.value.replace(/[^0-9]/g, ""));
 
     // 2. Determine the quantity, ensuring it doesn't exceed the available stock.
     const cappedQuantity = Math.min(
@@ -75,7 +75,7 @@ export function PosOrderProducts({ className }: Props) {
   };
 
   return (
-    <div className={cn('h-dvh flex-col overflow-hidden shadow-sm', className)}>
+    <div className={cn("h-dvh flex-col overflow-hidden shadow-sm", className)}>
       <header className="flex h-20 items-center justify-center shadow-xs">
         <span className="font-semibold text-lg">Order</span>
       </header>

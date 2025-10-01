@@ -1,7 +1,7 @@
-import { headers } from 'next/headers';
-import type { ReactNode } from 'react';
-import type { SidebarUserData } from '@/component-types';
-import { authClient } from '@/lib/auth-client';
+import { headers } from "next/headers";
+import type { ReactNode } from "react";
+import type { SidebarUserData } from "@/component-types";
+import { authClient } from "@/lib/auth-client";
 
 interface Props {
   children: ReactNode;

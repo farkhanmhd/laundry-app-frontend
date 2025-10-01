@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { MinusIcon, PlusIcon } from 'lucide-react';
-import type { ChangeEvent } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { MinusIcon, PlusIcon } from "lucide-react";
+import type { ChangeEvent } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface Props {
   withLabel?: boolean;
@@ -17,7 +17,7 @@ interface Props {
 
 export default function NumberInput({
   withLabel,
-  label = 'label',
+  label = "label",
   value = 0,
   onInputChange,
   onIncrement,

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   type Icon,
@@ -6,7 +6,7 @@ import {
   IconFolder,
   IconShare3,
   IconTrash,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 import {
   DropdownMenu,
@@ -14,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -23,7 +23,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar';
+} from "@/components/ui/sidebar";
 
 export function NavDocuments({
   items,
@@ -59,9 +59,9 @@ export function NavDocuments({
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                align={isMobile ? 'end' : 'start'}
+                align={isMobile ? "end" : "start"}
                 className="w-24 rounded-lg"
-                side={isMobile ? 'bottom' : 'right'}
+                side={isMobile ? "bottom" : "right"}
               >
                 <DropdownMenuItem>
                   <IconFolder />

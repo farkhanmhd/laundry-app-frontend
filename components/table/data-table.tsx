@@ -2,9 +2,9 @@ import {
   type ColumnDef,
   flexRender,
   type Table as TableType,
-} from '@tanstack/react-table';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { cn } from '@/lib/utils';
+} from "@tanstack/react-table";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
 import {
   Table,
   TableBody,
@@ -12,7 +12,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../ui/table';
+} from "../ui/table";
 
 type Props<TData, TValue> = {
   table: TableType<TData>;
@@ -26,25 +26,23 @@ const DataTable = <TData, TValue>({
   columns,
   selectableRows = false,
   className,
-}: Props<TData, TValue>) => {
-  return (
-    <ScrollArea className={cn('rounded-md border', className)}>
+}: Props<TData, TValue>) => (
+  <ScrollArea className={cn("relative rounded-md border")}>
+    <div className={className}>
       <Table>
         <TableHeader className="sticky top-0 z-50 bg-background">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
+              {headerGroup.headers.map((header) => (
+                <TableHead key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </TableHead>
+              ))}
             </TableRow>
           ))}
         </TableHeader>
@@ -53,9 +51,9 @@ const DataTable = <TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 className={cn({
-                  'cursor-pointer': selectableRows,
+                  "cursor-pointer": selectableRows,
                 })}
-                data-state={row.getIsSelected() && 'selected'}
+                data-state={row.getIsSelected() && "selected"}
                 key={row.id}
                 onClick={() => selectableRows && row.toggleSelected()}
               >
@@ -75,9 +73,9 @@ const DataTable = <TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <ScrollBar orientation="horizontal" />
-    </ScrollArea>
-  );
-};
+    </div>
+    <ScrollBar orientation="horizontal" />
+  </ScrollArea>
+);
 
 export default DataTable;

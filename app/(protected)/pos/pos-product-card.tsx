@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { toast } from 'sonner';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { formatCurrency } from '@/lib/utils';
-import type { ProductData } from './data';
-import { usePosProducts } from './state';
+import Image from "next/image";
+import { toast } from "sonner";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { formatCurrency } from "@/lib/utils";
+import type { ProductData } from "./data";
+import { usePosProducts } from "./state";
 
 interface Props {
   product: ProductData;
@@ -34,7 +34,7 @@ export function PosProductCard({ product }: Props) {
     }
 
     if (isMobile) {
-      toast('1 Item added to cart');
+      toast("1 Item added to cart");
     }
   };
 

@@ -1,7 +1,7 @@
-import { headers } from 'next/headers';
-import { getHeadersWithoutContentType } from '@/lib/next-headers';
-import { elysia } from '@/treaty';
-import type { UpdateProductBody } from './actions';
+import { headers } from "next/headers";
+import { elysia } from "@/elysia/treaty";
+import { getHeadersWithoutContentType } from "@/lib/next-headers";
+import type { UpdateProductBody } from "./actions";
 
 export const getProducts = async () => {
   const { data: response } = await elysia.products.get({
@@ -43,11 +43,11 @@ export const deleteProduct = async (id: string) => {
 };
 
 export type UpdateProductData = Parameters<
-  ReturnType<typeof elysia.products>['patch']
+  ReturnType<typeof elysia.products>["patch"]
 >[0];
 
 export type UpdateProductImage = Parameters<
-  ReturnType<typeof elysia.products>['image']['patch']
+  ReturnType<typeof elysia.products>["image"]["patch"]
 >[0];
 
 export const updateProductImage = async (
@@ -91,7 +91,7 @@ export const updateProduct = async (id: string, data: UpdateProductBody) => {
 };
 
 export type AdjustQuantityBody = Parameters<
-  ReturnType<typeof elysia.products>['stock']['patch']
+  ReturnType<typeof elysia.products>["stock"]["patch"]
 >[0];
 
 export const adjustQuantity = async (id: string, body: AdjustQuantityBody) => {

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { IconMenu, IconMoonStars, IconSun, IconX } from '@tabler/icons-react';
-import Image from 'next/image';
-import { useTheme } from 'next-themes';
-import { useCallback, useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { IconMenu, IconMoonStars, IconSun, IconX } from "@tabler/icons-react";
+import Image from "next/image";
+import { useTheme } from "next-themes";
+import { useCallback, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
   SheetClose,
@@ -14,10 +14,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { adminSheetData } from '@/lib/constants';
-import { SheetLinks } from './sheet-links';
-import SignoutDialog from './signout-dialog';
+} from "@/components/ui/sheet";
+import { adminSheetData } from "@/lib/constants";
+import { SheetLinks } from "./sheet-links";
+import SignoutDialog from "./signout-dialog";
 
 const SidebarSheet = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -28,19 +28,19 @@ const SidebarSheet = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'b' && (event.metaKey || event.ctrlKey)) {
+      if (event.key === "b" && (event.metaKey || event.ctrlKey)) {
         event.preventDefault();
         toggleSidebar();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [toggleSidebar]);
 
   const handleThemeChange = () => {
-    setTheme(theme === 'light' || theme === 'system' ? 'dark' : 'light');
+    setTheme(theme === "light" || theme === "system" ? "dark" : "light");
   };
 
   return (
@@ -49,7 +49,7 @@ const SidebarSheet = () => {
         <Button className="h-12 w-12 rounded-full" variant="secondary">
           <IconMenu
             className="text-primary"
-            style={{ width: '26px', height: '26px' }}
+            style={{ width: "26px", height: "26px" }}
           />
         </Button>
       </SheetTrigger>
@@ -98,7 +98,7 @@ const SidebarSheet = () => {
               size="icon"
               variant="secondary"
             >
-              {theme === 'light' ? <IconSun /> : <IconMoonStars />}
+              {theme === "light" ? <IconSun /> : <IconMoonStars />}
             </Button>
             <SignoutDialog />
           </div>

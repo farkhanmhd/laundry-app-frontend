@@ -1,6 +1,6 @@
-import type { SidebarItem } from '@/component-types';
-import { MapItems } from '@/lib/utils';
-import { SheetLink } from './sheet-link';
+import type { SidebarItem } from "@/component-types";
+import { MapItems } from "@/lib/utils";
+import { SheetLink } from "./sheet-link";
 
 interface Props {
   items: SidebarItem[];
@@ -14,7 +14,7 @@ export function SheetLinks({ items }: Props) {
         render={(item, index) => (
           <SheetLink
             item={item}
-            key={`${item.title.split(' ').join('')}-${index}`}
+            key={`${item.title.split(" ").join("")}-${index}`}
           />
         )}
       />
