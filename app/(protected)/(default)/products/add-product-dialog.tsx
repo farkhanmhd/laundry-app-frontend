@@ -1,9 +1,12 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { IconPlus } from "@tabler/icons-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import z from "zod";
 import ImageUploadDropzone from "@/components/image-dropzone";
 import {
   AlertDialog,
@@ -15,64 +18,64 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { addProductAction } from "./actions";
-import type { AddProductBody } from "./data";
+import { type AddProductSchema, addProductAction } from "./actions";
 
-interface InputFormData extends Omit<AddProductBody, "image"> {
-  image: File | null;
-}
+const addProductSchema = z.object({
+  name: z.string().min(1, "Product name is required"),
+  image: z.file(),
+  price: z
+    .int({ error: "Price should be a number" })
+    .min(1, "Price must be a positive number"),
+  currentQuantity: z
+    .int({ error: "Quantity should be a number" })
+    .min(1, "Current quantity must be a positive number"),
+  reorderPoint: z
+    .int({ error: "Reorder Point should be a number" })
+    .min(1, "Reorder point must be a positive number"),
+});
 
 export default function AddProductDialog() {
   const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState<InputFormData>({
+
+  const defaultValues = {
     name: "",
-    image: null,
     price: 0,
     currentQuantity: 0,
     reorderPoint: 0,
-  });
-
-  const resetForm = () => {
-    setFormData({
-      name: "",
-      image: null,
-      price: 0,
-      currentQuantity: 0,
-      reorderPoint: 0,
-    });
+    image: undefined,
   };
+
+  const form = useForm<AddProductSchema>({
+    resolver: zodResolver(addProductSchema),
+    defaultValues,
+  });
 
   const { execute, isPending } = useAction(addProductAction, {
     onSuccess: (actionResult) => {
       if (actionResult.data?.status === "success") {
         setOpen(false);
-        resetForm();
+        form.reset(defaultValues);
       }
       toast(actionResult.data?.message);
     },
   });
 
-  const handleInputChange = (
-    field: keyof AddProductBody,
-    value: string | number | File | null
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.image) {
+  const onSubmit = (data: AddProductSchema) => {
+    if (!data.image) {
       return;
     }
 
-    execute(formData as AddProductBody);
+    execute(data);
   };
 
   return (
@@ -91,97 +94,140 @@ export default function AddProductDialog() {
               Fill in the details to add a new product to your inventory.
             </AlertDialogDescription>
           </AlertDialogHeader>
-
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* Product Name */}
-            <div className="space-y-3">
-              <Label htmlFor="name">Product Name</Label>
-              <Input
-                autoComplete="off"
-                disabled={isPending}
-                id="name"
-                onChange={(e) => handleInputChange("name", e.target.value)}
-                placeholder="Enter product name"
-                value={formData.name}
+          <Form {...form}>
+            <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+              {/* Product Name */}
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>Product Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        autoComplete="off"
+                        disabled={form.formState.isSubmitting}
+                        placeholder="Enter Product Name"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            {/* Price */}
-            <div className="space-y-3">
-              <Label htmlFor="price">Price</Label>
-              <Input
-                autoComplete="off"
-                className="text-right"
-                disabled={isPending}
-                id="price"
-                min="0"
+              {/* Price */}
+              <FormField
+                control={form.control}
                 name="price"
-                onChange={(e) =>
-                  handleInputChange(
-                    "price",
-                    Number(e.target.value.replace(/[^0-9]/g, ""))
-                  )
-                }
-                placeholder="0"
-                value={formData.price}
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>Price</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        autoComplete="off"
+                        className="text-right"
+                        disabled={form.formState.isSubmitting}
+                        min="0"
+                        onChange={(e) => {
+                          const numericValue = Number(
+                            e.target.value.replace(/[^0-9]/g, "")
+                          );
+                          field.onChange(numericValue);
+                        }}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            {/* Current Quantity */}
-            <div className="space-y-3">
-              <Label htmlFor="currentQuantity">Current Quantity</Label>
-              <Input
-                autoComplete="off"
-                className="text-right"
-                disabled={isPending}
-                id="currentQuantity"
-                min="0"
+              {/* Current Quantity */}
+              <FormField
+                control={form.control}
                 name="currentQuantity"
-                onChange={(e) =>
-                  handleInputChange(
-                    "currentQuantity",
-                    Number(e.target.value.replace(/[^0-9]/g, ""))
-                  )
-                }
-                placeholder="0"
-                value={formData.currentQuantity}
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>Current Quantity</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        autoComplete="off"
+                        className="text-right"
+                        disabled={form.formState.isSubmitting}
+                        min="0"
+                        onChange={(e) => {
+                          const numericValue = Number(
+                            e.target.value.replace(/[^0-9]/g, "")
+                          );
+                          field.onChange(numericValue);
+                        }}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            {/* Reorder Point */}
-            <div className="space-y-3">
-              <Label htmlFor="reorderPoint">Reorder Point</Label>
-              <Input
-                autoComplete="off"
-                className="text-right"
-                disabled={isPending}
-                id="reorderPoint"
+              <FormField
+                control={form.control}
                 name="reorderPoint"
-                onChange={(e) =>
-                  handleInputChange(
-                    "reorderPoint",
-                    Number(e.target.value.replace(/[^0-9]/g, ""))
-                  )
-                }
-                placeholder="0"
-                value={formData.reorderPoint}
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>Reorder Point</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        autoComplete="off"
+                        className="text-right"
+                        disabled={form.formState.isSubmitting}
+                        min="0"
+                        onChange={(e) => {
+                          const numericValue = Number(
+                            e.target.value.replace(/[^0-9]/g, "")
+                          );
+                          field.onChange(numericValue);
+                        }}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            <ImageUploadDropzone
-              image={formData.image}
-              setImage={(file) => handleInputChange("image", file)}
-            />
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <ImageUploadDropzone
+                        image={field.value}
+                        setImage={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="flex items-center justify-end gap-3">
-              <AlertDialogCancel disabled={isPending} onClick={resetForm}>
-                Cancel
-              </AlertDialogCancel>
-              <Button disabled={isPending} type="submit">
-                Add Product
-              </Button>
-            </div>
-          </form>
+              <div className="flex items-center justify-end gap-3">
+                <AlertDialogCancel
+                  disabled={isPending}
+                  onClick={() => form.reset(defaultValues)}
+                >
+                  Cancel
+                </AlertDialogCancel>
+                <Button disabled={isPending} type="submit">
+                  Add Product
+                </Button>
+              </div>
+            </form>
+          </Form>
         </ScrollArea>
       </AlertDialogContent>
     </AlertDialog>

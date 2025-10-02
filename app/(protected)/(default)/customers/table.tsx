@@ -21,21 +21,18 @@ import {
   useSearchQueryParams,
   useTablePaginationSearchParams,
 } from "@/lib/search-params";
-import AddProductDialog from "./add-product-dialog";
-import AdjustQuantityDialog from "./adjust-quantity-dialog";
-import type { ProductData } from "./data";
-import DeleteProductDialog from "./delete-product-dialog";
-import UpdateProductDialog from "./update-product-dialog";
+import AddCustomerDialog from "./add-customer-dialog";
+import type { CustomerData } from "./data";
 
-interface ProductsTableProps<TData extends ProductData, TValue> {
+interface CustomersTableProps<TData extends CustomerData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-const ProductsTable = <TData extends ProductData, TValue>({
+const CustomersTable = <TData extends CustomerData, TValue>({
   columns,
-  data = [],
-}: ProductsTableProps<TData, TValue>) => {
+  data,
+}: CustomersTableProps<TData, TValue>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useSearchQueryParams();
@@ -54,7 +51,7 @@ const ProductsTable = <TData extends ProductData, TValue>({
     onGlobalFilterChange: setGlobalFilter,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
-    autoResetPageIndex: true,
+    autoResetPageIndex: false,
     getRowId: (row) => row.id,
     state: {
       sorting,
@@ -74,7 +71,7 @@ const ProductsTable = <TData extends ProductData, TValue>({
           <DataTableSearch
             className="min-w-xs max-w-lg"
             onChange={setGlobalFilter}
-            placeholder="Search Products..."
+            placeholder="Search Customer..."
             table={table}
             value={globalFilter}
           />
@@ -94,7 +91,7 @@ const ProductsTable = <TData extends ProductData, TValue>({
         </div>
         <div className="flex items-center gap-3">
           <DataTableViewOptions table={table} />
-          <AddProductDialog />
+          <AddCustomerDialog />
         </div>
       </div>
 
@@ -105,11 +102,8 @@ const ProductsTable = <TData extends ProductData, TValue>({
       />
 
       <DataTablePagination table={table} />
-      <UpdateProductDialog />
-      <AdjustQuantityDialog />
-      <DeleteProductDialog />
     </div>
   );
 };
 
-export default ProductsTable;
+export default CustomersTable;

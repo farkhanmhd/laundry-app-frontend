@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
+import type { elysia } from "@/elysia/treaty";
 import { actionClient } from "@/lib/safe-action";
 import {
   addProduct,
@@ -11,18 +12,27 @@ import {
   updateProduct,
 } from "./data";
 
+export type AddProductBody = Parameters<typeof elysia.products.post>[0];
 const addProductSchema = z.object({
   name: z.string().min(1, "Product name is required"),
-  image: zfd.file(),
-  price: z.int().min(0, "Price must be a positive number"),
-  currentQuantity: z.int().min(0, "Current quantity must be a positive number"),
-  reorderPoint: z.int().min(0, "Reorder point must be a positive number"),
+  image: z.file(),
+  price: z
+    .int({ error: "Price should be a number" })
+    .min(0, "Price must be a positive number"),
+  currentQuantity: z
+    .int({ error: "Quantity should be a number" })
+    .min(0, "Current quantity must be a positive number"),
+  reorderPoint: z
+    .int({ error: "Reorder Point should be a number" })
+    .min(0, "Reorder point must be a positive number"),
 });
+
+export type AddProductSchema = z.infer<typeof addProductSchema>;
 
 export const addProductAction = actionClient
   .inputSchema(addProductSchema)
   .action(async ({ parsedInput }) => {
-    const result = await addProduct(parsedInput);
+    const result = await addProduct(parsedInput as AddProductSchema);
 
     if (!result) {
       return {

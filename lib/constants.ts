@@ -148,7 +148,7 @@ export const staffSheetData: SidebarItem[] = [
   },
   {
     title: "Customers",
-    url: "#",
+    url: "/customers",
     icon: IconUsers,
   },
   {

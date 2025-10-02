@@ -2,6 +2,7 @@
 
 import { IconAdjustments, IconEdit, IconTrash } from "@tabler/icons-react";
 import type { ColumnDef } from "@tanstack/react-table";
+import { format } from "date-fns";
 import Image from "next/image";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Badge } from "@/components/ui/badge";
@@ -32,6 +33,8 @@ export const columns: ColumnDef<ProductData>[] = [
         />
       </div>
     ),
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: "id",
@@ -105,6 +108,36 @@ export const columns: ColumnDef<ProductData>[] = [
           >
             {stockStatus}
           </Badge>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Created At" />
+    ),
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("createdAt"));
+      const formattedDate = format(date, "PP, HH:mm");
+      return (
+        <div className="line-clamp-1 min-w-max font-medium">
+          {formattedDate}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "updatedAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Updated At" />
+    ),
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("updatedAt"));
+      const formattedDate = format(date, "PP, HH:mm");
+      return (
+        <div className="line-clamp-1 min-w-max font-medium">
+          {formattedDate}
         </div>
       );
     },

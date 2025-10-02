@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   label?: string;
-  image: string | File | null;
-  setImage: (image: File | null) => void;
+  image: string | File | undefined;
+  setImage: (image: File | undefined) => void;
   id?: string;
   hideLabel?: boolean;
   error?: string[];
@@ -26,7 +26,7 @@ const ImageUploadDropzone: React.FC<Props> = ({
   hideLabel,
   error,
 }) => {
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string | undefined>(undefined);
 
   const previewUrl = useMemo(() => {
     if (typeof image === "string") {
@@ -65,8 +65,8 @@ const ImageUploadDropzone: React.FC<Props> = ({
   });
 
   const removeImage = useCallback(() => {
-    setImage(null);
-    setFileName(null);
+    setImage(undefined);
+    setFileName(undefined);
   }, [setImage]);
 
   return (

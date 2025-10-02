@@ -1,7 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -40,6 +42,9 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  const toggleVisibility = () => setIsVisible((prevState) => !prevState);
   const form = useForm<LoginInputSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -103,12 +108,31 @@ export function LoginForm({
                   <FormItem className="space-y-1.25">
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        disabled={form.formState.isSubmitting}
-                        placeholder="Password"
-                        type="password"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          disabled={form.formState.isSubmitting}
+                          placeholder="Password"
+                          type={isVisible ? "text" : "password"}
+                          {...field}
+                        />
+                        <button
+                          aria-controls="password"
+                          aria-label={
+                            isVisible ? "Hide password" : "Show password"
+                          }
+                          aria-pressed={isVisible}
+                          className="absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md text-muted-foreground/80 outline-none transition-[color,box-shadow] hover:text-foreground focus:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+                          disabled={form.formState.isSubmitting}
+                          onClick={toggleVisibility}
+                          type="button"
+                        >
+                          {isVisible ? (
+                            <EyeOffIcon aria-hidden="true" size={16} />
+                          ) : (
+                            <EyeIcon aria-hidden="true" size={16} />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

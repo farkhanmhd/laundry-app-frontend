@@ -4,7 +4,6 @@ import {
   type Table as TableType,
 } from "@tanstack/react-table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils";
 import {
   Table,
   TableBody,
@@ -12,7 +11,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
+} from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 
 type Props<TData, TValue> = {
   table: TableType<TData>;
@@ -34,7 +34,7 @@ const DataTable = <TData, TValue>({
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
+                <TableHead className="px-4" key={header.id}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -58,7 +58,7 @@ const DataTable = <TData, TValue>({
                 onClick={() => selectableRows && row.toggleSelected()}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell className="px-4" key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
