@@ -72,9 +72,9 @@ export default function AddCustomerDialog() {
       <AlertDialogContent className="max-w-md p-0">
         <ScrollArea className="max-h-dvh p-6">
           <AlertDialogHeader className="mb-6">
-            <AlertDialogTitle>Add New Product</AlertDialogTitle>
+            <AlertDialogTitle>Add New Customer</AlertDialogTitle>
             <AlertDialogDescription>
-              Fill in the details to add a new product to your inventory.
+              Fill in the details to add a new Customer.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <Form {...form}>

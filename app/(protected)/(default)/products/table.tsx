@@ -25,6 +25,7 @@ import AddProductDialog from "./add-product-dialog";
 import AdjustQuantityDialog from "./adjust-quantity-dialog";
 import type { ProductData } from "./data";
 import DeleteProductDialog from "./delete-product-dialog";
+import { type UpdateData, useProductDialog } from "./state";
 import UpdateProductDialog from "./update-product-dialog";
 
 interface ProductsTableProps<TData extends ProductData, TValue> {
@@ -41,6 +42,7 @@ const ProductsTable = <TData extends ProductData, TValue>({
   const [globalFilter, setGlobalFilter] = useSearchQueryParams();
   const [rowSelection, setRowSelection] = useState({});
   const [pagination, setPagination] = useTablePaginationSearchParams();
+  const { productState, close } = useProductDialog<UpdateData>();
 
   const table = useReactTable({
     data,

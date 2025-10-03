@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   label?: string;
-  image: string | File | undefined;
-  setImage: (image: File | undefined) => void;
+  image: string | File | undefined | null;
+  setImage: (image: File | undefined | null) => void;
   id?: string;
   hideLabel?: boolean;
   error?: string[];
@@ -65,7 +65,7 @@ const ImageUploadDropzone: React.FC<Props> = ({
   });
 
   const removeImage = useCallback(() => {
-    setImage(undefined);
+    setImage(null);
     setFileName(undefined);
   }, [setImage]);
 

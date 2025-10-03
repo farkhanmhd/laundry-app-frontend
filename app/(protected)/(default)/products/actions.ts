@@ -91,13 +91,13 @@ const updateProductSchema = zfd.formData({
   id: zfd.text(z.string().min(1, "Product id is required")),
   name: zfd.text(z.string().min(1, "Product name is required")),
   image: zfd.file().optional(),
-  price: zfd.numeric(z.number().min(0, "Price must be a positive number")),
+  price: zfd.numeric(z.number().min(1, "Price must be a positive number")),
   reorderPoint: zfd
-    .numeric(z.number().min(0, "Reorder point must be a positive number"))
+    .numeric(z.number().min(1, "Reorder point must be a positive number"))
     .optional(),
 });
 
-type UpdateProductSchema = z.infer<typeof updateProductSchema>;
+export type UpdateProductSchema = z.infer<typeof updateProductSchema>;
 export type UpdateProductBody = Omit<UpdateProductSchema, "id">;
 
 const errorResult = {

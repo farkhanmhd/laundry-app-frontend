@@ -130,7 +130,7 @@ export const columns: ColumnDef<ProductData>[] = [
   {
     accessorKey: "updatedAt",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Updated At" />
+      <DataTableColumnHeader column={column} title="Last Update" />
     ),
     cell: ({ row }) => {
       const date = new Date(row.getValue("updatedAt"));

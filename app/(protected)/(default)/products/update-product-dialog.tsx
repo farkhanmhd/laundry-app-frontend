@@ -1,8 +1,10 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
-import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
 import ImageUploadDropzone from "@/components/image-dropzone";
 import {
   AlertDialog,
@@ -13,76 +15,56 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { updateProductAction } from "./actions";
-import type { AddProductBody } from "./data";
 import { type UpdateData, useProductDialog } from "./state";
 
-interface InputFormData
-  extends Omit<AddProductBody, "image" | "currentQuantity"> {
-  id: string;
-  image?: File | string | null;
-}
+const updateProductSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1, "Product name is required"),
+  image: z.nullable(z.union([z.string(), z.instanceof(File)])).optional(),
+  price: z.number().min(1, "Price must be a positive number"),
+  reorderPoint: z.number().min(1, "Reorder point must be a positive number"),
+});
+
+type UpdateProductSchema = z.infer<typeof updateProductSchema>;
 
 export default function UpdateProductDialog() {
   const { productState, close } = useProductDialog<UpdateData>();
-
-  const [formData, setFormData] = useState<InputFormData>({
-    id: "",
-    name: "",
-    image: null,
-    price: 0,
-    reorderPoint: 0,
-  });
-
-  useEffect(() => {
-    if (productState?.data) {
-      setFormData({
-        id: productState.data.id,
-        name: productState.data.name,
-        price: productState.data.price,
-        reorderPoint: productState.data.reorderPoint,
-        image: productState.data.image,
-      });
-    }
-  }, [productState?.data]);
-
-  const resetForm = () => {
-    setFormData({
-      id: "",
-      name: "",
-      image: null,
-      price: 0,
-      reorderPoint: 0,
-    });
+  const defaultValues: UpdateProductSchema = {
+    id: productState?.data ? productState.data.id : "",
+    name: productState?.data ? productState.data.name : "",
+    image: productState?.data ? productState.data.image : null,
+    reorderPoint: productState?.data ? productState.data.reorderPoint : 0,
+    price: productState?.data ? productState.data.price : 0,
   };
+
+  const form = useForm<UpdateProductSchema>({
+    resolver: zodResolver(updateProductSchema),
+    values: defaultValues,
+  });
 
   const { execute, isPending } = useAction(updateProductAction, {
     onSuccess: (actionResult) => {
       if (actionResult.data?.status === "success") {
         close();
-        resetForm();
+        form.reset(defaultValues);
       }
       toast(actionResult.data?.message);
     },
   });
 
-  const handleInputChange = (
-    field: keyof AddProductBody,
-    value: string | number | File | null
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const { image, ...restOfData } = formData;
+  const onSubmit = (data: UpdateProductSchema) => {
+    const { image, ...restOfData } = data;
 
     if (image instanceof File) {
       execute({ ...restOfData, image });
@@ -102,75 +84,113 @@ export default function UpdateProductDialog() {
             </AlertDialogDescription>
           </AlertDialogHeader>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* Product Name */}
-            <ImageUploadDropzone
-              image={formData.image!}
-              setImage={(file) => handleInputChange("image", file)}
-            />
-
-            <div className="space-y-3">
-              <Label htmlFor="name">Product Name</Label>
-              <Input
-                autoComplete="off"
-                disabled={isPending}
-                id="name"
-                onChange={(e) => handleInputChange("name", e.target.value)}
-                placeholder="Enter product name"
-                value={formData.name}
+          <Form {...form}>
+            <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+              {/* Product Name */}
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <ImageUploadDropzone
+                        image={field.value}
+                        setImage={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            {/* Price */}
-            <div className="space-y-3">
-              <Label htmlFor="price">Price</Label>
-              <Input
-                autoComplete="off"
-                className="text-right"
-                disabled={isPending}
-                id="price"
-                min="0"
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>Product Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        autoComplete="off"
+                        disabled={form.formState.isSubmitting}
+                        placeholder="Enter Product Name"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Price */}
+              <FormField
+                control={form.control}
                 name="price"
-                onChange={(e) =>
-                  handleInputChange(
-                    "price",
-                    Number(e.target.value.replace(/[^0-9]/g, ""))
-                  )
-                }
-                placeholder="0"
-                value={formData.price}
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>Price</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        autoComplete="off"
+                        className="text-right"
+                        disabled={form.formState.isSubmitting}
+                        min="0"
+                        onChange={(e) => {
+                          const numericValue = Number(
+                            e.target.value.replace(/[^0-9]/g, "")
+                          );
+                          field.onChange(numericValue);
+                        }}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            {/* Reorder Point */}
-            <div className="space-y-3">
-              <Label htmlFor="reorderPoint">Reorder Point</Label>
-              <Input
-                autoComplete="off"
-                className="text-right"
-                disabled={isPending}
-                id="reorderPoint"
+              {/* Reorder Point */}
+              <FormField
+                control={form.control}
                 name="reorderPoint"
-                onChange={(e) =>
-                  handleInputChange(
-                    "reorderPoint",
-                    Number(e.target.value.replace(/[^0-9]/g, ""))
-                  )
-                }
-                placeholder="0"
-                value={formData.reorderPoint}
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>Reorder Point</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        autoComplete="off"
+                        className="text-right"
+                        disabled={form.formState.isSubmitting}
+                        min="0"
+                        onChange={(e) => {
+                          const numericValue = Number(
+                            e.target.value.replace(/[^0-9]/g, "")
+                          );
+                          field.onChange(numericValue);
+                        }}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            <div className="flex items-center justify-end gap-3">
-              <AlertDialogCancel disabled={isPending} onClick={resetForm}>
-                Cancel
-              </AlertDialogCancel>
-              <Button disabled={isPending} type="submit">
-                Update Product
-              </Button>
-            </div>
-          </form>
+              <div className="flex items-center justify-end gap-3">
+                <AlertDialogCancel
+                  disabled={isPending}
+                  onClick={() => form.reset(defaultValues)}
+                >
+                  Cancel
+                </AlertDialogCancel>
+                <Button disabled={isPending} type="submit">
+                  Update Product
+                </Button>
+              </div>
+            </form>
+          </Form>
         </ScrollArea>
       </AlertDialogContent>
     </AlertDialog>

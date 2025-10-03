@@ -1,8 +1,10 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
-import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -12,71 +14,89 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { type AdjustQuantitySchema, adjustQuantityAction } from "./actions";
 import { type UpdateQTY, useProductDialog } from "./state";
 
+const adjustQuantitySchema = z
+  .object({
+    id: z
+      .string({
+        error: "Product ID is required.",
+      })
+      .min(1, { message: "Product ID cannot be empty." }),
+
+    name: z.string({
+      error: "Product name is required.",
+    }),
+
+    currentQuantity: z
+      .number({
+        error: "Current quantity is required.",
+      })
+      .int({ message: "Current quantity must be a whole number." })
+      .nonnegative({ message: "Current quantity cannot be negative." }),
+
+    newQuantity: z
+      .number({
+        error: "New quantity is required.",
+      })
+      .int({ message: "New quantity must be a whole number." })
+      .nonnegative({ message: "New quantity cannot be negative." }),
+
+    reason: z
+      .string({
+        error: "A reason for the adjustment is required.",
+      })
+      .min(5, { message: "Please provide a reason (at least 5 characters)." })
+      .max(500, { message: "The reason must be 500 characters or less." }),
+  })
+  .refine((data) => data.newQuantity !== data.currentQuantity, {
+    message: "New quantity must be different from the current quantity.",
+    path: ["newQuantity"], // Where to display this error
+  });
+
 export default function AdjustQuantityDialog() {
   const { productState, close } = useProductDialog<UpdateQTY>();
 
-  const [formInput, setFormInput] = useState<UpdateQTY>({
-    id: "",
-    name: "",
-    currentQuantity: 0,
+  const defaultValues: UpdateQTY = {
+    id: productState?.data.id ? productState.data.id : "",
+    name: productState?.data.name ? productState.data.name : "",
+    currentQuantity: productState?.data.currentQuantity
+      ? productState?.data.currentQuantity
+      : 0,
     newQuantity: 0,
     reason: "",
-  });
-
-  useEffect(() => {
-    if (productState?.data) {
-      setFormInput({
-        ...formInput,
-        id: productState.data.id,
-        name: `${productState.data.name} [${String(productState.data.id).toUpperCase()}]`,
-        currentQuantity: productState.data.currentQuantity,
-      });
-    }
-  }, [productState?.data]);
-
-  const resetForm = () => {
-    setFormInput({
-      id: "",
-      name: "",
-      currentQuantity: 0,
-      reason: "",
-      newQuantity: 0,
-    });
   };
+
+  const form = useForm<UpdateQTY>({
+    resolver: zodResolver(adjustQuantitySchema),
+    values: defaultValues,
+  });
 
   const { execute, isPending } = useAction(adjustQuantityAction, {
     onSuccess: (actionResult) => {
       if (actionResult.data?.status === "success") {
         close();
-        resetForm();
       }
       toast(actionResult.data?.message);
     },
   });
 
-  const handleInputChange = (
-    field: keyof UpdateQTY,
-    value: string | number | File | null
-  ) => {
-    setFormInput((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = (data: UpdateQTY) => {
     const submittedData: AdjustQuantitySchema = {
-      productId: formInput.id,
-      newQuantity: formInput.newQuantity,
-      reason: formInput.reason,
+      productId: data.id,
+      newQuantity: data.newQuantity,
+      reason: data.reason,
     };
 
     execute(submittedData);
@@ -93,75 +113,113 @@ export default function AdjustQuantityDialog() {
             </AlertDialogDescription>
           </AlertDialogHeader>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* Product Name */}
+          <Form {...form}>
+            <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+              {/* Product Name */}
 
-            <div className="space-y-3">
-              <Label htmlFor="name">Product</Label>
-              <Input
-                autoComplete="off"
-                disabled
-                id="name"
-                placeholder="Enter product name"
-                value={formInput.name}
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>Product Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        autoComplete="off"
+                        disabled
+                        onChange={() => ""}
+                        placeholder="Enter Product Name"
+                        readOnly
+                        value={`${field.value} [${form.formState.defaultValues?.id?.toUpperCase()}]`}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            {/* Reorder Point */}
-            <div className="space-y-3">
-              <Label htmlFor="reorderPoint">Current Quantity</Label>
-              <Input
-                autoComplete="off"
-                className="text-right"
-                disabled
-                id="currentQuantity"
+              <FormField
+                control={form.control}
                 name="currentQuantity"
-                placeholder="0"
-                value={formInput.currentQuantity}
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>Current Quantity</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        autoComplete="off"
+                        className="text-right"
+                        disabled
+                        min="0"
+                        onChange={() => ""}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            {/* Reorder Point */}
-            <div className="space-y-3">
-              <Label htmlFor="newQuantity">New Quantity</Label>
-              <Input
-                autoComplete="off"
-                className="text-right"
-                disabled={isPending}
-                id="newQuantity"
+              <FormField
+                control={form.control}
                 name="newQuantity"
-                onChange={(e) =>
-                  handleInputChange(
-                    "newQuantity",
-                    Number(e.target.value.replace(/[^0-9]/g, ""))
-                  )
-                }
-                placeholder="0"
-                value={formInput.newQuantity}
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>New Quantity</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        autoComplete="off"
+                        className="text-right"
+                        disabled={form.formState.isSubmitting}
+                        min="0"
+                        onChange={(e) => {
+                          const numericValue = Number(
+                            e.target.value.replace(/[^0-9]/g, "")
+                          );
+                          field.onChange(numericValue);
+                        }}
+                        placeholder="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            <div className="space-y-3">
-              <Label htmlFor="reason">Reason</Label>
-              <Input
-                autoComplete="off"
-                disabled={isPending}
-                id="reason"
-                onChange={(e) => handleInputChange("reason", e.target.value)}
-                placeholder="Reason"
-                value={formInput.reason}
+              <FormField
+                control={form.control}
+                name="reason"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.25">
+                    <FormLabel>Product Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        autoComplete="off"
+                        disabled={form.formState.isSubmitting}
+                        placeholder="Bonus from Supplier"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            <div className="flex items-center justify-end gap-3">
-              <AlertDialogCancel disabled={isPending} onClick={resetForm}>
-                Cancel
-              </AlertDialogCancel>
-              <Button disabled={isPending} type="submit">
-                Update Product
-              </Button>
-            </div>
-          </form>
+              <div className="flex items-center justify-end gap-3">
+                <AlertDialogCancel
+                  disabled={isPending}
+                  onClick={() => form.reset(defaultValues)}
+                >
+                  Cancel
+                </AlertDialogCancel>
+                <Button disabled={isPending} type="submit">
+                  Adjust Quantity
+                </Button>
+              </div>
+            </form>
+          </Form>
         </ScrollArea>
       </AlertDialogContent>
     </AlertDialog>
