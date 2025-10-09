@@ -56,15 +56,23 @@ export function LoginForm({
   const { push } = useRouter();
 
   const onSubmit = async (data: LoginInputSchema) => {
-    const { error } = await authClient.signIn.username(data);
+    try {
+      const { data: session, error } = await authClient.signIn.username(data);
 
-    if (error) {
-      toast.error(error.statusText, {
-        description: error.message,
-      });
-    } else {
-      toast.success("Login Success");
-      push("/dashboard");
+      if (error) {
+        toast.error(error.statusText, {
+          description: error.message,
+        });
+      } else {
+        toast.success(`Welcome back, ${session.user.name}!`);
+        push("/dashboard");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(
+          "Oops! Something went wrong on our end. Please try again in a moment."
+        );
+      }
     }
   };
 
@@ -106,11 +114,12 @@ export function LoginForm({
                 name="password"
                 render={({ field }) => (
                   <FormItem className="space-y-1.25">
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel htmlFor="password">Password</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Input
                           disabled={form.formState.isSubmitting}
+                          id="password"
                           placeholder="Password"
                           type={isVisible ? "text" : "password"}
                           {...field}
@@ -121,7 +130,7 @@ export function LoginForm({
                             isVisible ? "Hide password" : "Show password"
                           }
                           aria-pressed={isVisible}
-                          className="absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md text-muted-foreground/80 outline-none transition-[color,box-shadow] hover:text-foreground focus:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+                          className="focus-visib absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md text-muted-foreground/80 outline-none le:ring-ring/50 transition-[color,box-shadow] hover:text-foreground focus:z-10 focus-visible:border-ring focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={form.formState.isSubmitting}
                           onClick={toggleVisibility}
                           type="button"
@@ -134,6 +143,7 @@ export function LoginForm({
                         </button>
                       </div>
                     </FormControl>
+
                     <FormMessage />
                   </FormItem>
                 )}

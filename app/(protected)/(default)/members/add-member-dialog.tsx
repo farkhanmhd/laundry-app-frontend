@@ -27,27 +27,27 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { type AddCustomerSchema, addCustomerAction } from "./actions";
+import { type AddMemberSchema, addMemberAction } from "./actions";
 
-const addCustomerSchema = z.object({
+const addMemberSchema = z.object({
   name: z.string().min(3, "Customer name is required"),
   phone: z.string().min(7, "Phone number is required"),
 });
 
-export default function AddCustomerDialog() {
+export default function AddMemberDialog() {
   const [open, setOpen] = useState(false);
 
-  const defaultValues: AddCustomerSchema = {
+  const defaultValues: AddMemberSchema = {
     name: "",
     phone: "",
   };
 
-  const form = useForm<AddCustomerSchema>({
-    resolver: zodResolver(addCustomerSchema),
+  const form = useForm<AddMemberSchema>({
+    resolver: zodResolver(addMemberSchema),
     defaultValues,
   });
 
-  const { execute, isPending } = useAction(addCustomerAction, {
+  const { execute, isPending } = useAction(addMemberAction, {
     onSuccess: (actionResult) => {
       if (actionResult.data?.status === "success") {
         setOpen(false);
@@ -57,7 +57,7 @@ export default function AddCustomerDialog() {
     },
   });
 
-  const onSubmit = (data: AddCustomerSchema) => {
+  const onSubmit = (data: AddMemberSchema) => {
     execute(data);
   };
 
@@ -66,7 +66,7 @@ export default function AddCustomerDialog() {
       <AlertDialogTrigger asChild>
         <Button className="h-8">
           <IconPlus />
-          <span>Add Customer</span>
+          <span>Add Member</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-w-md p-0">
@@ -74,7 +74,7 @@ export default function AddCustomerDialog() {
           <AlertDialogHeader className="mb-6">
             <AlertDialogTitle>Add New Customer</AlertDialogTitle>
             <AlertDialogDescription>
-              Fill in the details to add a new Customer.
+              Fill in the details to add a new Member.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <Form {...form}>
@@ -128,7 +128,7 @@ export default function AddCustomerDialog() {
                   Cancel
                 </AlertDialogCancel>
                 <Button disabled={isPending} type="submit">
-                  Add Customer
+                  Add Member
                 </Button>
               </div>
             </form>

@@ -16,6 +16,7 @@ type Props = {
   id?: string;
   hideLabel?: boolean;
   error?: string[];
+  disabled?: boolean;
 };
 
 const ImageUploadDropzone: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const ImageUploadDropzone: React.FC<Props> = ({
   id,
   hideLabel,
   error,
+  disabled = false,
 }) => {
   const [fileName, setFileName] = useState<string | undefined>(undefined);
 
@@ -105,6 +107,7 @@ const ImageUploadDropzone: React.FC<Props> = ({
             <div className="absolute inset-0 flex items-center justify-center bg-background/50 opacity-0 duration-200 group-hover:opacity-100">
               <div className="flex space-x-2">
                 <Button
+                  disabled={disabled}
                   onClick={(e) => {
                     e.stopPropagation();
                     document.getElementById("image-upload")?.click();
@@ -117,6 +120,7 @@ const ImageUploadDropzone: React.FC<Props> = ({
                   Replace
                 </Button>
                 <Button
+                  disabled={disabled}
                   onClick={(e) => {
                     e.stopPropagation();
                     removeImage();

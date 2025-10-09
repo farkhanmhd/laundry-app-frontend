@@ -4,9 +4,9 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 // import { Button } from "@/components/ui/button";
-import type { CustomerData } from "./data";
+import type { MemberData } from "./data";
 
-export const columns: ColumnDef<CustomerData>[] = [
+export const columns: ColumnDef<MemberData>[] = [
   // {
   //   accessorKey: "image",
   //   header: ({ column }) => (

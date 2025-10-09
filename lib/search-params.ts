@@ -8,7 +8,7 @@ import {
 
 const paginationParsers = {
   pageIndex: parseAsIndex.withDefault(0),
-  pageSize: parseAsInteger.withDefault(20),
+  pageSize: parseAsInteger.withDefault(50),
 };
 
 const paginationUrlKeys = {
@@ -25,3 +25,9 @@ export function useTablePaginationSearchParams() {
 export function useSearchQueryParams() {
   return useQueryState("search", parseAsString.withDefault(""));
 }
+
+export type SearchQuery = {
+  page?: number;
+  search?: string;
+  rows?: number;
+};

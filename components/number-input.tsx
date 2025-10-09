@@ -29,7 +29,7 @@ export default function NumberInput({
         <Label className="font-medium text-foreground text-sm">{label}</Label>
       )}
       <Button
-        className="flex aspect-square h-8 w-8 cursor-pointer items-center justify-center rounded-full border-none bg-background text-muted-foreground/80 text-sm shadow-none transition-[color,box-shadow] hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex aspect-square h-8 w-8 cursor-pointer items-center justify-center rounded-full border-none bg-background text-muted-foreground/80 text-sm shadow-none transition-[color,box-shadow] hover:bg-background/60 hover:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
         onClick={onDecrement}
         slot="decrement"
       >
@@ -41,7 +41,7 @@ export default function NumberInput({
         value={value}
       />
       <Button
-        className="flex aspect-square h-8 w-8 cursor-pointer items-center justify-center rounded-full border-none bg-background text-muted-foreground/80 text-sm shadow-none transition-[color,box-shadow] hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex aspect-square h-8 w-8 cursor-pointer items-center justify-center rounded-full border-none bg-background text-muted-foreground/80 text-sm shadow-none transition-[color,box-shadow] hover:bg-background/60 hover:text-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
         onClick={onIncrement}
         slot="increment"
       >

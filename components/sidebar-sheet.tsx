@@ -46,7 +46,10 @@ const SidebarSheet = () => {
   return (
     <Sheet onOpenChange={setOpen} open={open}>
       <SheetTrigger asChild>
-        <Button className="h-12 w-12 rounded-full" variant="secondary">
+        <Button
+          className="h-12 w-12 rounded-full bg-background hover:bg-background/70"
+          variant="ghost"
+        >
           <IconMenu
             className="text-primary"
             style={{ width: "26px", height: "26px" }}

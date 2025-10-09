@@ -20,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} bg-background antialiased`}>
+      <body
+        className={`${geistSans.className} overflow-hidden bg-secondary antialiased`}
+      >
         <Providers>
           {children}
           <Toaster expand richColors />

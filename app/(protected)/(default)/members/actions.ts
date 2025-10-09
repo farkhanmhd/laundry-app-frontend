@@ -6,17 +6,17 @@ import { z } from "zod";
 import { elysia } from "@/elysia/treaty";
 import { actionClient } from "@/lib/safe-action";
 
-const addCustomerSchema = z.object({
+const addMemberSchema = z.object({
   name: z.string().min(3, "Customer name is required"),
   phone: z.string().min(7, "Phone number is required"),
 });
 
-export type AddCustomerSchema = z.infer<typeof addCustomerSchema>;
+export type AddMemberSchema = z.infer<typeof addMemberSchema>;
 
-export const addCustomerAction = actionClient
-  .inputSchema(addCustomerSchema)
+export const addMemberAction = actionClient
+  .inputSchema(addMemberSchema)
   .action(async ({ parsedInput }) => {
-    const result = await elysia.customers.post(parsedInput, {
+    const result = await elysia.members.post(parsedInput, {
       fetch: {
         headers: await headers(),
       },

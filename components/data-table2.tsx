@@ -165,9 +165,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     accessorKey: "header",
     header: "Header",
-    cell: ({ row }) => {
-      return <TableCellViewer item={row.original} />;
-    },
+    cell: ({ row }) => <TableCellViewer item={row.original} />,
     enableHiding: false,
   },
   {
@@ -447,20 +445,18 @@ export function DataTable({
                     typeof column.accessorFn !== "undefined" &&
                     column.getCanHide()
                 )
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      checked={column.getIsVisible()}
-                      className="capitalize"
-                      key={column.id}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    checked={column.getIsVisible()}
+                    className="capitalize"
+                    key={column.id}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                ))}
             </DropdownMenuContent>
           </DropdownMenu>
           <Button size="sm" variant="outline">
@@ -481,22 +477,20 @@ export function DataTable({
             onDragEnd={handleDragEnd}
             sensors={sensors}
           >
-            <Table>
-              <TableHeader className="sticky top-0 z-10 bg-muted">
+            <Table className="bg-background">
+              <TableHeader className="sticky top-0 z-10">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <TableHead colSpan={header.colSpan} key={header.id}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
-                        </TableHead>
-                      );
-                    })}
+                    {headerGroup.headers.map((header) => (
+                      <TableHead colSpan={header.colSpan} key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    ))}
                   </TableRow>
                 ))}
               </TableHeader>

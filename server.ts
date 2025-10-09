@@ -55,9 +55,14 @@ declare const app: Elysia<"", {
             newQuantity: import("@sinclair/typebox").TNumber;
             reason: import("@sinclair/typebox").TString;
         }>;
-        readonly addCustomer: import("@sinclair/typebox").TObject<{
+        readonly addMember: import("@sinclair/typebox").TObject<{
             name: import("@sinclair/typebox").TString;
             phone: import("@sinclair/typebox").TString;
+        }>;
+        readonly searchQuery: import("@sinclair/typebox").TObject<{
+            search: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+            rows: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TInteger>;
+            page: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TInteger>;
         }>;
     };
     error: {
@@ -486,8 +491,8 @@ declare const app: Elysia<"", {
                 reorderPoint: number;
             };
             params: {};
-            query: {};
-            headers: {};
+            query: unknown;
+            headers: unknown;
             response: {
                 422: {
                     type: "validation";
@@ -520,8 +525,8 @@ declare const app: Elysia<"", {
                 params: {
                     id: string;
                 };
-                query: {};
-                headers: {};
+                query: unknown;
+                headers: unknown;
                 response: {
                     200: {
                         readonly status: "success";
@@ -551,8 +556,8 @@ declare const app: Elysia<"", {
                     params: {
                         id: string;
                     };
-                    query: {};
-                    headers: {};
+                    query: unknown;
+                    headers: unknown;
                     response: {
                         200: {
                             readonly status: "success";
@@ -584,8 +589,8 @@ declare const app: Elysia<"", {
                     params: {
                         id: string;
                     };
-                    query: {};
-                    headers: {};
+                    query: unknown;
+                    headers: unknown;
                     response: {
                         200: {
                             readonly status: "success";
@@ -609,55 +614,63 @@ declare const app: Elysia<"", {
     products: {
         ":id": {
             delete: {
-                body: {};
+                body: unknown;
                 params: {
                     id: string;
                 };
-                query: {};
-                headers: {};
+                query: unknown;
+                headers: unknown;
                 response: {
                     200: {
                         readonly status: "success";
                         readonly message: "Product deleted";
                     };
-                    422: {
-                        type: "validation";
-                        on: string;
-                        summary?: string;
-                        message?: string;
-                        found?: unknown;
-                        property?: string;
-                        expected?: string;
-                    };
                 };
             };
         };
     };
 } & {
-    customers: {};
+    members: {};
 } & {
-    customers: {
+    members: {
         get: {
             body: {};
             params: {};
-            query: {};
+            query: {
+                search?: string | undefined;
+                rows?: number | undefined;
+                page?: number | undefined;
+            };
             headers: {};
             response: {
                 200: {
                     readonly status: "success";
-                    readonly message: "Customers Retrieved";
+                    readonly message: "Members Retrieved";
                     readonly data: {
-                        id: string;
-                        name: string;
-                        phone: string;
-                        points: number;
-                    }[];
+                        total: number | undefined;
+                        members: {
+                            id: string;
+                            name: string;
+                            userId: string | null;
+                            phone: string;
+                            points: number;
+                        }[];
+                    };
+                };
+                422: {
+                    type: "validation";
+                    on: string;
+                    summary?: string;
+                    message?: string;
+                    found?: unknown;
+                    property?: string;
+                    expected?: string;
                 };
             };
         };
     };
 } & {
-    customers: {
+    members: {
         post: {
             body: {
                 name: string;
@@ -678,7 +691,7 @@ declare const app: Elysia<"", {
                 };
                 201: {
                     readonly status: "success";
-                    readonly message: "New Customer Added";
+                    readonly message: "New Member Added";
                     readonly data: {
                         readonly id: string;
                     };

@@ -5,7 +5,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useQueryParams } from "@/hooks/use-query-params";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -22,6 +23,12 @@ interface DataTablePaginationProps<TData> {
 export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const { setQuery, removeQuery } = useQueryParams(params);
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
   return (
     <div className="flex items-center justify-between px-2">
       <div className="flex-1 text-muted-foreground text-sm">
@@ -40,10 +47,19 @@ export function DataTablePagination<TData>({
           <Select
             onValueChange={(value) => {
               table.setPageSize(Number(value));
+              table.setPageIndex(0);
+
+              if (value === "50") {
+                removeQuery("rows");
+              } else {
+                setQuery("rows", value);
+              }
+              removeQuery("page");
+              replace(`${pathname}?${params.toString()}`);
             }}
             value={`${table.getState().pagination.pageSize}`}
           >
-            <SelectTrigger className="h-8 w-[70px]">
+            <SelectTrigger className="h-8 w-[70px] bg-background">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">

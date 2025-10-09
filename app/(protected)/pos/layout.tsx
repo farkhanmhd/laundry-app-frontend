@@ -22,7 +22,7 @@ const PosLayout = ({ children }: { children: ReactNode }) => {
         <section className="space-y-4">
           <div className="px-4">
             <Input
-              className="h-12 rounded-full px-6 md:text-base"
+              className="h-12 rounded-full border-background bg-background px-6 md:text-base"
               placeholder="Search Items or Services"
             />
           </div>

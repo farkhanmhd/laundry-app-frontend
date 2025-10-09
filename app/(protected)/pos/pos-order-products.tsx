@@ -75,7 +75,12 @@ export function PosOrderProducts({ className }: Props) {
   };
 
   return (
-    <div className={cn("h-dvh flex-col overflow-hidden shadow-sm", className)}>
+    <div
+      className={cn(
+        "h-dvh flex-col overflow-hidden bg-background shadow-sm",
+        className
+      )}
+    >
       <header className="flex h-20 items-center justify-center shadow-xs">
         <span className="font-semibold text-lg">Order</span>
       </header>
@@ -148,10 +153,7 @@ export function PosOrderProducts({ className }: Props) {
               Cash
             </Button>
           </div>
-          <Button
-            className="h-16 w-full rounded-none text-lg"
-            variant="secondary"
-          >
+          <Button className="h-16 w-full rounded-none text-lg">
             Place Order
           </Button>
         </div>
