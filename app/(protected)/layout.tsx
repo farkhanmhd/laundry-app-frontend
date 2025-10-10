@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import type { ReactNode } from "react";
-import type { SidebarUserData } from "@/component-types";
+import ProtectedLayout from "@/components/protected-layout";
 import { authClient } from "@/lib/auth-client";
 
 interface Props {
@@ -14,12 +14,5 @@ export default async function Layout({ children }: Props) {
     },
   });
 
-  const user: SidebarUserData = {
-    name: session?.user.name as string,
-    email: session?.user.email as string,
-    avatar: session?.user.image as string,
-    role: session?.user.role as string,
-  };
-
-  return <main className="h-dvh">{children}</main>;
+  return <ProtectedLayout user={session!.user}>{children}</ProtectedLayout>;
 }

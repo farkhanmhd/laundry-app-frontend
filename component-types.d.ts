@@ -1,4 +1,11 @@
 import type { Icon } from "@tabler/icons-react";
+import type { User } from "better-auth";
+
+export interface SessionUser extends User {
+  username?: string | null | undefined;
+  displayUsername?: string | null | undefined;
+  role: string;
+}
 
 export interface SidebarUserData {
   name: string;

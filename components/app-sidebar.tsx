@@ -3,10 +3,7 @@
 import { IconInnerShadowTop } from "@tabler/icons-react";
 import Link from "next/link";
 import type * as React from "react";
-import type { SidebarUserData } from "@/component-types";
-import { NavMain } from "@/components/nav-main";
-import { NavUser } from "@/components/nav-user";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import type { SessionUser } from "@/component-types";
 import {
   Sidebar,
   SidebarContent,
@@ -15,19 +12,22 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
+} from "@/components/animate-ui/components/radix/sidebar";
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
 import { adminNavData, staffNavData } from "@/lib/constants";
-import ThemeSwitcher from "./theme-switcher";
 
 interface Props extends React.ComponentProps<typeof Sidebar> {
-  user: SidebarUserData;
+  user: SessionUser;
 }
 
 export function AppSidebar({ user, ...props }: Props) {
-  const navData = user.role === "admin" ? adminNavData : staffNavData;
+  const role = user.role;
+
+  const menu = role === "admin" ? adminNavData : staffNavData;
 
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="icon" {...props} className="border-r">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -37,23 +37,16 @@ export function AppSidebar({ user, ...props }: Props) {
             >
               <Link href="/dashboard">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="font-semibold text-base">
-                  Beringin Coin Laundry
-                </span>
+                <span className="font-semibold text-base">Laundry App</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <ScrollArea className="h-full">
-          {navData.map((nav) => (
-            <NavMain items={nav.items} key={nav.label} label={nav.label} />
-          ))}
-        </ScrollArea>
+        <NavMain items={menu} />
       </SidebarContent>
       <SidebarFooter>
-        <ThemeSwitcher />
         <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>

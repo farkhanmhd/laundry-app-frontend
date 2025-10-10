@@ -9,17 +9,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar";
 import { MapItems } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
-  const { state } = useSidebar();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -42,41 +36,32 @@ const ThemeSwitcher = () => {
   >;
 
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton>
-              <SelectedIcon aria-hidden="true" size={22} />
-              <span>Theme</span>
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            side={state === "expanded" ? "top" : "right"}
-            sideOffset={4}
-          >
-            <MapItems
-              of={dropdownItems}
-              render={(item, index) => {
-                const Icon = selectedTheme[item as keyof typeof selectedTheme];
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button className="w-9 rounded-full" variant="ghost">
+          <SelectedIcon aria-hidden="true" size={22} />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" sideOffset={4}>
+        <MapItems
+          of={dropdownItems}
+          render={(item, index) => {
+            const Icon = selectedTheme[item as keyof typeof selectedTheme];
 
-                return (
-                  <DropdownMenuItem
-                    className="cursor-pointer gap-3 px-1"
-                    key={index}
-                    onClick={() => setTheme(item)}
-                  >
-                    <Icon aria-hidden="true" size={20} />
-                    <span className="capitalize">{item}</span>
-                  </DropdownMenuItem>
-                );
-              }}
-            />
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </SidebarMenuItem>
-    </SidebarMenu>
+            return (
+              <DropdownMenuItem
+                className="cursor-pointer gap-3 px-1"
+                key={index}
+                onClick={() => setTheme(item)}
+              >
+                <Icon aria-hidden="true" size={20} />
+                <span className="capitalize">{item}</span>
+              </DropdownMenuItem>
+            );
+          }}
+        />
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 

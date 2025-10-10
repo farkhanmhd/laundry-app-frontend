@@ -74,7 +74,7 @@ const MembersTable = <TData extends MemberData, TValue>({
   };
 
   return (
-    <div className="mb-0 flex h-[calc(100dvh-112px)] flex-col gap-4">
+    <div className="flex flex-col gap-4 lg:gap-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <DataTableSearch
@@ -92,7 +92,7 @@ const MembersTable = <TData extends MemberData, TValue>({
       </div>
 
       <DataTable
-        className="max-h-[calc(100dvh-224px)] max-w-[calc(100svw-32px)]"
+        className="h-[calc(100dvh-188px)] max-w-[calc(100svw-32px)] lg:h-[calc(100dvh-220px)]"
         columns={columns}
         table={table}
       />
@@ -105,3 +105,5 @@ const MembersTable = <TData extends MemberData, TValue>({
 };
 
 export default MembersTable;
+
+// h - [calc(100dvh-112px)]; max-h-[calc(100dvh-224px)]

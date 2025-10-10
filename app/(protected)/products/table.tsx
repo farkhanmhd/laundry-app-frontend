@@ -68,7 +68,7 @@ const ProductsTable = <TData extends ProductData, TValue>({
   const isFiltered = table.getState().columnFilters.length > 0 || globalFilter;
 
   return (
-    <div className="flex h-[calc(100dvh-112px)] flex-col gap-4">
+    <div className="flex flex-col gap-4 lg:gap-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <DataTableSearch
@@ -99,7 +99,7 @@ const ProductsTable = <TData extends ProductData, TValue>({
       </div>
 
       <DataTable
-        className="max-h-[calc(100dvh-224px)] max-w-[calc(100svw-32px)]"
+        className="h-[calc(100dvh-188px)] max-w-[calc(100svw-120px)] lg:h-[calc(100dvh-220px)]"
         columns={columns}
         table={table}
       />

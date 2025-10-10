@@ -1,18 +1,56 @@
-import type { ReactNode } from "react";
-import { cn } from "@/lib/utils";
-import SidebarSheet from "./sidebar-sheet";
+"use client";
 
-interface Props {
-  children: ReactNode;
-  className?: string;
-}
+import { IconShoppingCart } from "@tabler/icons-react";
+import { usePathname } from "next/navigation";
+import { useMemo } from "react";
+import { SidebarTrigger } from "@/components/animate-ui/components/radix/sidebar";
+import { Separator } from "@/components/ui/separator";
+import { usePosProducts } from "@/hooks/state";
+import { adminNavData } from "@/lib/constants";
+import ThemeSwitcher from "./theme-switcher";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
 
-export function SiteHeader({ children, className }: Props) {
+export function SiteHeader() {
+  const pathname = usePathname();
+  const { posProduct, setPosProduct } = usePosProducts();
+  const title = adminNavData.find(
+    (item) => item.url.split("/")[1] === pathname.split("/")[1]
+  )?.title;
+
+  const handleCartClick = () => {
+    setPosProduct({ ...posProduct, open: !posProduct.open });
+  };
+
+  const totalItems = useMemo(
+    () => posProduct.items.reduce((total, item) => total + item.quantity, 0),
+    [posProduct.items]
+  );
+
   return (
-    <header className="flex gap-2 bg-transparent p-4">
-      <SidebarSheet />
-      <div className={cn("flex w-full items-center gap-2", className)}>
-        {children}
+    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+      <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
+        <SidebarTrigger className="-ml-1" />
+        <Separator
+          className="mx-2 data-[orientation=vertical]:h-4"
+          orientation="vertical"
+        />
+        <h1 className="font-medium text-base">{title}</h1>
+        <div className="ml-auto flex items-center gap-2">
+          <Button
+            className="relative w-9 rounded-full"
+            onClick={handleCartClick}
+            variant="ghost"
+          >
+            <IconShoppingCart />
+            {posProduct.items.length > 0 && (
+              <Badge className="absolute top-0.5 right-[-0.5px] h-4 w-4 rounded-full p-0 text-[10px]">
+                {totalItems}
+              </Badge>
+            )}
+          </Button>
+          <ThemeSwitcher />
+        </div>
       </div>
     </header>
   );

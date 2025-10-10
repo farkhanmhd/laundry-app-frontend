@@ -1,13 +1,13 @@
 import { delay, MapItems } from "@/lib/utils";
+import { PosProductCard } from "../../../components/pos-product-card";
 import { getProducts } from "./data";
-import { PosProductCard } from "./pos-product-card";
 
 const PosPage = async () => {
   await delay(2000);
   const data = await getProducts();
 
   return (
-    <ul className="grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-5">
+    <ul className="grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
       <MapItems
         of={data!}
         render={(item) => (

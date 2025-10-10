@@ -1,6 +1,6 @@
 "use client";
 
-import { IconLogout2 } from "@tabler/icons-react";
+import { IconLogout } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -14,6 +14,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { AlertDialogFooter, AlertDialogHeader } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
+import { DropdownMenuItem } from "./ui/dropdown-menu";
 
 const SignoutDialog = () => {
   const [isPending, setIsPending] = useState<boolean>(false);
@@ -33,9 +34,10 @@ const SignoutDialog = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="h-12 w-12 rounded-full" variant="destructive">
-          <IconLogout2 />
-        </Button>
+        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+          <IconLogout />
+          Log Out
+        </DropdownMenuItem>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

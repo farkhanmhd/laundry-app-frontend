@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { toast } from "sonner";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { usePosProducts } from "@/hooks/state";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { formatCurrency } from "@/lib/utils";
-import type { ProductData } from "./data";
-import { usePosProducts } from "./state";
+import type { ProductData } from "../app/(protected)/pos/data";
 
 interface Props {
   product: ProductData;
@@ -17,20 +17,24 @@ export function PosProductCard({ product }: Props) {
   const { posProduct, setPosProduct } = usePosProducts();
 
   const handleAddToOrder = () => {
-    const existingItem = posProduct.find(
+    const existingItem = posProduct.items.find(
       (item) => item.product.id === product.id
     );
 
     if (existingItem) {
-      setPosProduct(
-        posProduct.map((item) =>
+      setPosProduct({
+        open: true,
+        items: posProduct.items.map((item) =>
           item.product.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
-        )
-      );
+        ),
+      });
     } else {
-      setPosProduct([...posProduct, { quantity: 1, product }]);
+      setPosProduct({
+        open: true,
+        items: [...posProduct.items, { quantity: 1, product }],
+      });
     }
 
     if (isMobile) {

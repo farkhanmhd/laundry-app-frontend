@@ -27,7 +27,7 @@ const DataTable = <TData, TValue>({
   selectableRows = false,
   className,
 }: Props<TData, TValue>) => (
-  <ScrollArea className={cn("relative rounded-md border bg-background")}>
+  <ScrollArea className={cn("relative rounded-md border")}>
     <div className={className}>
       <Table>
         <TableHeader className="sticky top-0 z-50 bg-background">

@@ -1,4 +1,3 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { delay } from "@/lib/utils";
 import { columns } from "./columns";
 import { getProducts } from "./data";
@@ -9,11 +8,9 @@ const ProductsPage = async () => {
   const data = await getProducts();
 
   return (
-    <ScrollArea className="max-h-[calc(100dvh-80px)]">
-      <div className="p-4">
-        <ProductsTable columns={columns} data={data!} />
-      </div>
-    </ScrollArea>
+    <div className="p-4 lg:p-6">
+      <ProductsTable columns={columns} data={data!} />
+    </div>
   );
 };
 

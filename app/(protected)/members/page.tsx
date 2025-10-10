@@ -23,15 +23,13 @@ const MemberPage = async (props: Props) => {
   const data = await getMembers(query);
 
   return (
-    <ScrollArea className="max-h-[calc(100dvh-80px)]">
-      <div className="p-4">
-        <MembersTable
-          columns={columns}
-          data={data!.members}
-          total={data!.total as number}
-        />
-      </div>
-    </ScrollArea>
+    <div className="p-4 lg:p-6">
+      <MembersTable
+        columns={columns}
+        data={data!.members}
+        total={data!.total as number}
+      />
+    </div>
   );
 };
 

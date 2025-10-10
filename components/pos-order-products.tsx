@@ -5,8 +5,8 @@ import Image from "next/image";
 import NumberInput from "@/components/number-input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { type PosProduct, usePosProducts } from "@/hooks/state";
 import { cn, formatCurrency, MapItems } from "@/lib/utils";
-import { type PosProduct, usePosProducts } from "./state";
 
 interface Props {
   className?: string;
@@ -14,24 +14,26 @@ interface Props {
 
 export function PosOrderProducts({ className }: Props) {
   const { posProduct, setPosProduct } = usePosProducts();
-  const total = posProduct.reduce(
+  const total = posProduct.items.reduce(
     (acc, curr) => acc + curr.quantity * curr.product.price,
     0
   );
 
   const handleIncrementQuantity = (productId: string) => {
-    setPosProduct(
-      posProduct.map((item) =>
+    setPosProduct({
+      ...posProduct,
+      items: posProduct.items.map((item) =>
         item.product.id === productId
           ? { ...item, quantity: item.quantity + 1 }
           : item
-      )
-    );
+      ),
+    });
   };
 
   const handleDecrementQuantity = (productId: string) => {
-    setPosProduct((currentProducts) =>
-      currentProducts.reduce((newArray, item) => {
+    setPosProduct((currentProducts) => ({
+      ...posProduct,
+      items: currentProducts.items.reduce((newArray, item) => {
         if (item.product.id === productId) {
           if (item.quantity > 1) {
             newArray.push({ ...item, quantity: item.quantity - 1 });
@@ -40,8 +42,8 @@ export function PosOrderProducts({ className }: Props) {
           newArray.push(item);
         }
         return newArray;
-      }, [] as PosProduct[])
-    );
+      }, [] as PosProduct[]),
+    }));
   };
 
   const handleInputChange = (
@@ -58,41 +60,43 @@ export function PosOrderProducts({ className }: Props) {
     );
 
     if (newQuantity === 0) {
-      setPosProduct((currentProducts) =>
-        currentProducts.filter(
+      setPosProduct((currentProducts) => ({
+        ...posProduct,
+        items: currentProducts.items.filter(
           (item) => item.product.id !== orderProduct.product.id
-        )
-      );
+        ),
+      }));
     }
 
-    setPosProduct((currentProducts) =>
-      currentProducts.map((item) =>
+    setPosProduct((currentProducts) => ({
+      ...posProduct,
+      items: currentProducts.items.map((item) =>
         item.product.id === orderProduct.product.id
           ? { ...item, quantity: cappedQuantity }
           : item
-      )
-    );
+      ),
+    }));
   };
 
   return (
     <div
       className={cn(
-        "h-dvh flex-col overflow-hidden bg-background shadow-sm",
+        "h-[calc(100dvh-48px)] flex-col overflow-hidden border-l bg-background shadow-sm",
         className
       )}
     >
       <header className="flex h-20 items-center justify-center shadow-xs">
         <span className="font-semibold text-lg">Order</span>
       </header>
-      <ScrollArea className="min-h-0 flex-1">
+      <ScrollArea className="h-[calc(100dvh-80px-236px-48px)] flex-1">
         <ul className="flex flex-col divide-y divide-dashed divide-primary/20 px-4">
-          {posProduct.length === 0 ? (
+          {posProduct.items.length === 0 ? (
             <li className="flex h-[133px] items-center justify-center border-b border-dashed text-secondary-foreground/70">
               No Item Selected
             </li>
           ) : (
             <MapItems
-              of={posProduct}
+              of={posProduct.items}
               render={(item, index) => (
                 <li
                   className="flex w-full items-end justify-between py-4"
@@ -153,9 +157,9 @@ export function PosOrderProducts({ className }: Props) {
               Cash
             </Button>
           </div>
-          <Button className="h-16 w-full rounded-none text-lg">
-            Place Order
-          </Button>
+          <div className="p-4">
+            <Button className="h-16 w-full text-lg">Place Order</Button>
+          </div>
         </div>
       </footer>
     </div>
