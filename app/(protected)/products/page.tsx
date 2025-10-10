@@ -8,7 +8,7 @@ const ProductsPage = async () => {
   const data = await getProducts();
 
   return (
-    <div className="p-4 lg:p-6">
+    <div className="h-full p-4 lg:p-6">
       <ProductsTable columns={columns} data={data!} />
     </div>
   );

@@ -23,7 +23,6 @@ interface Props extends React.ComponentProps<typeof Sidebar> {
 
 export function AppSidebar({ user, ...props }: Props) {
   const role = user.role;
-
   const menu = role === "admin" ? adminNavData : staffNavData;
 
   return (

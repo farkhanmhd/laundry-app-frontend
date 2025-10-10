@@ -32,7 +32,7 @@ const ProtectedLayout = ({ children, user }: Props) => {
     >
       <AppSidebar user={user} variant="inset" />
       <SidebarInset className="md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-0 md:peer-data-[variant=inset]:m-0 md:peer-data-[variant=inset]:rounded-none">
-        <SiteHeader />
+        <SiteHeader user={user} />
         <ScrollArea className="h-[calc(100dvh-48px)]">
           <div className="relative h-[calc(100dvh-48px)] w-full overflow-x-hidden">
             <motion.div

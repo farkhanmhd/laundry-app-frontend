@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { IconBrandGoogle, IconInnerShadowTop } from "@tabler/icons-react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,12 +10,11 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldSeparator,
+} from "@/components/ui/field";
 import {
   Form,
   FormControl,
@@ -78,83 +78,91 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
-            Enter your Username below to login to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form
-              className="flex flex-col gap-8"
-              onSubmit={form.handleSubmit(onSubmit)}
-            >
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem className="space-y-1.25">
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input
-                        autoComplete="off"
-                        disabled={form.formState.isSubmitting}
-                        placeholder="Username"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem className="space-y-1.25">
-                    <FormLabel htmlFor="password">Password</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          disabled={form.formState.isSubmitting}
-                          id="password"
-                          placeholder="Password"
-                          type={isVisible ? "text" : "password"}
-                          {...field}
-                        />
-                        <button
-                          aria-controls="password"
-                          aria-label={
-                            isVisible ? "Hide password" : "Show password"
-                          }
-                          aria-pressed={isVisible}
-                          className="focus-visib absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md text-muted-foreground/80 outline-none le:ring-ring/50 transition-[color,box-shadow] hover:text-foreground focus:z-10 focus-visible:border-ring focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-                          disabled={form.formState.isSubmitting}
-                          onClick={toggleVisibility}
-                          type="button"
-                        >
-                          {isVisible ? (
-                            <EyeOffIcon aria-hidden="true" size={16} />
-                          ) : (
-                            <EyeIcon aria-hidden="true" size={16} />
-                          )}
-                        </button>
-                      </div>
-                    </FormControl>
+      <div className="flex flex-col items-center gap-2 text-center">
+        <div className="flex flex-col items-center gap-2 font-medium">
+          <div className="flex size-12 items-center justify-center rounded-md font-medium">
+            <IconInnerShadowTop className="h-12 w-12" />
+          </div>
+        </div>
+        <FieldDescription className="font-medium text-foreground text-xl">
+          Welcome to Beringin Coin Laundry.
+        </FieldDescription>
+      </div>
+      <Form {...form}>
+        <form
+          className="flex flex-col gap-8"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem className="space-y-1.25">
+                <FormLabel>Username</FormLabel>
+                <FormControl>
+                  <Input
+                    autoComplete="off"
+                    disabled={form.formState.isSubmitting}
+                    placeholder="Username"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="space-y-1.25">
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <Input
+                      disabled={form.formState.isSubmitting}
+                      id="password"
+                      placeholder="Password"
+                      type={isVisible ? "text" : "password"}
+                      {...field}
+                    />
+                    <button
+                      aria-controls="password"
+                      aria-label={isVisible ? "Hide password" : "Show password"}
+                      aria-pressed={isVisible}
+                      className="focus-visib absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md text-muted-foreground/80 outline-none le:ring-ring/50 transition-[color,box-shadow] hover:text-foreground focus:z-10 focus-visible:border-ring focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+                      disabled={form.formState.isSubmitting}
+                      onClick={toggleVisibility}
+                      type="button"
+                    >
+                      {isVisible ? (
+                        <EyeOffIcon aria-hidden="true" size={16} />
+                      ) : (
+                        <EyeIcon aria-hidden="true" size={16} />
+                      )}
+                    </button>
+                  </div>
+                </FormControl>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button disabled={form.formState.isSubmitting} type="submit">
-                Login
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button disabled={form.formState.isSubmitting} type="submit">
+            Login
+          </Button>
+        </form>
+      </Form>
+      <FieldSeparator>Or</FieldSeparator>
+
+      <FieldGroup>
+        <Field>
+          <Button type="button" variant="outline">
+            <IconBrandGoogle />
+            Continue with Google
+          </Button>
+        </Field>
+      </FieldGroup>
     </div>
   );
 }

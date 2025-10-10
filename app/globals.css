@@ -124,6 +124,7 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+  --shadow-card: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 @layer base {
@@ -152,3 +153,5 @@
     opacity: 1;
   }
 }
+
+/* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */

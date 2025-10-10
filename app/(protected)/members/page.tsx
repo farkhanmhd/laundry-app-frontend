@@ -1,4 +1,3 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
 import type { SearchQuery } from "@/lib/search-params";
 import { columns } from "./columns";
 import { getMembers } from "./data";
@@ -23,7 +22,7 @@ const MemberPage = async (props: Props) => {
   const data = await getMembers(query);
 
   return (
-    <div className="p-4 lg:p-6">
+    <div className="h-full p-4 lg:p-6">
       <MembersTable
         columns={columns}
         data={data!.members}

@@ -59,14 +59,14 @@ export function PosOrderProducts({ className }: Props) {
       orderProduct.product.currentQuantity
     );
 
-    if (newQuantity === 0) {
-      setPosProduct((currentProducts) => ({
-        ...posProduct,
-        items: currentProducts.items.filter(
-          (item) => item.product.id !== orderProduct.product.id
-        ),
-      }));
-    }
+    // if (newQuantity === 0) {
+    //   setPosProduct((currentProducts) => ({
+    //     ...posProduct,
+    //     items: currentProducts.items.filter(
+    //       (item) => item.product.id !== orderProduct.product.id
+    //     ),
+    //   }));
+    // }
 
     setPosProduct((currentProducts) => ({
       ...posProduct,
@@ -88,7 +88,7 @@ export function PosOrderProducts({ className }: Props) {
       <header className="flex h-20 items-center justify-center shadow-xs">
         <span className="font-semibold text-lg">Order</span>
       </header>
-      <ScrollArea className="h-[calc(100dvh-80px-236px-48px)] flex-1">
+      <ScrollArea className="h-[calc(100dvh-80px-48px-200px)] flex-1">
         <ul className="flex flex-col divide-y divide-dashed divide-primary/20 px-4">
           {posProduct.items.length === 0 ? (
             <li className="flex h-[133px] items-center justify-center border-b border-dashed text-secondary-foreground/70">
@@ -140,26 +140,24 @@ export function PosOrderProducts({ className }: Props) {
           )}
         </ul>
       </ScrollArea>
-      <footer>
-        <div className="space-y-4 pt-8">
-          <div className="flex items-center justify-between px-4 font-semibold text-lg">
-            <span>Total</span>
-            <span>{formatCurrency(total)}</span>
-          </div>
-          <div className="flex gap-2 px-4">
-            <Button className="h-12 flex-1 rounded-full" variant="secondary">
-              Add Promo or Voucher
-            </Button>
-            <Button
-              className="h-12 flex-1 rounded-full text-base"
-              variant="secondary"
-            >
-              Cash
-            </Button>
-          </div>
-          <div className="p-4">
-            <Button className="h-16 w-full text-lg">Place Order</Button>
-          </div>
+      <footer className="mt-auto flex flex-col gap-4 p-4">
+        <div className="flex items-center justify-between font-semibold text-lg">
+          <span>Total</span>
+          <span>{formatCurrency(total)}</span>
+        </div>
+        <div className="flex gap-2">
+          <Button className="h-12 flex-1 rounded-full" variant="secondary">
+            Add Promo or Voucher
+          </Button>
+          <Button
+            className="h-12 flex-1 rounded-full text-base"
+            variant="secondary"
+          >
+            Cash
+          </Button>
+        </div>
+        <div>
+          <Button className="h-16 w-full text-lg">Place Order</Button>
         </div>
       </footer>
     </div>

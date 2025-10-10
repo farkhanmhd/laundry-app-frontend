@@ -45,7 +45,7 @@ export function PosProductCard({ product }: Props) {
   return (
     <Card
       aria-roledescription="button"
-      className="aspect-square cursor-pointer p-3 shadow-none duration-200 hover:shadow"
+      className="aspect-square cursor-pointer p-3 shadow-none duration-200 hover:shadow-card active:bg-card-foreground/10"
       onClick={handleAddToOrder}
     >
       <CardContent className="flex flex-1 flex-col justify-between gap-4 px-0">
