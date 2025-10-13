@@ -85,7 +85,7 @@ export function PosOrderProducts({ className }: Props) {
         className
       )}
     >
-      <header className="flex h-20 items-center justify-center shadow-xs">
+      <header className="z-50 flex h-20 items-center justify-center">
         <span className="font-semibold text-lg">Order</span>
       </header>
       <ScrollArea className="h-[calc(100dvh-80px-48px-200px)] flex-1">

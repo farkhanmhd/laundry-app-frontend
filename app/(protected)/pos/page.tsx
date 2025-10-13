@@ -7,7 +7,7 @@ const PosPage = async () => {
   const data = await getProducts();
 
   return (
-    <ul className="grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
+    <ul className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4">
       <MapItems
         of={data!}
         render={(item) => (
