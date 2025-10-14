@@ -15,6 +15,7 @@
       "!build",
       "!lib/utils.ts",
       "!components/ui/*.tsx",
+      "!components/animate-ui/**/*.tsx",
       "!elysia",
       "!stories"
     ]

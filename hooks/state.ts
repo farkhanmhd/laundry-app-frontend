@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import type { ProductData } from "@/app/(protected)/pos/data";
+import type { ProductData } from "@/app/(protected)/(employees)/pos/data";
 
 export interface PosProduct {
   quantity: number;

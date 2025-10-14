@@ -1,6 +1,7 @@
 "use client";
 
-import { IconLogout } from "@tabler/icons-react";
+import { LogoutSquare01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -35,7 +36,7 @@ const SignoutDialog = () => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-          <IconLogout />
+          <HugeiconsIcon icon={LogoutSquare01Icon} />
           Log Out
         </DropdownMenuItem>
       </AlertDialogTrigger>

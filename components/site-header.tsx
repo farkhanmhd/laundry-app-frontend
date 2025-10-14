@@ -1,6 +1,7 @@
 "use client";
 
-import { IconShoppingCart } from "@tabler/icons-react";
+import { ShoppingCart02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import type { SessionUser } from "@/component-types";
@@ -47,7 +48,7 @@ export function SiteHeader({ user }: { user: SessionUser }) {
             onClick={handleCartClick}
             variant="ghost"
           >
-            <IconShoppingCart />
+            <HugeiconsIcon icon={ShoppingCart02Icon} />
             {posProduct.items.length > 0 && (
               <Badge className="absolute top-0.5 right-[-0.5px] h-4 w-4 rounded-full p-0 text-[10px]">
                 {totalItems}

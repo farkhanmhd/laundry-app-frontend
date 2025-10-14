@@ -10,7 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { usePosProducts } from "@/hooks/state";
-import { PosOrderProducts } from "../../../components/pos-order-products";
+import { PosOrderProducts } from "../../../../components/pos-order-products";
 
 const OrderProductsSheet = () => {
   const { posProduct } = usePosProducts();

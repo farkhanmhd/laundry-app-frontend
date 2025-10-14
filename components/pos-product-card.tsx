@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { usePosProducts } from "@/hooks/state";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { formatCurrency } from "@/lib/utils";
-import type { ProductData } from "../app/(protected)/pos/data";
+import type { ProductData } from "../app/(protected)/(employees)/pos/data";
 
 interface Props {
   product: ProductData;

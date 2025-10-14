@@ -117,8 +117,8 @@ export function LoginForm({
             render={({ field }) => (
               <FormItem className="space-y-1.25">
                 <FormLabel htmlFor="password">Password</FormLabel>
-                <FormControl>
-                  <div className="relative">
+                <div className="relative">
+                  <FormControl>
                     <Input
                       disabled={form.formState.isSubmitting}
                       id="password"
@@ -126,24 +126,23 @@ export function LoginForm({
                       type={isVisible ? "text" : "password"}
                       {...field}
                     />
-                    <button
-                      aria-controls="password"
-                      aria-label={isVisible ? "Hide password" : "Show password"}
-                      aria-pressed={isVisible}
-                      className="focus-visib absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md text-muted-foreground/80 outline-none le:ring-ring/50 transition-[color,box-shadow] hover:text-foreground focus:z-10 focus-visible:border-ring focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-                      disabled={form.formState.isSubmitting}
-                      onClick={toggleVisibility}
-                      type="button"
-                    >
-                      {isVisible ? (
-                        <EyeOffIcon aria-hidden="true" size={16} />
-                      ) : (
-                        <EyeIcon aria-hidden="true" size={16} />
-                      )}
-                    </button>
-                  </div>
-                </FormControl>
-
+                  </FormControl>
+                  <button
+                    aria-controls="password"
+                    aria-label={isVisible ? "Hide password" : "Show password"}
+                    aria-pressed={isVisible}
+                    className="focus-visib absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md text-muted-foreground/80 outline-none le:ring-ring/50 transition-[color,box-shadow] hover:text-foreground focus:z-10 focus-visible:border-ring focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+                    disabled={form.formState.isSubmitting}
+                    onClick={toggleVisibility}
+                    type="button"
+                  >
+                    {isVisible ? (
+                      <EyeIcon aria-hidden="true" size={16} />
+                    ) : (
+                      <EyeOffIcon aria-hidden="true" size={16} />
+                    )}
+                  </button>
+                </div>
                 <FormMessage />
               </FormItem>
             )}
@@ -165,4 +164,8 @@ export function LoginForm({
       </FieldGroup>
     </div>
   );
+}
+
+{
+  /*  */
 }

@@ -1,39 +1,39 @@
 import {
-  IconCash,
-  IconClock,
-  IconDashboard,
-  IconHeart,
-  IconPackage,
-  IconReportAnalytics,
-  IconReportMoney,
-  IconShoppingCart,
-  IconTicket,
-  IconTools,
-  IconUser,
-  IconUsers,
-} from "@tabler/icons-react";
+  Analytics01Icon,
+  AnalyticsUpIcon,
+  Cash02Icon,
+  Clock02Icon,
+  DatabaseIcon,
+  DollarSquareIcon,
+  FavouriteSquareIcon,
+  ServingFoodIcon,
+  ShoppingCart02Icon,
+  Ticket01Icon,
+  UserAccountIcon,
+  UserGroup02Icon,
+} from "@hugeicons/core-free-icons";
 import type { SidebarItem } from "@/component-types";
 
 export const staffNavData: SidebarItem[] = [
   {
     title: "Point of Sales",
     url: "/pos",
-    icon: IconCash,
+    icon: Cash02Icon,
   },
   {
     title: "Shifts",
     url: "#",
-    icon: IconClock,
+    icon: Clock02Icon,
   },
   {
     title: "Members",
     url: "/members",
-    icon: IconUsers,
+    icon: UserGroup02Icon,
   },
   {
     title: "Orders",
     url: "#",
-    icon: IconShoppingCart,
+    icon: ShoppingCart02Icon,
   },
 ];
 
@@ -41,42 +41,42 @@ export const adminNavData: SidebarItem[] = [
   {
     title: "Report",
     url: "/dashboard",
-    icon: IconDashboard,
+    icon: Analytics01Icon,
   },
   ...staffNavData,
   {
     title: "Inventory",
     url: "/products",
-    icon: IconPackage,
+    icon: DatabaseIcon,
   },
   {
     title: "Services",
     url: "/services",
-    icon: IconTools,
+    icon: ServingFoodIcon,
   },
   {
     title: "Vouchers",
     url: "/vouchers",
-    icon: IconTicket,
+    icon: Ticket01Icon,
   },
   {
     title: "Staff",
     url: "/staff",
-    icon: IconUser,
+    icon: UserAccountIcon,
   },
   {
     title: "Sales Report",
     url: "#",
-    icon: IconReportMoney,
+    icon: DollarSquareIcon,
   },
   {
     title: "Profit Report",
     url: "#",
-    icon: IconReportAnalytics,
+    icon: AnalyticsUpIcon,
   },
   {
     title: "Loyalty Report",
     url: "#",
-    icon: IconHeart,
+    icon: FavouriteSquareIcon,
   },
 ];

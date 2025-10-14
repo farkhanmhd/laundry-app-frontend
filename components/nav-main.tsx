@@ -1,6 +1,6 @@
 "use client";
 
-import type { Icon } from "@tabler/icons-react";
+import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -17,7 +17,7 @@ export function NavMain({
   items: {
     title: string;
     url: string;
-    icon?: Icon;
+    icon?: IconSvgElement;
   }[];
 }) {
   const pathname = usePathname();
@@ -37,7 +37,7 @@ export function NavMain({
                   tooltip={item.title}
                 >
                   <Link href={item.url}>
-                    {item.icon && <item.icon />}
+                    {item.icon && <HugeiconsIcon icon={item.icon} />}
                     <span>{item.title}</span>
                   </Link>
                 </SidebarMenuButton>

@@ -1,5 +1,5 @@
 import { delay, MapItems } from "@/lib/utils";
-import { PosProductCard } from "../../../components/pos-product-card";
+import { PosProductCard } from "../../../../components/pos-product-card";
 import { getProducts } from "./data";
 
 const PosPage = async () => {

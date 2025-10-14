@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  IconCreditCard,
-  IconDotsVertical,
-  IconNotification,
-  IconUserCircle,
-} from "@tabler/icons-react";
+import { MoreVerticalIcon, UserCircleIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import type { SessionUser } from "@/component-types";
 import {
   SidebarMenu,
@@ -39,7 +35,9 @@ export function NavUser({ user }: { user: SessionUser }) {
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
                 <AvatarImage alt={user.name} src={user.image || ""} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg uppercase">
+                  {user.name.slice(0, 2)}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -47,7 +45,7 @@ export function NavUser({ user }: { user: SessionUser }) {
                   {user.email}
                 </span>
               </div>
-              <IconDotsVertical className="ml-auto size-4" />
+              <HugeiconsIcon icon={MoreVerticalIcon} />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -60,7 +58,9 @@ export function NavUser({ user }: { user: SessionUser }) {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage alt={user.name} src={user.image!} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg uppercase">
+                    {user.name.slice(0, 2)}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
@@ -73,16 +73,8 @@ export function NavUser({ user }: { user: SessionUser }) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <IconUserCircle />
+                <HugeiconsIcon icon={UserCircleIcon} />
                 Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconCreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconNotification />
-                Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

@@ -1,4 +1,4 @@
-import type { Icon } from "@tabler/icons-react";
+import type { IconSvgElement } from "@hugeicons/react";
 import type { User } from "better-auth";
 
 export interface SessionUser extends User {
@@ -17,7 +17,7 @@ export interface SidebarUserData {
 export interface SidebarItem {
   title: string;
   url: string;
-  icon: Icon;
+  icon: IconSvgElement;
 }
 
 export interface ISidebarGroup {

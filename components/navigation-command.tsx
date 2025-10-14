@@ -1,5 +1,6 @@
 "use client";
 
+import { HugeiconsIcon } from "@hugeicons/react";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -66,7 +67,7 @@ export function NavigationCommand({ user }: { user: SessionUser }) {
                     setCommandOpen(false);
                   }}
                 >
-                  <item.icon />
+                  <HugeiconsIcon icon={item.icon} />
                   <span>{item.title}</span>
                 </CommandItem>
               ))}
