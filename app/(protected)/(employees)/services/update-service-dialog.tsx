@@ -51,7 +51,7 @@ export default function UpdateServiceDialog() {
     values: defaultValues,
   });
 
-  const { execute, isPending, result } = useAction(updateServiceAction, {
+  const { execute, isPending } = useAction(updateServiceAction, {
     onSuccess: (actionResult) => {
       if (actionResult.data?.status === "success") {
         close();
@@ -69,8 +69,6 @@ export default function UpdateServiceDialog() {
       execute(serviceData);
     }
   };
-
-  console.log(result);
 
   return (
     <AlertDialog onOpenChange={close} open={serviceState?.open === "update"}>

@@ -100,14 +100,18 @@ declare const app: Elysia<"", {
             image: import("@sinclair/typebox").TUnsafe<File>;
         }>;
         readonly addVoucher: import("@sinclair/typebox").TObject<{
+            code: import("@sinclair/typebox").TString;
             name: import("@sinclair/typebox").TString;
             pointsCost: import("@sinclair/typebox").TNumber;
             discountAmount: import("@sinclair/typebox").TNumber;
+            expiresAt: import("@sinclair/typebox").TString;
         }>;
         readonly updateVoucher: import("@sinclair/typebox").TObject<{
+            code: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
             name: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
             pointsCost: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TNumber>;
             discountAmount: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TNumber>;
+            expiresAt: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
         }>;
         readonly addVoucherResponse: import("@sinclair/typebox").TObject<{
             status: import("@sinclair/typebox").TLiteral<"success">;
@@ -121,10 +125,13 @@ declare const app: Elysia<"", {
             message: import("@sinclair/typebox").TString;
             data: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TObject<{
                 id: import("@sinclair/typebox").TString;
+                code: import("@sinclair/typebox").TString;
                 name: import("@sinclair/typebox").TString;
                 pointsCost: import("@sinclair/typebox").TInteger;
                 discountAmount: import("@sinclair/typebox").TInteger;
                 isActive: import("@sinclair/typebox").TBoolean;
+                isVisible: import("@sinclair/typebox").TBoolean;
+                expiresAt: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
                 createdAt: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
             }>>;
         }>;
@@ -927,9 +934,12 @@ declare const app: Elysia<"", {
                         id: string;
                         name: string;
                         createdAt: string | null;
+                        expiresAt: string | null;
+                        code: string;
                         pointsCost: number;
                         discountAmount: number;
                         isActive: boolean;
+                        isVisible: boolean;
                     }[];
                     status: "success";
                     message: string;
@@ -951,6 +961,8 @@ declare const app: Elysia<"", {
         post: {
             body: {
                 name: string;
+                expiresAt: string;
+                code: string;
                 pointsCost: number;
                 discountAmount: number;
             };
@@ -983,6 +995,8 @@ declare const app: Elysia<"", {
             patch: {
                 body: {
                     name?: string | undefined;
+                    expiresAt?: string | undefined;
+                    code?: string | undefined;
                     pointsCost?: number | undefined;
                     discountAmount?: number | undefined;
                 };

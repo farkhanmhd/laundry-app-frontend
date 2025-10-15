@@ -22,7 +22,7 @@ export const columns: ColumnDef<ServiceData>[] = [
           alt="Product Image"
           className="max-h-[60px] rounded-lg"
           height={60}
-          src={row.getValue("image")}
+          src={row.getValue("image") || "/placeholder.svg"}
           width={60}
         />
       </div>
