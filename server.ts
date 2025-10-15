@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Elysia } from "elysia";
 declare const app: Elysia<"", {
     decorator: {};
@@ -96,6 +98,35 @@ declare const app: Elysia<"", {
         }>;
         readonly updateServiceImage: import("@sinclair/typebox").TObject<{
             image: import("@sinclair/typebox").TUnsafe<File>;
+        }>;
+        readonly addVoucher: import("@sinclair/typebox").TObject<{
+            name: import("@sinclair/typebox").TString;
+            pointsCost: import("@sinclair/typebox").TNumber;
+            discountAmount: import("@sinclair/typebox").TNumber;
+        }>;
+        readonly updateVoucher: import("@sinclair/typebox").TObject<{
+            name: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+            pointsCost: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TNumber>;
+            discountAmount: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TNumber>;
+        }>;
+        readonly addVoucherResponse: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TLiteral<"success">;
+            message: import("@sinclair/typebox").TString;
+            data: import("@sinclair/typebox").TObject<{
+                id: import("@sinclair/typebox").TString;
+            }>;
+        }>;
+        readonly getVouchers: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TLiteral<"success">;
+            message: import("@sinclair/typebox").TString;
+            data: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TObject<{
+                id: import("@sinclair/typebox").TString;
+                name: import("@sinclair/typebox").TString;
+                pointsCost: import("@sinclair/typebox").TInteger;
+                discountAmount: import("@sinclair/typebox").TInteger;
+                isActive: import("@sinclair/typebox").TBoolean;
+                createdAt: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+            }>>;
         }>;
     };
     error: {
@@ -876,6 +907,122 @@ declare const app: Elysia<"", {
                     200: {
                         readonly status: "success";
                         readonly message: "Service deleted";
+                    };
+                };
+            };
+        };
+    };
+} & {
+    vouchers: {};
+} & {
+    vouchers: {
+        get: {
+            body: {};
+            params: {};
+            query: {};
+            headers: {};
+            response: {
+                200: {
+                    data: {
+                        id: string;
+                        name: string;
+                        createdAt: string | null;
+                        pointsCost: number;
+                        discountAmount: number;
+                        isActive: boolean;
+                    }[];
+                    status: "success";
+                    message: string;
+                };
+                422: {
+                    type: "validation";
+                    on: string;
+                    summary?: string;
+                    message?: string;
+                    found?: unknown;
+                    property?: string;
+                    expected?: string;
+                };
+            };
+        };
+    };
+} & {
+    vouchers: {
+        post: {
+            body: {
+                name: string;
+                pointsCost: number;
+                discountAmount: number;
+            };
+            params: {};
+            query: unknown;
+            headers: unknown;
+            response: {
+                422: {
+                    type: "validation";
+                    on: string;
+                    summary?: string;
+                    message?: string;
+                    found?: unknown;
+                    property?: string;
+                    expected?: string;
+                };
+                201: {
+                    readonly status: "success";
+                    readonly message: "New Voucher Created";
+                    readonly data: {
+                        readonly id: string;
+                    };
+                };
+            };
+        };
+    };
+} & {
+    vouchers: {
+        ":id": {
+            patch: {
+                body: {
+                    name?: string | undefined;
+                    pointsCost?: number | undefined;
+                    discountAmount?: number | undefined;
+                };
+                params: {
+                    id: string;
+                };
+                query: unknown;
+                headers: unknown;
+                response: {
+                    200: {
+                        readonly status: "success";
+                        readonly message: "Voucher updated successfully";
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                };
+            };
+        };
+    };
+} & {
+    vouchers: {
+        ":id": {
+            delete: {
+                body: unknown;
+                params: {
+                    id: string;
+                };
+                query: unknown;
+                headers: unknown;
+                response: {
+                    200: {
+                        readonly status: "success";
+                        readonly message: "Voucher deactivated successfully";
                     };
                 };
             };
