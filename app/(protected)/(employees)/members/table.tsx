@@ -9,11 +9,13 @@ import {
 } from "@tanstack/react-table";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useSidebar } from "@/components/animate-ui/components/radix/sidebar";
 import DataTable from "@/components/table/data-table";
 import { DataTablePagination } from "@/components/table/data-table-pagination";
 import DataTableSearch from "@/components/table/data-table-search";
 import { DataTableViewOptions } from "@/components/table/data-table-view-options";
 import { useSearchQuery } from "@/hooks/use-search-query";
+import { cn } from "@/lib/utils";
 import AddMemberDialog from "./add-member-dialog";
 import type { MemberData } from "./data";
 
@@ -67,6 +69,7 @@ const MembersTable = <TData extends MemberData, TValue>({
       pagination,
     },
   });
+  const { open } = useSidebar();
 
   const handleSearchChange = (value: string) => {
     setGlobalFilter(value);
@@ -92,7 +95,14 @@ const MembersTable = <TData extends MemberData, TValue>({
       </div>
 
       <DataTable
-        className="max-h-[calc(100dvh-188px)] max-w-[calc(100svw-32px)] lg:max-h-[calc(100dvh-220px)]"
+        className={cn(
+          "max-h-[calc(100dvh-188px)] lg:max-h-[calc(100dvh-220px)]",
+          {
+            "max-w-[calc(100svw-336px)]": open,
+            "max-w-[calc(100svw-32px)] md:max-w-[calc(100svw-98px)] lg:max-w-[calc(100svw-114px)]":
+              !open,
+          }
+        )}
         columns={columns}
         table={table}
       />
@@ -105,5 +115,3 @@ const MembersTable = <TData extends MemberData, TValue>({
 };
 
 export default MembersTable;
-
-// h - [calc(100dvh-112px)]; max-h-[calc(100dvh-224px)]

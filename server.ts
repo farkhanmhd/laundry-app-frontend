@@ -41,6 +41,7 @@ declare const app: Elysia<"", {
                 reorderPoint: import("@sinclair/typebox").TInteger;
                 createdAt: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
                 updatedAt: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+                deletedAt: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
             }>>;
         }>;
         readonly updateProduct: import("@sinclair/typebox").TObject<{
@@ -63,6 +64,38 @@ declare const app: Elysia<"", {
             search: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
             rows: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TInteger>;
             page: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TInteger>;
+        }>;
+        readonly addService: import("@sinclair/typebox").TObject<{
+            name: import("@sinclair/typebox").TString;
+            image: import("@sinclair/typebox").TUnsafe<File>;
+            price: import("@sinclair/typebox").TNumber;
+        }>;
+        readonly addServiceResponse: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TLiteral<"success">;
+            message: import("@sinclair/typebox").TString;
+            data: import("@sinclair/typebox").TObject<{
+                id: import("@sinclair/typebox").TString;
+            }>;
+        }>;
+        readonly getServices: import("@sinclair/typebox").TObject<{
+            status: import("@sinclair/typebox").TLiteral<"success">;
+            message: import("@sinclair/typebox").TString;
+            data: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TObject<{
+                id: import("@sinclair/typebox").TString;
+                name: import("@sinclair/typebox").TString;
+                image: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+                price: import("@sinclair/typebox").TInteger;
+                createdAt: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+                updatedAt: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+                deletedAt: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TNull]>;
+            }>>;
+        }>;
+        readonly updateService: import("@sinclair/typebox").TObject<{
+            name: import("@sinclair/typebox").TString;
+            price: import("@sinclair/typebox").TNumber;
+        }>;
+        readonly updateServiceImage: import("@sinclair/typebox").TObject<{
+            image: import("@sinclair/typebox").TUnsafe<File>;
         }>;
     };
     error: {
@@ -462,6 +495,7 @@ declare const app: Elysia<"", {
                         createdAt: string | null;
                         updatedAt: string | null;
                         price: number;
+                        deletedAt: string | null;
                         currentQuantity: number;
                         reorderPoint: number;
                     }[];
@@ -694,6 +728,154 @@ declare const app: Elysia<"", {
                     readonly message: "New Member Added";
                     readonly data: {
                         readonly id: string;
+                    };
+                };
+            };
+        };
+    };
+} & {
+    services: {};
+} & {
+    services: {
+        get: {
+            body: {};
+            params: {};
+            query: {};
+            headers: {};
+            response: {
+                200: {
+                    data: {
+                        id: string;
+                        name: string;
+                        image: string | null;
+                        createdAt: string | null;
+                        updatedAt: string | null;
+                        price: number;
+                        deletedAt: string | null;
+                    }[];
+                    status: "success";
+                    message: string;
+                };
+                422: {
+                    type: "validation";
+                    on: string;
+                    summary?: string;
+                    message?: string;
+                    found?: unknown;
+                    property?: string;
+                    expected?: string;
+                };
+            };
+        };
+    };
+} & {
+    services: {
+        post: {
+            body: {
+                name: string;
+                image: File;
+                price: number;
+            };
+            params: {};
+            query: unknown;
+            headers: unknown;
+            response: {
+                422: {
+                    type: "validation";
+                    on: string;
+                    summary?: string;
+                    message?: string;
+                    found?: unknown;
+                    property?: string;
+                    expected?: string;
+                };
+                201: {
+                    data: {
+                        id: string;
+                    };
+                    status: "success";
+                    message: string;
+                };
+            };
+        };
+    };
+} & {
+    services: {
+        ":id": {
+            patch: {
+                body: {
+                    name: string;
+                    price: number;
+                };
+                params: {
+                    id: string;
+                };
+                query: unknown;
+                headers: unknown;
+                response: {
+                    200: {
+                        readonly status: "success";
+                        readonly message: "Service updated";
+                    };
+                    422: {
+                        type: "validation";
+                        on: string;
+                        summary?: string;
+                        message?: string;
+                        found?: unknown;
+                        property?: string;
+                        expected?: string;
+                    };
+                };
+            };
+        };
+    };
+} & {
+    services: {
+        ":id": {
+            image: {
+                patch: {
+                    body: {
+                        image: File;
+                    };
+                    params: {
+                        id: string;
+                    };
+                    query: unknown;
+                    headers: unknown;
+                    response: {
+                        200: {
+                            readonly status: "success";
+                            readonly message: "Service updated";
+                        };
+                        422: {
+                            type: "validation";
+                            on: string;
+                            summary?: string;
+                            message?: string;
+                            found?: unknown;
+                            property?: string;
+                            expected?: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
+} & {
+    services: {
+        ":id": {
+            delete: {
+                body: unknown;
+                params: {
+                    id: string;
+                };
+                query: unknown;
+                headers: unknown;
+                response: {
+                    200: {
+                        readonly status: "success";
+                        readonly message: "Service deleted";
                     };
                 };
             };

@@ -22,13 +22,11 @@ const MemberPage = async (props: Props) => {
   const data = await getMembers(query);
 
   return (
-    <div className="h-full p-4 lg:p-6">
-      <MembersTable
-        columns={columns}
-        data={data!.members}
-        total={data!.total as number}
-      />
-    </div>
+    <MembersTable
+      columns={columns}
+      data={data!.members}
+      total={data!.total as number}
+    />
   );
 };
 

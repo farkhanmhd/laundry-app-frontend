@@ -13,7 +13,9 @@ const PosLayout = ({ children }: { children: ReactNode }) => (
           placeholder="Search Items or Services"
         />
         <ScrollArea className="h-[calc(100dvh-144px)] lg:h-[calc(100dvh-168px)]">
-          {children}
+          <ul className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4">
+            {children}
+          </ul>
         </ScrollArea>
       </section>
     </div>

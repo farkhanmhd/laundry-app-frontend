@@ -27,53 +27,51 @@ const DataTable = <TData, TValue>({
   selectableRows = false,
   className,
 }: Props<TData, TValue>) => (
-  <ScrollArea className={cn("relative rounded-md border")}>
-    <div className={className}>
-      <Table>
-        <TableHeader className="sticky top-0 z-50 bg-background">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead className="px-4" key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </TableHead>
+  <ScrollArea className={cn("relative rounded-md border", className)}>
+    <Table>
+      <TableHeader className="sticky top-0 z-50 bg-background">
+        {table.getHeaderGroups().map((headerGroup) => (
+          <TableRow key={headerGroup.id}>
+            {headerGroup.headers.map((header) => (
+              <TableHead className="px-4" key={header.id}>
+                {header.isPlaceholder
+                  ? null
+                  : flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+              </TableHead>
+            ))}
+          </TableRow>
+        ))}
+      </TableHeader>
+      <TableBody>
+        {table.getRowModel().rows?.length ? (
+          table.getRowModel().rows.map((row) => (
+            <TableRow
+              className={cn({
+                "cursor-pointer": selectableRows,
+              })}
+              data-state={row.getIsSelected() && "selected"}
+              key={row.id}
+              onClick={() => selectableRows && row.toggleSelected()}
+            >
+              {row.getVisibleCells().map((cell) => (
+                <TableCell className="px-4" key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
               ))}
             </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                className={cn({
-                  "cursor-pointer": selectableRows,
-                })}
-                data-state={row.getIsSelected() && "selected"}
-                key={row.id}
-                onClick={() => selectableRows && row.toggleSelected()}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell className="px-4" key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell className="h-16 text-center" colSpan={columns.length}>
-                No results found
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+          ))
+        ) : (
+          <TableRow>
+            <TableCell className="h-16 text-center" colSpan={columns.length}>
+              No results found
+            </TableCell>
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
     <ScrollBar orientation="horizontal" />
   </ScrollArea>
 );

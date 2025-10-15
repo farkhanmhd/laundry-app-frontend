@@ -17,7 +17,8 @@
       "!components/ui/*.tsx",
       "!components/animate-ui/**/*.tsx",
       "!elysia",
-      "!stories"
+      "!stories",
+      "!server.ts"
     ]
   },
   "formatter": {
