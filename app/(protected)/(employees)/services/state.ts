@@ -1,4 +1,3 @@
-
 "use client";
 
 import { atom, useAtom } from "jotai";
@@ -27,4 +26,3 @@ export const useServiceDialog = <T>() => {
     setServiceState,
   };
 };
-

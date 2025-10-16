@@ -16,32 +16,32 @@ import { useSidebar } from "@/components/animate-ui/components/radix/sidebar";
 import DataTable from "@/components/table/data-table";
 import { DataTablePagination } from "@/components/table/data-table-pagination";
 import DataTableSearch from "@/components/table/data-table-search";
-import { DataTableViewOptions } from "@/components/table/data-table-view-options";
 import { Button } from "@/components/ui/button";
 import {
   useSearchQueryParams,
   useTablePaginationSearchParams,
 } from "@/lib/search-params";
 import { cn } from "@/lib/utils";
-import AddServiceDialog from "./add-service-dialog";
-import type { ServiceData } from "./data";
-import DeleteServiceDialog from "./delete-service-dialog";
-import UpdateServiceDialog from "./update-service-dialog";
+import AddVoucherDialog from "./add-voucher-dialog";
+import type { Voucher } from "./data";
+import { DeleteVoucherDialog } from "./delete-voucher-dialog";
+import UpdateVoucherDialog from "./update-voucher-dialog";
 
-interface ServicesTableProps<TData extends ServiceData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+interface VoucherCardsProps<TData extends Voucher, TValue> {
   data: TData[];
+  columns: ColumnDef<TData, TValue>[];
 }
 
-const ServicesTable = <TData extends ServiceData, TValue>({
-  columns,
+const VoucherTable = <TData extends Voucher, TValue>({
   data = [],
-}: ServicesTableProps<TData, TValue>) => {
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  columns,
+}: VoucherCardsProps<TData, TValue>) => {
   const [globalFilter, setGlobalFilter] = useSearchQueryParams();
   const [pagination, setPagination] = useTablePaginationSearchParams();
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const { open } = useSidebar();
+
   const table = useReactTable({
     data,
     columns,
@@ -70,30 +70,26 @@ const ServicesTable = <TData extends ServiceData, TValue>({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <DataTableSearch
-            className="min-w-xs max-w-lg"
+            className="min-w-xs max-w-sm"
             onChange={setGlobalFilter}
-            placeholder="Search Services..."
+            placeholder="Search by name or code..."
             table={table}
             value={globalFilter}
           />
           {isFiltered && (
             <Button
-              className="h-8 px-2 lg:px-3"
+              className="h-9 px-2 lg:px-3"
               onClick={() => {
-                table.resetColumnFilters();
                 setGlobalFilter("");
               }}
               variant="ghost"
             >
               Reset
-              <X />
+              <X className="ml-2 h-4 w-4" />
             </Button>
           )}
         </div>
-        <div className="flex items-center gap-3">
-          <DataTableViewOptions table={table} />
-          <AddServiceDialog />
-        </div>
+        <AddVoucherDialog />
       </div>
 
       <DataTable
@@ -112,10 +108,10 @@ const ServicesTable = <TData extends ServiceData, TValue>({
       <div className="mt-auto">
         <DataTablePagination table={table} />
       </div>
-      <UpdateServiceDialog />
-      <DeleteServiceDialog />
+      <UpdateVoucherDialog />
+      <DeleteVoucherDialog />
     </div>
   );
 };
 
-export default ServicesTable;
+export default VoucherTable;

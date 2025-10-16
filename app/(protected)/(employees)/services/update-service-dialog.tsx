@@ -48,7 +48,7 @@ export default function UpdateServiceDialog() {
 
   const form = useForm<UpdateServiceSchema>({
     resolver: zodResolver(updateServiceSchema),
-    values: defaultValues,
+    defaultValues,
   });
 
   const { execute, isPending } = useAction(updateServiceAction, {

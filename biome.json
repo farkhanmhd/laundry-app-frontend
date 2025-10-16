@@ -14,6 +14,7 @@
       "!dist",
       "!build",
       "!lib/utils.ts",
+      "!components/*.tsx",
       "!components/ui/*.tsx",
       "!components/animate-ui/**/*.tsx",
       "!elysia",

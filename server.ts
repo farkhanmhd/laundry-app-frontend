@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Elysia } from "elysia";
 declare const app: Elysia<"", {
     decorator: {};
@@ -105,6 +103,8 @@ declare const app: Elysia<"", {
             pointsCost: import("@sinclair/typebox").TNumber;
             discountAmount: import("@sinclair/typebox").TNumber;
             expiresAt: import("@sinclair/typebox").TString;
+            isActive: import("@sinclair/typebox").TBoolean;
+            isVisible: import("@sinclair/typebox").TBoolean;
         }>;
         readonly updateVoucher: import("@sinclair/typebox").TObject<{
             code: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
@@ -112,6 +112,8 @@ declare const app: Elysia<"", {
             pointsCost: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TNumber>;
             discountAmount: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TNumber>;
             expiresAt: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+            isActive: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TBoolean>;
+            isVisible: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TBoolean>;
         }>;
         readonly addVoucherResponse: import("@sinclair/typebox").TObject<{
             status: import("@sinclair/typebox").TLiteral<"success">;
@@ -965,6 +967,8 @@ declare const app: Elysia<"", {
                 code: string;
                 pointsCost: number;
                 discountAmount: number;
+                isActive: boolean;
+                isVisible: boolean;
             };
             params: {};
             query: unknown;
@@ -999,6 +1003,8 @@ declare const app: Elysia<"", {
                     code?: string | undefined;
                     pointsCost?: number | undefined;
                     discountAmount?: number | undefined;
+                    isActive?: boolean | undefined;
+                    isVisible?: boolean | undefined;
                 };
                 params: {
                     id: string;
