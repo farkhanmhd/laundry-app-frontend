@@ -16,8 +16,8 @@ import DataTableSearch from "@/components/table/data-table-search";
 import { DataTableViewOptions } from "@/components/table/data-table-view-options";
 import { useSearchQuery } from "@/hooks/use-search-query";
 import { cn } from "@/lib/utils";
+import type { MemberData } from "../data";
 import AddMemberDialog from "./add-member-dialog";
-import type { MemberData } from "./data";
 
 interface MembersTableProps<TData extends MemberData, TValue> {
   columns: ColumnDef<TData, TValue>[];

@@ -27,7 +27,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { type AddMemberSchema, addMemberAction } from "./actions";
+import { addMemberAction } from "../actions";
+import type { AddMemberSchema } from "../schema";
 
 const addMemberSchema = z.object({
   name: z.string().min(3, "Customer name is required"),

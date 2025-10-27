@@ -1,6 +1,6 @@
-import { columns } from "./columns";
+import { columns } from "./components/columns";
+import ProductsTable from "./components/table";
 import { getProducts } from "./data";
-import ProductsTable from "./table";
 
 const ProductsPage = async () => {
   const data = await getProducts();

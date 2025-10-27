@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useAction } from "next-safe-action/hooks";
@@ -13,14 +12,14 @@ import {
   AlertDialogTitle, // Using Title for better semantics and accessibility
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { deleteServiceAction } from "./actions";
-import { type ServiceID, useServiceDialog } from "./state";
+import { deleteProductAction } from "../actions";
+import { type ProductID, useProductDialog } from "./state";
 
-const DeleteServiceDialog = () => {
-  const { serviceState, close } = useServiceDialog<ServiceID>();
+const DeleteProductDialog = () => {
+  const { productState, close } = useProductDialog<ProductID>();
 
-  const { execute: confirmAndDeleteService, isPending } = useAction(
-    deleteServiceAction,
+  const { execute: confirmAndDeleteProduct, isPending } = useAction(
+    deleteProductAction,
     {
       onSuccess: (result) => {
         if (result.data?.status === "success") {
@@ -32,13 +31,13 @@ const DeleteServiceDialog = () => {
   );
 
   return (
-    <AlertDialog onOpenChange={close} open={serviceState?.open === "delete"}>
+    <AlertDialog onOpenChange={close} open={productState?.open === "delete"}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete the
-            service and remove all of its associated data from our servers.
+            product and remove all of its associated data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -46,13 +45,13 @@ const DeleteServiceDialog = () => {
             Cancel
           </AlertDialogCancel>
           <Button
-            disabled={isPending || !serviceState?.data.id}
+            disabled={isPending || !productState?.data.id}
             onClick={() =>
-              confirmAndDeleteService({ id: serviceState?.data.id as string })
+              confirmAndDeleteProduct({ id: productState?.data.id as string })
             }
             variant="destructive"
           >
-            {isPending ? "Deleting..." : "Yes, delete service"}
+            {isPending ? "Deleting..." : "Yes, delete product"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -60,4 +59,4 @@ const DeleteServiceDialog = () => {
   );
 };
 
-export default DeleteServiceDialog;
+export default DeleteProductDialog;

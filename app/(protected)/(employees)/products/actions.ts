@@ -1,8 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
-import { zfd } from "zod-form-data";
+
 import type { elysia } from "@/elysia/treaty";
 import { actionClient } from "@/lib/safe-action";
 import {
@@ -11,23 +10,16 @@ import {
   deleteProduct,
   updateProduct,
 } from "./data";
+import {
+  type AddProductSchema,
+  addProductSchema,
+  adjustQuantitySchema,
+  deleteProductSchema,
+  type UpdateProductBody,
+  updateProductSchema,
+} from "./schema";
 
 export type AddProductBody = Parameters<typeof elysia.products.post>[0];
-const addProductSchema = z.object({
-  name: z.string().min(1, "Product name is required"),
-  image: z.file(),
-  price: z
-    .int({ error: "Price should be a number" })
-    .min(0, "Price must be a positive number"),
-  currentQuantity: z
-    .int({ error: "Quantity should be a number" })
-    .min(0, "Current quantity must be a positive number"),
-  reorderPoint: z
-    .int({ error: "Reorder Point should be a number" })
-    .min(0, "Reorder point must be a positive number"),
-});
-
-export type AddProductSchema = z.infer<typeof addProductSchema>;
 
 export const addProductAction = actionClient
   .inputSchema(addProductSchema)
@@ -57,10 +49,6 @@ export const addProductAction = actionClient
     }
   });
 
-const deleteProductSchema = z.object({
-  id: z.string(),
-});
-
 export const deleteProductAction = actionClient
   .inputSchema(deleteProductSchema)
   .action(async ({ parsedInput }) => {
@@ -86,19 +74,6 @@ export const deleteProductAction = actionClient
       message: result.data?.message,
     };
   });
-
-const updateProductSchema = zfd.formData({
-  id: zfd.text(z.string().min(1, "Product id is required")),
-  name: zfd.text(z.string().min(1, "Product name is required")),
-  image: zfd.file().optional(),
-  price: zfd.numeric(z.number().min(1, "Price must be a positive number")),
-  reorderPoint: zfd
-    .numeric(z.number().min(1, "Reorder point must be a positive number"))
-    .optional(),
-});
-
-export type UpdateProductSchema = z.infer<typeof updateProductSchema>;
-export type UpdateProductBody = Omit<UpdateProductSchema, "id">;
 
 const errorResult = {
   status: "error",
@@ -129,14 +104,6 @@ export const updateProductAction = actionClient
       message: "Product updated",
     };
   });
-
-const adjustQuantitySchema = z.object({
-  productId: z.string().min(1, "Product id cannot be empty"),
-  newQuantity: z.number().min(1, "New Quantity must be a positive number"),
-  reason: z.string().min(3, "Reason is required"),
-});
-
-export type AdjustQuantitySchema = z.infer<typeof adjustQuantitySchema>;
 
 export const adjustQuantityAction = actionClient
   .inputSchema(adjustQuantitySchema)

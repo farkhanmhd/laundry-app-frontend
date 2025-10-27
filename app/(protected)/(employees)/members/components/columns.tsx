@@ -1,7 +1,7 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import type { MemberData } from "./data";
+import type { MemberData } from "../data";
 
 export const columns: ColumnDef<MemberData>[] = [
   {

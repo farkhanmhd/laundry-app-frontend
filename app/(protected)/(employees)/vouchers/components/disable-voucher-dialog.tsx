@@ -12,10 +12,10 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { deleteVoucherAction } from "./actions";
+import { deleteVoucherAction } from "../actions";
 import { useVoucherDialog, type VoucherID } from "./state";
 
-export function DeleteVoucherDialog() {
+export function DisableVoucherDialog() {
   const { voucherState, close } = useVoucherDialog<VoucherID>();
 
   const { execute: confirmAndDeleteProduct, isPending } = useAction(
@@ -34,10 +34,9 @@ export function DeleteVoucherDialog() {
     <AlertDialog onOpenChange={close} open={voucherState?.open === "delete"}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete voucher?</AlertDialogTitle>
+          <AlertDialogTitle>Disable voucher?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the
-            voucher .
+            This will disable the current voucher.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -51,7 +50,7 @@ export function DeleteVoucherDialog() {
             }
             variant="destructive"
           >
-            Confirm Delete
+            Deactivate
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

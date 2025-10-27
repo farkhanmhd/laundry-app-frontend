@@ -1,6 +1,6 @@
 "use client";
 
-import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -10,15 +10,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/animate-ui/components/radix/sidebar";
+import { SidebarItem } from "@/component-types";
 
 export function NavMain({
   items,
 }: {
-  items: {
-    title: string;
-    url: string;
-    icon?: IconSvgElement;
-  }[];
+  items: SidebarItem[];
 }) {
   const pathname = usePathname();
 

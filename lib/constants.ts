@@ -14,7 +14,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import type { SidebarItem } from "@/component-types";
 
-export const staffNavData: SidebarItem[] = [
+export const adminNavData: SidebarItem[] = [
   {
     title: "Point of Sales",
     url: "/pos",
@@ -37,13 +37,13 @@ export const staffNavData: SidebarItem[] = [
   },
 ];
 
-export const adminNavData: SidebarItem[] = [
+export const superAdminNavData: SidebarItem[] = [
   {
     title: "Report",
     url: "/dashboard",
     icon: Analytics01Icon,
   },
-  ...staffNavData,
+  ...adminNavData,
   {
     title: "Inventory",
     url: "/products",

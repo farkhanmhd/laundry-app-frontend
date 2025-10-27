@@ -5,29 +5,11 @@ import { z } from "zod";
 import type { elysia } from "@/elysia/treaty";
 import { actionClient } from "@/lib/safe-action";
 import { addVoucher, deleteVoucher, updateVoucher } from "./data";
+import { addVoucherSchema } from "./schema";
 
 // --- Type Inference ---
 // Infers the expected body type for adding a voucher directly from the Elysia client.
 export type AddVoucherBody = Parameters<typeof elysia.vouchers.post>[0];
-
-// --- Add Voucher Action ---
-const addVoucherSchema = z.object({
-  name: z.string().min(1, "Voucher name is required"),
-  code: z.string().min(1, "Voucher code is required"),
-  discountAmount: z.coerce
-    .number({ error: "Discount must be a number" })
-    .int()
-    .min(1, "Discount must be a positive number"),
-  pointsCost: z.coerce
-    .number({ error: "Points cost must be a number" })
-    .int()
-    .min(1, "Points cost must be a positive number"),
-  expiresAt: z.coerce.date({ error: "Expiry date is required" }),
-  isActive: z.boolean(),
-  isVisible: z.boolean(),
-});
-
-export type AddVoucherSchema = z.infer<typeof addVoucherSchema>;
 
 export const addVoucherAction = actionClient
   .inputSchema(addVoucherSchema)

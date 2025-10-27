@@ -1,15 +1,14 @@
 "use client";
 
-import { IconEdit, IconTrash } from "@tabler/icons-react";
+import { PencilEdit02Icon, UnavailableIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
-
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
-import type { UpdateVoucherSchema } from "./actions";
-import type { Voucher } from "./data";
+import type { Voucher } from "../data";
 import { type UpdateData, useVoucherDialog, type VoucherID } from "./state";
 
 export const columns: ColumnDef<Voucher>[] = [
@@ -141,10 +140,15 @@ export const columns: ColumnDef<Voucher>[] = [
       return (
         <div className="flex items-center gap-2">
           <Button onClick={openUpdateDialog} size="icon" variant="outline">
-            <IconEdit />
+            <HugeiconsIcon icon={PencilEdit02Icon} />
           </Button>
-          <Button onClick={openDeleteDialog} size="icon" variant="outline">
-            <IconTrash />
+          <Button
+            className="h-10 w-10"
+            onClick={openDeleteDialog}
+            size="icon"
+            variant="outline"
+          >
+            <HugeiconsIcon icon={UnavailableIcon} />
           </Button>
         </div>
       );

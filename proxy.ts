@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { authClient } from "./lib/auth-client";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   try {
     const { data: session } = await authClient.getSession({
       fetchOptions: {

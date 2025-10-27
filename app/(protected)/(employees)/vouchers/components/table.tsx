@@ -16,33 +16,30 @@ import { useSidebar } from "@/components/animate-ui/components/radix/sidebar";
 import DataTable from "@/components/table/data-table";
 import { DataTablePagination } from "@/components/table/data-table-pagination";
 import DataTableSearch from "@/components/table/data-table-search";
-import { DataTableViewOptions } from "@/components/table/data-table-view-options";
 import { Button } from "@/components/ui/button";
 import {
   useSearchQueryParams,
   useTablePaginationSearchParams,
 } from "@/lib/search-params";
 import { cn } from "@/lib/utils";
-import AddProductDialog from "./add-product-dialog";
-import AdjustQuantityDialog from "./adjust-quantity-dialog";
-import type { ProductData } from "./data";
-import DeleteProductDialog from "./delete-product-dialog";
-import UpdateProductDialog from "./update-product-dialog";
+import type { Voucher } from "../data";
+import AddVoucherDialog from "./add-voucher-dialog";
+import { DisableVoucherDialog } from "./disable-voucher-dialog";
+import UpdateVoucherDialog from "./update-voucher-dialog";
 
-interface ProductsTableProps<TData extends ProductData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+interface VoucherTableProps<TData extends Voucher, TValue> {
   data: TData[];
+  columns: ColumnDef<TData, TValue>[];
 }
 
-const ProductsTable = <TData extends ProductData, TValue>({
-  columns,
+const VoucherTable = <TData extends Voucher, TValue>({
   data = [],
-}: ProductsTableProps<TData, TValue>) => {
+  columns,
+}: VoucherTableProps<TData, TValue>) => {
+  const [globalFilter, setGlobalFilter] = useSearchQueryParams();
+  const [pagination, setPagination] = useTablePaginationSearchParams();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useSearchQueryParams();
-  const [rowSelection, setRowSelection] = useState({});
-  const [pagination, setPagination] = useTablePaginationSearchParams();
   const { open } = useSidebar();
 
   const table = useReactTable({
@@ -55,7 +52,6 @@ const ProductsTable = <TData extends ProductData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onGlobalFilterChange: setGlobalFilter,
-    onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
     autoResetPageIndex: true,
     getRowId: (row) => row.id,
@@ -63,7 +59,6 @@ const ProductsTable = <TData extends ProductData, TValue>({
       sorting,
       columnFilters,
       globalFilter,
-      rowSelection,
       pagination,
     },
   });
@@ -75,30 +70,26 @@ const ProductsTable = <TData extends ProductData, TValue>({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <DataTableSearch
-            className="min-w-xs max-w-lg"
+            className="min-w-xs max-w-sm"
             onChange={setGlobalFilter}
-            placeholder="Search Products..."
+            placeholder="Search by name or code..."
             table={table}
             value={globalFilter}
           />
           {isFiltered && (
             <Button
-              className="h-8 px-2 lg:px-3"
+              className="h-9 px-2 lg:px-3"
               onClick={() => {
-                table.resetColumnFilters();
                 setGlobalFilter("");
               }}
               variant="ghost"
             >
               Reset
-              <X />
+              <X className="ml-2 h-4 w-4" />
             </Button>
           )}
         </div>
-        <div className="flex items-center gap-3">
-          <DataTableViewOptions table={table} />
-          <AddProductDialog />
-        </div>
+        <AddVoucherDialog />
       </div>
 
       <DataTable
@@ -117,11 +108,10 @@ const ProductsTable = <TData extends ProductData, TValue>({
       <div className="mt-auto">
         <DataTablePagination table={table} />
       </div>
-      <UpdateProductDialog />
-      <AdjustQuantityDialog />
-      <DeleteProductDialog />
+      <UpdateVoucherDialog />
+      <DisableVoucherDialog />
     </div>
   );
 };
 
-export default ProductsTable;
+export default VoucherTable;

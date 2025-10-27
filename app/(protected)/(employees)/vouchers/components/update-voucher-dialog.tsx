@@ -28,7 +28,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Switch } from "@/components/ui/switch";
-import { updateVoucherAction } from "./actions";
+import { updateVoucherAction } from "../actions";
 import { type UpdateData, useVoucherDialog } from "./state";
 
 const addVoucherSchema = z.object({

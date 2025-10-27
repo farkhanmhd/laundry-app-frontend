@@ -1,7 +1,7 @@
 "use client";
 
 import { atom, useAtom } from "jotai";
-import type { ProductData } from "./data";
+import type { ProductData } from "../data";
 
 export type ProductID = Pick<ProductData, "id">;
 export type UpdateData = Omit<ProductData, "currentQuantity">;

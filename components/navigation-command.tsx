@@ -15,7 +15,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { adminNavData, staffNavData } from "@/lib/constants";
+import { adminNavData, superAdminNavData } from "@/lib/constants";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 
@@ -36,7 +36,7 @@ export function NavigationCommand({ user }: { user: SessionUser }) {
   }, []);
 
   const role = user.role;
-  const menu = role === "admin" ? adminNavData : staffNavData;
+  const menu = role === "superadmin" ? superAdminNavData : adminNavData;
 
   return (
     <>

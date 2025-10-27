@@ -1,7 +1,7 @@
 import type { SearchQuery } from "@/lib/search-params";
-import { columns } from "./columns";
+import { columns } from "./components/columns";
+import MembersTable from "./components/table";
 import { getMembers } from "./data";
-import MembersTable from "./table";
 
 type Props = {
   searchParams: Promise<{

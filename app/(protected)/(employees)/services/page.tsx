@@ -1,7 +1,6 @@
-
-import { columns } from "./columns";
+import { columns } from "./components/columns";
+import ServicesTable from "./components/table";
 import { getServices } from "./data";
-import ServicesTable from "./table";
 
 const ServicesPage = async () => {
   const data = await getServices();

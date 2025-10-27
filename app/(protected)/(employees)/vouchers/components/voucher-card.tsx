@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import type { Voucher } from "./data";
-import { DeleteVoucherDialog } from "./delete-voucher-dialog";
+import type { Voucher } from "../data";
+import { DisableVoucherDialog } from "./disable-voucher-dialog";
 
 export interface VoucherCardProps {
   voucher: Voucher;
@@ -217,7 +217,7 @@ export const VoucherCard: React.FC<VoucherCardProps> = ({
           )}
         </div>
 
-        <DeleteVoucherDialog />
+        <DisableVoucherDialog />
       </CardFooter>
     </Card>
   );

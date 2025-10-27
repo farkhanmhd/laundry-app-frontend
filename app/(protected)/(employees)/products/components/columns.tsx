@@ -8,7 +8,7 @@ import { DataTableColumnHeader } from "@/components/table/data-table-column-head
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
-import type { ProductData } from "./data";
+import type { ProductData } from "../data";
 import {
   type ProductID,
   type UpdateData,

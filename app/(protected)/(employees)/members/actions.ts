@@ -2,16 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
-import { z } from "zod";
+
 import { elysia } from "@/elysia/treaty";
 import { actionClient } from "@/lib/safe-action";
-
-const addMemberSchema = z.object({
-  name: z.string().min(3, "Customer name is required"),
-  phone: z.string().min(7, "Phone number is required"),
-});
-
-export type AddMemberSchema = z.infer<typeof addMemberSchema>;
+import { addMemberSchema } from "./schema";
 
 export const addMemberAction = actionClient
   .inputSchema(addMemberSchema)

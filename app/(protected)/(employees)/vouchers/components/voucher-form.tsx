@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import type { AddVoucherSchema, UpdateVoucherSchema } from "./actions";
+import type { AddVoucherSchema, UpdateVoucherSchema } from "../actions";
 
 type Props<T extends AddVoucherSchema | UpdateVoucherSchema> = {
   form: UseFormReturn<T>;

@@ -30,23 +30,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Switch } from "@/components/ui/switch";
-import { addVoucherAction } from "./actions";
-
-const addVoucherSchema = z.object({
-  name: z.string().min(1, "Voucher name is required"),
-  code: z.string().min(1, "Voucher code is required"),
-  discountAmount: z
-    .int({ error: "Discount Amount must be a number" })
-    .min(1, "Discount Amount must be a positive number"),
-  pointsCost: z
-    .int({ error: "Points Cost must be a number" })
-    .min(1, "Points Cost must be a positive number"),
-  expiresAt: z.date({ error: "Expiry date is required" }),
-  isActive: z.boolean(),
-  isVisible: z.boolean(),
-});
-
-type AddVoucherSchema = z.infer<typeof addVoucherSchema>;
+import { type AddVoucherSchema, addVoucherAction } from "../actions";
+import { addVoucherSchema } from "../schema";
 
 export default function AddVoucherDialog() {
   const [open, setOpen] = useState(false);

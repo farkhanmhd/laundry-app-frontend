@@ -1,10 +1,12 @@
-import type { IconSvgElement } from "@hugeicons/react";
 import type { User } from "better-auth";
 
 export interface SessionUser extends User {
   username?: string | null | undefined;
   displayUsername?: string | null | undefined;
-  role: string;
+  role: "superadmin" | "admin" | "user";
+  banned: boolean;
+  bannedReason: string | null;
+  banExpires: Date | null;
 }
 
 export interface SidebarUserData {
@@ -17,7 +19,7 @@ export interface SidebarUserData {
 export interface SidebarItem {
   title: string;
   url: string;
-  icon: IconSvgElement;
+  icon: IconSvgObject;
 }
 
 export interface ISidebarGroup {

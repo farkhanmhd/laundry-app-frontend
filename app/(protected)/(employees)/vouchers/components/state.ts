@@ -1,7 +1,7 @@
 "use client";
 
 import { atom, useAtom } from "jotai";
-import type { Voucher } from "./data";
+import type { Voucher } from "../data";
 
 export type VoucherID = Pick<Voucher, "id">;
 export type UpdateData = Voucher;

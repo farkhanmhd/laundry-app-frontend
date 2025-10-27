@@ -1,13 +1,13 @@
 import { columns } from "./components/columns";
 import VoucherTable from "./components/table";
-import { getVouchers } from "./data";
+import { getStaffs } from "./data";
 
 /**
  * The main page component for the /vouchers route.
  * It fetches voucher data on the server and passes it to the client component.
  */
-export default async function VouchersPage() {
-  const vouchers = await getVouchers();
+export default async function StaffsPage() {
+  const staffs = await getStaffs();
 
-  return <VoucherTable columns={columns} data={vouchers!} />;
+  return <VoucherTable columns={columns} data={staffs!} />;
 }

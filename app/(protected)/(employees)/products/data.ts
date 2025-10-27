@@ -1,7 +1,8 @@
 import { headers } from "next/headers";
 import { elysia } from "@/elysia/treaty";
 import { getHeadersWithoutContentType } from "@/lib/next-headers";
-import type { AddProductBody, UpdateProductBody } from "./actions";
+import type { AddProductBody } from "./actions";
+import type { UpdateProductBody } from "./schema";
 
 export const getProducts = async () => {
   const { data: response } = await elysia.products.get({

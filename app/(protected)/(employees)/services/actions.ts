@@ -1,22 +1,19 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
-import { zfd } from "zod-form-data";
+
 import type { elysia } from "@/elysia/treaty";
 import { actionClient } from "@/lib/safe-action";
 import { addService, deleteService, updateService } from "./data";
+import {
+  type AddServiceSchema,
+  addServiceSchema,
+  deleteServiceSchema,
+  type UpdateServiceBody,
+  updateServiceSchema,
+} from "./schema";
 
 export type AddServiceBody = Parameters<typeof elysia.services.post>[0];
-const addServiceSchema = z.object({
-  name: z.string().min(1, "Service name is required"),
-  price: z
-    .number({ error: "Price should be a number" })
-    .min(0, "Price must be a positive number"),
-  image: z.file(),
-});
-
-export type AddServiceSchema = z.infer<typeof addServiceSchema>;
 
 export const addServiceAction = actionClient
   .inputSchema(addServiceSchema)
@@ -46,10 +43,6 @@ export const addServiceAction = actionClient
     }
   });
 
-const deleteServiceSchema = z.object({
-  id: z.string(),
-});
-
 export const deleteServiceAction = actionClient
   .inputSchema(deleteServiceSchema)
   .action(async ({ parsedInput }) => {
@@ -75,16 +68,6 @@ export const deleteServiceAction = actionClient
       message: result.data?.message,
     };
   });
-
-const updateServiceSchema = zfd.formData({
-  id: zfd.text(z.string().min(1, "Service id is required")),
-  name: zfd.text(z.string().min(1, "Service name is required")),
-  price: zfd.numeric(z.number().min(1, "Price must be a positive number")),
-  image: zfd.file().optional(),
-});
-
-export type UpdateServiceSchema = z.infer<typeof updateServiceSchema>;
-export type UpdateServiceBody = Omit<UpdateServiceSchema, "id">;
 
 const errorResult = {
   status: "error",

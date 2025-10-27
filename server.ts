@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Elysia } from "elysia";
 declare const app: Elysia<"", {
     decorator: {};
@@ -500,8 +502,7 @@ declare const app: Elysia<"", {
             readonly status: "failed";
             readonly message: "Validation failed";
             readonly errors: ({
-                property: any;
-                message: any;
+                message: string;
             } | null)[];
         };
     };
@@ -1044,6 +1045,35 @@ declare const app: Elysia<"", {
                         readonly status: "success";
                         readonly message: "Voucher deactivated successfully";
                     };
+                };
+            };
+        };
+    };
+} & {
+    staffs: {};
+} & {
+    staffs: {
+        get: {
+            body: {};
+            params: {};
+            query: {};
+            headers: {};
+            response: {
+                200: {
+                    readonly status: "success";
+                    readonly message: "Services Retrieved";
+                    readonly data: {
+                        id: string;
+                        name: string;
+                        email: string;
+                        emailVerified: boolean;
+                        image: string | null;
+                        createdAt: Date;
+                        updatedAt: Date;
+                        username: string | null;
+                        displayUsername: string | null;
+                        role: "admin" | "staff" | "customer" | null;
+                    }[];
                 };
             };
         };
