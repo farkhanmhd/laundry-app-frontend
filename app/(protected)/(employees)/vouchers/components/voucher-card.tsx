@@ -20,18 +20,6 @@ export interface VoucherCardProps {
   className?: string;
 }
 
-function formatCurrency(amount: number) {
-  try {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      maximumFractionDigits: 0,
-    }).format(amount);
-  } catch {
-    return `$${amount}`;
-  }
-}
-
 function getStatus(v: Voucher) {
   if (!v.isActive) {
     return { key: "inactive" as const, label: "Inactive" };
@@ -172,7 +160,7 @@ export const VoucherCard: React.FC<VoucherCardProps> = ({
             />
           ) : (
             <span className="font-medium text-foreground">
-              {formatCurrency(voucher.discountAmount)}
+              {voucher.discountAmount}
             </span>
           )}
         </div>

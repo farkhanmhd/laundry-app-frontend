@@ -6,7 +6,6 @@ import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 import ImageUploadDropzone from "@/components/image-dropzone";
 import {
   AlertDialog,
@@ -64,7 +63,7 @@ export default function AddServiceDialog() {
       <AlertDialogTrigger asChild>
         <Button className="h-8">
           <IconPlus />
-          <span>Add Service</span>
+          <span>Service</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-w-md p-0">

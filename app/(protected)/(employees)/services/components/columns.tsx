@@ -6,9 +6,9 @@ import { format } from "date-fns";
 import Image from "next/image";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Button } from "@/components/ui/button";
-import { formatCurrency } from "@/lib/utils";
-import type { ServiceData } from "./data";
-import { type ServiceID, type UpdateData, useServiceDialog } from "./state";
+// import { formatCurrency } from "@/lib/utils";
+import type { ServiceData } from "../data";
+import { type UpdateData, useServiceDialog } from "./state";
 
 export const columns: ColumnDef<ServiceData>[] = [
   {
@@ -59,7 +59,7 @@ export const columns: ColumnDef<ServiceData>[] = [
     ),
     cell: ({ row }) => (
       <div className="line-clamp-1 min-w-max font-medium">
-        {formatCurrency(row.getValue("price"))}
+        {row.getValue("price")}
       </div>
     ),
   },
@@ -98,7 +98,7 @@ export const columns: ColumnDef<ServiceData>[] = [
     enableHiding: false,
     header: () => <div>Actions</div>,
     cell: ({ row }) => {
-      const { setServiceState } = useServiceDialog<ServiceID | UpdateData>();
+      const { setServiceState } = useServiceDialog<UpdateData>();
 
       const openDeleteDialog = () => {
         setServiceState({

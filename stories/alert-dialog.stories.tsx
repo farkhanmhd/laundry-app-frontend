@@ -64,7 +64,7 @@ export const ShouldOpenClose: Story = {
       await userEvent.click(
         await canvas.getByRole("button", {
           name: /open/i,
-        }),
+        })
       );
     });
 
@@ -73,7 +73,7 @@ export const ShouldOpenClose: Story = {
         await canvasBody.getByRole("button", {
           name: /cancel/i,
         }),
-        { delay: 100 },
+        { delay: 100 }
       );
     });
   },

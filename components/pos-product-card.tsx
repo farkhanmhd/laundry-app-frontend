@@ -4,8 +4,7 @@ import Image from "next/image";
 import { toast } from "sonner";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { usePosProducts } from "@/hooks/state";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { formatCurrency } from "@/lib/utils";
+// import { formatCurrency } from "@/lib/utils";
 import type { ProductData } from "../app/(protected)/(employees)/pos/data";
 
 interface Props {
@@ -13,7 +12,6 @@ interface Props {
 }
 
 export function PosProductCard({ product }: Props) {
-  const isMobile = useIsMobile();
   const { posProduct, setPosProduct } = usePosProducts();
 
   const handleAddToOrder = () => {
@@ -22,24 +20,27 @@ export function PosProductCard({ product }: Props) {
     );
 
     if (existingItem) {
-      setPosProduct({
-        open: true,
+      setPosProduct((prev) => ({
+        ...prev,
         items: posProduct.items.map((item) =>
           item.product.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         ),
-      });
+      }));
     } else {
-      setPosProduct({
-        open: true,
+      setPosProduct((prev) => ({
+        ...prev,
         items: [...posProduct.items, { quantity: 1, product }],
-      });
+      }));
     }
 
-    if (isMobile) {
-      toast("1 Item added to cart");
-    }
+    toast("1 Item added to cart", {
+      action: {
+        label: "View Cart",
+        onClick: () => setPosProduct((prev) => ({ ...prev, open: true })),
+      },
+    });
   };
 
   return (
@@ -58,9 +59,7 @@ export function PosProductCard({ product }: Props) {
         />
         <CardFooter className="flex items-center justify-between p-0">
           <span className="line-clamp-1 font-medium">{product.name}</span>
-          <span className="font-semibold text-lg">
-            {formatCurrency(product.price)}
-          </span>
+          <span className="font-semibold text-lg">{product.price}</span>
         </CardFooter>
       </CardContent>
     </Card>

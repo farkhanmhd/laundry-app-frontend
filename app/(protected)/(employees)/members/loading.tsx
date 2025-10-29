@@ -43,7 +43,7 @@ const Loading = () => {
                 <TableRow key={`thi-${tbIndex}`}>
                   <MapItems
                     of={arrays}
-                    render={(_, trIndex) => (
+                    render={(__, trIndex) => (
                       <TableCell key={`thi-${trIndex}`}>
                         <Skeleton className="h-8" />
                       </TableCell>

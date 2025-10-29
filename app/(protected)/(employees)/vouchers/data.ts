@@ -8,6 +8,8 @@ import type { AddVoucherBody, UpdateVoucherBody } from "./actions";
  * It passes along the necessary headers for authentication.
  */
 export const getVouchers = async () => {
+  "";
+
   const { data: response } = await elysia.vouchers.get({
     fetch: {
       headers: await headers(),

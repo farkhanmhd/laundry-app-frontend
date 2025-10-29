@@ -14,13 +14,18 @@ import {
 } from "@/components/ui/popover";
 
 type Props = {
-  date: Date | undefined,
-  onChange: (date: Date | undefined) => void
-  dateLabel?: string,
-  timeLabel?: string
-}
+  date: Date | undefined;
+  onChange: (date: Date | undefined) => void;
+  dateLabel?: string;
+  timeLabel?: string;
+};
 
-export function DateTimePicker({ date = undefined, onChange, dateLabel = '', timeLabel = ''} : Props) {
+export function DateTimePicker({
+  date = undefined,
+  onChange,
+  dateLabel = "",
+  timeLabel = "",
+}: Props) {
   const [open, setOpen] = React.useState(false);
   const futureDateLimit = new Date();
   futureDateLimit.setFullYear(futureDateLimit.getFullYear() + 100);
@@ -30,10 +35,12 @@ export function DateTimePicker({ date = undefined, onChange, dateLabel = '', tim
    * This formats the date object into a `HH:mm:ss` string for the time input.
    */
   const timeValue = React.useMemo(() => {
-    if (!date) return "";
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
+    if (!date) {
+      return "";
+    }
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
     return `${hours}:${minutes}:${seconds}`;
   }, [date]);
 
@@ -67,9 +74,11 @@ export function DateTimePicker({ date = undefined, onChange, dateLabel = '', tim
    */
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const timeString = e.target.value;
-    if (!timeString) return;
+    if (!timeString) {
+      return;
+    }
 
-    const [hours, minutes, seconds] = timeString.split(':').map(Number);
+    const [hours, minutes, seconds] = timeString.split(":").map(Number);
 
     // Use today's date as a base if no date is selected, otherwise use the existing date.
     const baseDate = date ? new Date(date) : new Date();
@@ -84,9 +93,9 @@ export function DateTimePicker({ date = undefined, onChange, dateLabel = '', tim
     <div className="flex gap-4">
       <div className="flex flex-1 flex-col gap-3">
         {dateLabel && (
-        <Label className="px-1" htmlFor="date-picker">
-          {dateLabel}
-        </Label>
+          <Label className="px-1" htmlFor="date-picker">
+            {dateLabel}
+          </Label>
         )}
         <Popover onOpenChange={setOpen} open={open}>
           <PopoverTrigger asChild>
@@ -102,30 +111,29 @@ export function DateTimePicker({ date = undefined, onChange, dateLabel = '', tim
           <PopoverContent align="start" className="w-auto overflow-hidden p-0">
             <Calendar
               captionLayout="dropdown"
-              mode="single"
-               onSelect={handleDateSelect}
-              selected={date}
-              disabled={{ before: new Date()}}
-              startMonth={new Date()}
+              disabled={{ before: new Date() }}
               endMonth={futureDateLimit}
+              mode="single"
+              onSelect={handleDateSelect}
+              selected={date}
+              startMonth={new Date()}
             />
           </PopoverContent>
         </Popover>
       </div>
       <div className="flex flex-1 flex-col gap-3">
         {timeLabel && (
-        <Label className="px-1" htmlFor="time-picker">
-          {timeLabel}
-        </Label>
-
+          <Label className="px-1" htmlFor="time-picker">
+            {timeLabel}
+          </Label>
         )}
         <Input
           className="appearance-none bg-background [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
-          value={timeValue}
           id="time-picker"
+          onChange={handleTimeChange}
           step="1"
           type="time"
-          onChange={handleTimeChange}
+          value={timeValue}
         />
       </div>
     </div>

@@ -15,17 +15,15 @@ import {
 } from "@/components/animate-ui/components/radix/sidebar";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
-import { superAdminNavData, adminNavData } from "@/lib/constants";
+import { adminNavData, superAdminNavData } from "@/lib/constants";
 
 interface Props extends React.ComponentProps<typeof Sidebar> {
   user: SessionUser;
 }
 
-
-
 export function AppSidebar({ user, ...props }: Props) {
   const role = user.role;
-  const menu = role === 'superadmin' ? superAdminNavData : adminNavData;
+  const menu = role === "superadmin" ? superAdminNavData : adminNavData;
 
   return (
     <Sidebar collapsible="icon" {...props} className="border-r">

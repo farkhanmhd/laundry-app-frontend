@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { SidebarItem } from "@/component-types";
-import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,

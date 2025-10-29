@@ -31,7 +31,7 @@ export function DataTablePagination<TData>({
 
   return (
     <div className="flex items-center justify-between px-2">
-      <div className="flex-1 text-muted-foreground text-sm">
+      <div className="hidden flex-1 text-muted-foreground text-sm md:block">
         {table.getFilteredSelectedRowModel().rows.length > 0 ? (
           <span>
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
@@ -41,7 +41,7 @@ export function DataTablePagination<TData>({
           <span>Showing {table.getRowModel().rows.length} row(s).</span>
         )}
       </div>
-      <div className="flex items-center space-x-6 lg:space-x-8">
+      <div className="flex w-full items-center justify-between space-x-6 md:w-auto lg:space-x-8">
         <div className="flex items-center space-x-2">
           <p className="font-medium text-sm">Rows per page</p>
           <Select
@@ -71,7 +71,7 @@ export function DataTablePagination<TData>({
             </SelectContent>
           </Select>
         </div>
-        <div className="flex w-[100px] items-center justify-center font-medium text-sm">
+        <div className="hidden w-[100px] items-center justify-center font-medium text-sm md:flex">
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()}
         </div>

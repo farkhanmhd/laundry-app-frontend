@@ -88,18 +88,18 @@ export const ShouldSucceedWhenValidInput: Story = {
     await step("Type a valid username", async () => {
       await userEvent.type(
         await canvas.findByRole("textbox", { name: /username/i }),
-        "mockuser",
+        "mockuser"
       );
     });
 
     await step("Click the submit button", async () => {
       await userEvent.click(
-        await canvas.findByRole("button", { name: /submit/i }),
+        await canvas.findByRole("button", { name: /submit/i })
       );
       expect(
         await canvas.queryByText(/username must be at least 6 characters/i, {
           exact: true,
-        }),
+        })
       ).toBeNull();
     });
   },
@@ -112,18 +112,18 @@ export const ShouldShowErrorWhenInvalidInput: Story = {
     await step("Type a short username", async () => {
       await userEvent.type(
         await canvas.findByRole("textbox", { name: /username/i }),
-        "fail",
+        "fail"
       );
     });
 
     await step("Click the submit button", async () => {
       await userEvent.click(
-        await canvas.findByRole("button", { name: /submit/i }),
+        await canvas.findByRole("button", { name: /submit/i })
       );
       expect(
         await canvas.queryByText(/username must be at least 6 characters/i, {
           exact: true,
-        }),
+        })
       ).toBeVisible();
     });
   },

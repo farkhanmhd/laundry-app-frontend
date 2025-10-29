@@ -23,5 +23,9 @@ const posProductsAtom = atomWithStorage<PosProductState>(
 export const usePosProducts = () => {
   const [posProduct, setPosProduct] = useAtom(posProductsAtom);
 
-  return { posProduct, setPosProduct };
+  const close = () => {
+    setPosProduct((prev) => ({ ...prev, open: false }));
+  };
+
+  return { posProduct, setPosProduct, close };
 };

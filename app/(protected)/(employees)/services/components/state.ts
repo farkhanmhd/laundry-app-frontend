@@ -1,7 +1,7 @@
 "use client";
 
 import { atom, useAtom } from "jotai";
-import type { ServiceData } from "./data";
+import type { ServiceData } from "../data";
 
 export type ServiceID = Pick<ServiceData, "id">;
 export type UpdateData = ServiceData;

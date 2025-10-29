@@ -1,24 +1,19 @@
 import { headers } from "next/headers";
 import { elysia } from "@/elysia/treaty";
 import { getHeadersWithoutContentType } from "@/lib/next-headers";
-import { UpdateProductBody } from "../products/actions";
-import type { AddServiceBody, UpdateServiceBody } from "./actions";
+import type { AddServiceBody } from "./actions";
+import type { UpdateServiceBody } from "./schema";
 
 export const getServices = async () => {
-  try {
-    const { data: response } = await elysia.services.get({
-      fetch: {
-        headers: await headers(),
-      },
-    });
+  const { data: response } = await elysia.services.get({
+    fetch: {
+      headers: await headers(),
+    },
+  });
 
-    const data = response?.data;
+  const data = response?.data;
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Failed to fetch services");
-  }
+  return data;
 };
 
 export type ServicesArray = Awaited<ReturnType<typeof getServices>>;

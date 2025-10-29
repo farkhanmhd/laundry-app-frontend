@@ -1,25 +1,15 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite/core", "ultracite/react", "ultracite/next"],
   "files": {
-    "ignoreUnknown": true,
     "includes": [
-      "**",
-      "!node_modules",
-      "!.next",
-      "!dist",
-      "!build",
       "!lib/utils.ts",
-      "!components/*.tsx",
       "!components/ui/*.tsx",
       "!components/animate-ui/**/*.tsx",
       "!elysia",
       "!stories",
-      "!server.ts"
+      "!server.ts",
+      "!vitest.config.ts"
     ]
   },
   "formatter": {
@@ -37,15 +27,17 @@
       "correctness": {
         "useExhaustiveDependencies": "info"
       },
-      "nursery": {
-        "useConsistentTypeDefinitions": "off"
-      },
       "style": {
         "noNonNullAssertion": "off",
-        "noMagicNumbers": "off"
+        "noMagicNumbers": "off",
+        "useConsistentTypeDefinitions": "off",
+        "noNestedTernary": "off"
       },
       "suspicious": {
         "noConsole": "info"
+      },
+      "nursery": {
+        "noUselessUndefined": "off"
       }
     },
     "domains": {
@@ -59,6 +51,5 @@
         "organizeImports": "on"
       }
     }
-  },
-  "extends": ["ultracite"]
+  }
 }

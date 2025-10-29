@@ -23,8 +23,8 @@ import {
   useTablePaginationSearchParams,
 } from "@/lib/search-params";
 import { cn } from "@/lib/utils";
+import type { ServiceData } from "../data";
 import AddServiceDialog from "./add-service-dialog";
-import type { ServiceData } from "./data";
 import DeleteServiceDialog from "./delete-service-dialog";
 import UpdateServiceDialog from "./update-service-dialog";
 
@@ -67,10 +67,10 @@ const ServicesTable = <TData extends ServiceData, TValue>({
 
   return (
     <div className="flex h-full flex-col gap-4 lg:gap-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-1 items-center gap-2 lg:max-w-sm">
           <DataTableSearch
-            className="min-w-xs max-w-lg"
+            className="w-full text-sm lg:max-w-lg"
             onChange={setGlobalFilter}
             placeholder="Search Services..."
             table={table}
@@ -98,9 +98,9 @@ const ServicesTable = <TData extends ServiceData, TValue>({
 
       <DataTable
         className={cn(
-          "max-h-[calc(100dvh-188px)] lg:max-h-[calc(100dvh-220px)]",
+          "max-h-[calc(100dvh-248px)] md:max-h-[calc(100dvh-184px)] lg:max-h-[calc(100dvh-216px)]",
           {
-            "max-w-[calc(100svw-336px)]": open,
+            "max-w-[calc(100svw-32px)] md:max-w-[calc(100svw-336px)]": open,
             "max-w-[calc(100svw-32px)] md:max-w-[calc(100svw-98px)] lg:max-w-[calc(100svw-114px)]":
               !open,
           }

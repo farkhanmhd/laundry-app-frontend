@@ -86,12 +86,12 @@ export const ShouldOpenPopover: Story = {
     const canvas = within(canvasElement.ownerDocument.body);
     await step("Open the popover", async () => {
       await userEvent.click(
-        await canvas.findByRole("button", { name: "Date of birth" }),
+        await canvas.findByRole("button", { name: "Date of birth" })
       );
       await waitFor(() =>
         expect(
-          canvasElement.ownerDocument.body.querySelector(".rdp-root"),
-        ).toBeVisible(),
+          canvasElement.ownerDocument.body.querySelector(".rdp-root")
+        ).toBeVisible()
       );
     });
     await step("Select a date", async () => {
@@ -214,14 +214,14 @@ export const ShouldEnterTextDate: Story = {
 
     await step("check the calendar", async () => {
       await userEvent.click(
-        await canvas.findByRole("button", { name: "Select date" }),
+        await canvas.findByRole("button", { name: "Select date" })
       );
       await waitFor(() =>
         expect(
           canvas.queryByRole("button", {
             name: "Wednesday, July 21st, 1999, selected",
-          }),
-        ).toBeVisible(),
+          })
+        ).toBeVisible()
       );
     });
   },
@@ -313,8 +313,8 @@ export const ShouldOpenCalendar: Story = {
       await userEvent.click(dateInput);
       await waitFor(() =>
         expect(
-          canvas.queryAllByRole("button", { name: /1st/i }).at(0),
-        ).toBeVisible(),
+          canvas.queryAllByRole("button", { name: /1st/i }).at(0)
+        ).toBeVisible()
       );
     });
 

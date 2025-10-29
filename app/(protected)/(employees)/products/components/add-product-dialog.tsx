@@ -28,7 +28,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { type AddProductSchema, addProductAction } from "../actions";
+import { addProductAction } from "../actions";
+import type { AddProductSchema } from "../schema";
 
 const addProductSchema = z.object({
   name: z.string().min(1, "Product name is required"),
@@ -83,11 +84,11 @@ export default function AddProductDialog() {
       <AlertDialogTrigger asChild>
         <Button className="h-8">
           <IconPlus />
-          <span>Add Product</span>
+          <span>Product</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-w-md p-0">
-        <ScrollArea className="max-h-dvh p-6 md:max-h-[80dvh]">
+        <ScrollArea className="max-h-[80dvh] p-6">
           <AlertDialogHeader className="mb-6">
             <AlertDialogTitle>Add New Product</AlertDialogTitle>
             <AlertDialogDescription>

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { Tooltip as TooltipPrimitive } from 'radix-ui';
-import { AnimatePresence, motion, type HTMLMotionProps } from 'motion/react';
+import * as React from "react";
+import { Tooltip as TooltipPrimitive } from "radix-ui";
+import { AnimatePresence, motion, type HTMLMotionProps } from "motion/react";
 
-import { getStrictContext } from '@/lib/get-strict-context';
-import { useControlledState } from '@/hooks/use-controlled-state';
+import { getStrictContext } from "@/lib/get-strict-context";
+import { useControlledState } from "@/hooks/use-controlled-state";
 
 type TooltipContextType = {
   isOpen: boolean;
@@ -13,7 +13,7 @@ type TooltipContextType = {
 };
 
 const [LocalTooltipProvider, useTooltip] =
-  getStrictContext<TooltipContextType>('TooltipContext');
+  getStrictContext<TooltipContextType>("TooltipContext");
 
 type TooltipProviderProps = React.ComponentProps<
   typeof TooltipPrimitive.Provider
@@ -53,7 +53,7 @@ function TooltipTrigger(props: TooltipTriggerProps) {
 
 type TooltipPortalProps = Omit<
   React.ComponentProps<typeof TooltipPrimitive.Portal>,
-  'forceMount'
+  "forceMount"
 >;
 
 function TooltipPortal(props: TooltipPortalProps) {
@@ -74,9 +74,9 @@ function TooltipPortal(props: TooltipPortalProps) {
 
 type TooltipContentProps = Omit<
   React.ComponentProps<typeof TooltipPrimitive.Content>,
-  'forceMount' | 'asChild'
+  "forceMount" | "asChild"
 > &
-  HTMLMotionProps<'div'>;
+  HTMLMotionProps<"div">;
 
 function TooltipContent({
   onEscapeKeyDown,
@@ -91,7 +91,7 @@ function TooltipContent({
   arrowPadding,
   sticky,
   hideWhenDetached,
-  transition = { type: 'spring', stiffness: 300, damping: 25 },
+  transition = { type: "spring", stiffness: 300, damping: 25 },
   ...props
 }: TooltipContentProps) {
   return (

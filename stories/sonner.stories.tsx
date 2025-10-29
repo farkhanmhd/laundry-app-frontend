@@ -62,7 +62,7 @@ export const ShouldShowToast: Story = {
     await step("create a toast", async () => {
       await userEvent.click(triggerBtn);
       await waitFor(() =>
-        expect(canvasBody.queryByRole("listitem")).toBeInTheDocument(),
+        expect(canvasBody.queryByRole("listitem")).toBeInTheDocument()
       );
     });
 
@@ -70,7 +70,7 @@ export const ShouldShowToast: Story = {
       await userEvent.click(triggerBtn);
       await userEvent.click(triggerBtn);
       await waitFor(() =>
-        expect(canvasBody.getAllByRole("listitem")).toHaveLength(3),
+        expect(canvasBody.getAllByRole("listitem")).toHaveLength(3)
       );
     });
   },
@@ -91,10 +91,10 @@ export const ShouldCloseToast: Story = {
 
     await step("close the toast", async () => {
       await userEvent.click(
-        await canvasBody.findByRole("button", { name: /undo/i }),
+        await canvasBody.findByRole("button", { name: /undo/i })
       );
       await waitFor(() =>
-        expect(canvasBody.queryByRole("listitem")).not.toBeInTheDocument(),
+        expect(canvasBody.queryByRole("listitem")).not.toBeInTheDocument()
       );
     });
   },

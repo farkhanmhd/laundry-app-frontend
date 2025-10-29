@@ -6,14 +6,11 @@ import NumberInput from "@/components/number-input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { type PosProduct, usePosProducts } from "@/hooks/state";
-import { cn, formatCurrency, MapItems } from "@/lib/utils";
+import { MapItems } from "@/lib/utils";
 
-interface Props {
-  className?: string;
-}
-
-export function PosOrderProducts({ className }: Props) {
+export function PosOrderProducts() {
   const { posProduct, setPosProduct } = usePosProducts();
+
   const total = posProduct.items.reduce(
     (acc, curr) => acc + curr.quantity * curr.product.price,
     0
@@ -79,12 +76,7 @@ export function PosOrderProducts({ className }: Props) {
   };
 
   return (
-    <div
-      className={cn(
-        "h-[calc(100dvh-48px)] flex-col overflow-hidden border-l bg-background shadow-sm",
-        className
-      )}
-    >
+    <>
       <header className="z-50 flex h-20 items-center justify-center">
         <span className="font-semibold text-lg">Order</span>
       </header>
@@ -114,7 +106,7 @@ export function PosOrderProducts({ className }: Props) {
                       <div className="flex flex-col">
                         <span className="font-medium">{item.product.name}</span>
                         <span className="text-muted-foreground">
-                          {formatCurrency(item.product.price)}
+                          {item.product.price}
                         </span>
                       </div>
                       <Button className="rounded-full" size="icon">
@@ -143,7 +135,7 @@ export function PosOrderProducts({ className }: Props) {
       <footer className="mt-auto flex flex-col gap-4 p-4">
         <div className="flex items-center justify-between font-semibold text-lg">
           <span>Total</span>
-          <span>{formatCurrency(total)}</span>
+          <span>{total}</span>
         </div>
         <div className="flex gap-2">
           <Button className="h-12 flex-1 rounded-full" variant="secondary">
@@ -160,6 +152,6 @@ export function PosOrderProducts({ className }: Props) {
           <Button className="h-16 w-full text-lg">Place Order</Button>
         </div>
       </footer>
-    </div>
+    </>
   );
 }

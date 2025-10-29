@@ -2,7 +2,6 @@
 
 import { HugeiconsIcon } from "@hugeicons/react";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
-import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -19,7 +18,29 @@ import { adminNavData, superAdminNavData } from "@/lib/constants";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 
-export function NavigationCommand({ user }: { user: SessionUser }) {
+type Props = {
+  user: SessionUser;
+  className?: string;
+  children: React.ReactNode;
+  size?: "default" | "sm" | "lg" | "icon" | null | undefined;
+  variant?:
+    | "default"
+    | "link"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | null
+    | undefined;
+};
+
+export function NavigationCommand({
+  user,
+  className = "",
+  children,
+  size,
+  variant,
+}: Props) {
   const { push } = useRouter();
   const [commandOpen, setCommandOpen] = useState(false);
   const { setTheme } = useTheme();
@@ -33,7 +54,7 @@ export function NavigationCommand({ user }: { user: SessionUser }) {
     };
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, []);
+  }, [commandOpen]);
 
   const role = user.role;
   const menu = role === "superadmin" ? superAdminNavData : adminNavData;
@@ -41,13 +62,12 @@ export function NavigationCommand({ user }: { user: SessionUser }) {
   return (
     <>
       <Button
-        className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 min-w-md justify-start text-muted-foreground"
+        className={className}
         onClick={() => setCommandOpen(!commandOpen)}
-        size="sm"
-        variant="secondary"
+        size={size}
+        variant={variant}
       >
-        <Search />
-        Search
+        {children}
       </Button>
       <CommandDialog
         className="rounded-lg border shadow-md md:min-w-[450px]"

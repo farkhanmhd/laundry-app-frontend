@@ -49,6 +49,7 @@ export default function UpdateServiceDialog() {
   const form = useForm<UpdateServiceSchema>({
     resolver: zodResolver(updateServiceSchema),
     defaultValues,
+    values: defaultValues,
   });
 
   const { execute, isPending } = useAction(updateServiceAction, {
@@ -92,7 +93,7 @@ export default function UpdateServiceDialog() {
                     <FormControl>
                       <Input
                         autoComplete="off"
-                        disabled={form.formState.isSubmitting}
+                        disabled={isPending}
                         placeholder="Enter Service Name"
                         {...field}
                       />
@@ -114,7 +115,7 @@ export default function UpdateServiceDialog() {
                         {...field}
                         autoComplete="off"
                         className="text-right"
-                        disabled={form.formState.isSubmitting}
+                        disabled={isPending}
                         min="0"
                         onChange={(e) => {
                           const numericValue = Number(
@@ -139,6 +140,7 @@ export default function UpdateServiceDialog() {
                     <FormLabel htmlFor="image-upload">Image</FormLabel>
                     <FormControl>
                       <ImageUploadDropzone
+                        disabled={isPending}
                         image={field.value}
                         setImage={field.onChange}
                       />
@@ -149,10 +151,7 @@ export default function UpdateServiceDialog() {
               />
 
               <div className="flex items-center justify-end gap-3">
-                <AlertDialogCancel
-                  disabled={isPending}
-                  onClick={() => form.reset(defaultValues)}
-                >
+                <AlertDialogCancel disabled={isPending} onClick={close}>
                   Cancel
                 </AlertDialogCancel>
                 <Button disabled={isPending} type="submit">

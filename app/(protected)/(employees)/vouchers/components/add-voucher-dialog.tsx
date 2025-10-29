@@ -6,7 +6,6 @@ import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 import { DateTimePicker } from "@/components/date-time-picker";
 import {
   AlertDialog,
@@ -30,8 +29,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Switch } from "@/components/ui/switch";
-import { type AddVoucherSchema, addVoucherAction } from "../actions";
-import { addVoucherSchema } from "../schema";
+import { addVoucherAction } from "../actions";
+import { type AddVoucherSchema, addVoucherSchema } from "../schema";
 
 export default function AddVoucherDialog() {
   const [open, setOpen] = useState(false);
@@ -80,7 +79,7 @@ export default function AddVoucherDialog() {
       <AlertDialogTrigger asChild>
         <Button className="h-8">
           <Plus />
-          <span>Add Voucher</span>
+          <span>Voucher</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-w-md p-0">

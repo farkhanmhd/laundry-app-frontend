@@ -7,7 +7,7 @@ import Image from "next/image";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { formatCurrency } from "@/lib/utils";
+// import { formatCurrency } from "@/lib/utils";
 import type { ProductData } from "../data";
 import {
   type ProductID,
@@ -29,6 +29,7 @@ export const columns: ColumnDef<ProductData>[] = [
           className="max-h-[60px] rounded-lg"
           height={60}
           src={row.getValue("image") || "placeholder.svg"}
+          unoptimized
           width={60}
         />
       </div>
@@ -65,7 +66,7 @@ export const columns: ColumnDef<ProductData>[] = [
     ),
     cell: ({ row }) => (
       <div className="line-clamp-1 min-w-max font-medium">
-        {formatCurrency(row.getValue("price"))}
+        {row.getValue("price")}
       </div>
     ),
   },
@@ -97,7 +98,7 @@ export const columns: ColumnDef<ProductData>[] = [
     cell: ({ row }) => {
       const stockStatus =
         row.original.currentQuantity >= row.original.reorderPoint
-          ? "Sufficient"
+          ? "In Stock"
           : "Shortage";
 
       return (

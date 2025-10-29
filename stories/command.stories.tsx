@@ -65,7 +65,7 @@ export const TypingInCombobox: Story = {
     // Search for "calendar" which should return a single result
     await userEvent.type(input, "calen", { delay: 100 });
     expect(canvas.getAllByRole("option", { name: /calendar/i })).toHaveLength(
-      1,
+      1
     );
 
     await userEvent.clear(input);

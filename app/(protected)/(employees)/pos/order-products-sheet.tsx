@@ -33,7 +33,7 @@ const OrderProductsSheet = () => {
       <SheetContent className="w-full max-w-full sm:max-w-full">
         <SheetTitle className="hidden" />
         <div className="h-full">
-          <PosOrderProducts className="flex" />
+          <PosOrderProducts />
         </div>
       </SheetContent>
     </Sheet>

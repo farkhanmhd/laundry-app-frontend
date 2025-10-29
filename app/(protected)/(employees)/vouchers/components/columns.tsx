@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { formatCurrency } from "@/lib/utils";
+// import { formatCurrency } from "@/lib/utils";
 import type { Voucher } from "../data";
 import { type UpdateData, useVoucherDialog, type VoucherID } from "./state";
 
@@ -52,7 +52,7 @@ export const columns: ColumnDef<Voucher>[] = [
     ),
     cell: ({ row }) => (
       <div className="line-clamp-1 min-w-max font-medium">
-        {formatCurrency(row.getValue("discountAmount"))}
+        {row.getValue("discountAmount")}
       </div>
     ),
   },

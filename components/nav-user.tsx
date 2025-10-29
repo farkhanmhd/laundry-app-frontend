@@ -34,7 +34,7 @@ export function NavUser({ user }: { user: SessionUser }) {
               size="lg"
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage alt={user.name} src={user.image || ""} />
+                <AvatarImage alt={user.name || ""} src={user.image as string} />
                 <AvatarFallback className="rounded-lg uppercase">
                   {user.name.slice(0, 2)}
                 </AvatarFallback>

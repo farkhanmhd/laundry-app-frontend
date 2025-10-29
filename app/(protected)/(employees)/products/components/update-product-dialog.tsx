@@ -76,7 +76,7 @@ export default function UpdateProductDialog() {
   return (
     <AlertDialog onOpenChange={close} open={productState?.open === "update"}>
       <AlertDialogContent className="max-w-xl p-0">
-        <ScrollArea className="max-h-dvh p-6">
+        <ScrollArea className="max-h-[80dvh] p-6">
           <AlertDialogHeader className="mb-6">
             <AlertDialogTitle>Update Product</AlertDialogTitle>
             <AlertDialogDescription>

@@ -63,7 +63,7 @@ export const ShouldOpenCloseWithSubmit: Story = {
 
     await step("Open the drawer", async () => {
       await userEvent.click(
-        await canvasBody.findByRole("button", { name: /open/i }),
+        await canvasBody.findByRole("button", { name: /open/i })
       );
       await expect(args.onOpenChange).toHaveBeenCalled();
 
@@ -75,12 +75,12 @@ export const ShouldOpenCloseWithSubmit: Story = {
     await step("Close the drawer", async () => {
       await userEvent.click(
         await canvasBody.findByRole("button", { name: /submit/i }),
-        { delay: 100 },
+        { delay: 100 }
       );
       await expect(args.onClose).toHaveBeenCalled();
       expect(await canvasBody.findByRole("dialog")).toHaveAttribute(
         "data-state",
-        "closed",
+        "closed"
       );
     });
   },
@@ -94,7 +94,7 @@ export const ShouldOpenCloseWithCancel: Story = {
 
     await step("Open the drawer", async () => {
       await userEvent.click(
-        await canvasBody.findByRole("button", { name: /open/i }),
+        await canvasBody.findByRole("button", { name: /open/i })
       );
       await expect(args.onOpenChange).toHaveBeenCalled();
 
@@ -106,12 +106,12 @@ export const ShouldOpenCloseWithCancel: Story = {
     await step("Close the drawer", async () => {
       await userEvent.click(
         await canvasBody.findByRole("button", { name: /cancel/i }),
-        { delay: 100 },
+        { delay: 100 }
       );
       await expect(args.onClose).toHaveBeenCalled();
       expect(await canvasBody.findByRole("dialog")).toHaveAttribute(
         "data-state",
-        "closed",
+        "closed"
       );
     });
   },

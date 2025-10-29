@@ -13,4 +13,5 @@ export const addVoucherSchema = z.object({
   isActive: z.boolean(),
   isVisible: z.boolean(),
 });
+
 export type AddVoucherSchema = z.infer<typeof addVoucherSchema>;

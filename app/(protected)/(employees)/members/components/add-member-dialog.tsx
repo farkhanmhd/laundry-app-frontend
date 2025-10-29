@@ -67,7 +67,7 @@ export default function AddMemberDialog() {
       <AlertDialogTrigger asChild>
         <Button className="h-8">
           <IconPlus />
-          <span>Add Member</span>
+          <span>Member</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-w-md p-0">
