@@ -1,6 +1,6 @@
 "use client";
 
-import { IconShoppingCart } from "@tabler/icons-react";
+import { ShoppingCart } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -19,7 +19,7 @@ const OrderProductsSheet = () => {
     <Sheet modal={false}>
       <SheetTrigger asChild>
         <Button className="relative h-12 w-12 rounded-full" variant="secondary">
-          <IconShoppingCart
+          <ShoppingCart
             className="text-primary"
             style={{ width: "26px", height: "26px" }}
           />

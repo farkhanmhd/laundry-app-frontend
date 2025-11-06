@@ -1,5 +1,3 @@
-"";
-
 import { headers } from "next/headers";
 import { authClient } from "./auth-client";
 

@@ -28,11 +28,7 @@ type TooltipProps = TooltipPrimitiveProps & {
 };
 
 function Tooltip({ delayDuration = 0, ...props }: TooltipProps) {
-  return (
-    <TooltipProvider delayDuration={delayDuration}>
-      <TooltipPrimitive {...props} />
-    </TooltipProvider>
-  );
+  return <TooltipPrimitive {...props} />;
 }
 
 type TooltipTriggerProps = TooltipTriggerPrimitiveProps;

@@ -1,12 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IconPlus } from "@tabler/icons-react";
+import { Plus } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import z from "zod";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -28,12 +27,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { addMemberAction } from "../actions";
-import type { AddMemberSchema } from "../schema";
-
-const addMemberSchema = z.object({
-  name: z.string().min(3, "Customer name is required"),
-  phone: z.string().min(7, "Phone number is required"),
-});
+import { type AddMemberSchema, addMemberSchema } from "../schema";
 
 export default function AddMemberDialog() {
   const [open, setOpen] = useState(false);
@@ -66,7 +60,7 @@ export default function AddMemberDialog() {
     <AlertDialog onOpenChange={setOpen} open={open}>
       <AlertDialogTrigger asChild>
         <Button className="h-8">
-          <IconPlus />
+          <Plus />
           <span>Member</span>
         </Button>
       </AlertDialogTrigger>

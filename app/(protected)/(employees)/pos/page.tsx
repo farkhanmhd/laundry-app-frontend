@@ -7,7 +7,7 @@ const PosPage = async () => {
 
   return (
     <MapItems
-      of={data!}
+      of={data || []}
       render={(item) => (
         <li key={item.id}>
           <PosProductCard product={item} />

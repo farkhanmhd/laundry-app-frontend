@@ -136,21 +136,7 @@
 }
 
 .wave {
-  --mask:
-    radial-gradient(11.66px at 50% 16px, #000 99%, #0000 101%) calc(50% - 20px)
-    0 / 40px 100%, radial-gradient(11.66px at 50% -6px, #0000 99%, #000 101%)
-    50% 10px / 40px 100% repeat-x;
+  --mask: radial-gradient(11.66px at 50% 16px, #000 99%, #0000 101%) calc(50% - 20px) 0 / 40px 100%, radial-gradient(11.66px at 50% -6px, #0000 99%, #000 101%) 50% 10px / 40px 100% repeat-x;
   -webkit-mask: var(--mask);
   mask: var(--mask);
 }
-
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */

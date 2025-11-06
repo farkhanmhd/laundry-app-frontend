@@ -97,7 +97,7 @@ const MembersTable = <TData extends MemberData, TValue>({
 
       <DataTable
         className={cn(
-          "max-h-[calc(100dvh-248px)] md:max-h-[calc(100dvh-184px)] lg:max-h-[calc(100dvh-216px)]",
+          "max-h-[calc(100dvh-248px)] md:max-h-[calc(100dvh-184px)] lg:max-h-[calc(100dvh-216px)] [&>div]:max-h-[calc(100dvh-248px)] [&>div]:md:max-h-[calc(100dvh-184px)] [&>div]:lg:max-h-[calc(100dvh-216px)]",
           {
             "max-w-[calc(100svw-32px)] md:max-w-[calc(100svw-336px)]": open,
             "max-w-[calc(100svw-32px)] md:max-w-[calc(100svw-98px)] lg:max-w-[calc(100svw-114px)]":

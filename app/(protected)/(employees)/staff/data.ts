@@ -13,6 +13,7 @@ export const getStaffs = async () => {
   });
 
   const data = response?.data;
+
   return data;
 };
 

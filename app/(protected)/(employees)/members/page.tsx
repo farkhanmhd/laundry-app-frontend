@@ -24,8 +24,8 @@ const MemberPage = async (props: Props) => {
   return (
     <MembersTable
       columns={columns}
-      data={data!.members}
-      total={data!.total as number}
+      data={data?.members || []}
+      total={data?.total || 0}
     />
   );
 };

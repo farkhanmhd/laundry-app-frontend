@@ -2,10 +2,21 @@ import { headers } from "next/headers";
 import { elysia } from "@/elysia/treaty";
 import { getHeadersWithoutContentType } from "@/lib/next-headers";
 import type { AddProductBody } from "./actions";
-import type { UpdateProductBody } from "./schema";
 
 export const getProducts = async () => {
   const { data: response } = await elysia.products.get({
+    fetch: {
+      headers: await headers(),
+    },
+  });
+
+  const data = response?.data;
+
+  return data;
+};
+
+export const getProductById = async (id: string) => {
+  const { data: response } = await elysia.products({ id }).get({
     fetch: {
       headers: await headers(),
     },
@@ -69,25 +80,11 @@ export const updateProductData = async (
 ) => {
   const result = await elysia.products({ id }).patch(body, {
     fetch: {
-      headers: await getHeadersWithoutContentType(),
+      headers: await headers(),
     },
   });
 
   return result;
-};
-
-export const updateProduct = async (id: string, data: UpdateProductBody) => {
-  const { image, ...productData } = data;
-
-  const updateDataResult = await updateProductData(id, productData);
-
-  if (image) {
-    const updateWithImageResult = await updateProductImage(id, { image });
-
-    return updateWithImageResult;
-  }
-
-  return updateDataResult;
 };
 
 export type AdjustQuantityBody = Parameters<

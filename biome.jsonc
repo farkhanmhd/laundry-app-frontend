@@ -35,9 +35,6 @@
       },
       "suspicious": {
         "noConsole": "info"
-      },
-      "nursery": {
-        "noUselessUndefined": "off"
       }
     },
     "domains": {

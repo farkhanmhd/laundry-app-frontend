@@ -1,7 +1,6 @@
 "use client";
 
-import { HugeiconsIcon } from "@hugeicons/react";
-import { IconMoonStars, IconSun } from "@tabler/icons-react";
+import { MoonStar, Sun } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -49,12 +48,12 @@ export function NavigationCommand({
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setCommandOpen(!commandOpen);
+        setCommandOpen((prev) => !prev);
       }
     };
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, [commandOpen]);
+  }, []);
 
   const role = user.role;
   const menu = role === "superadmin" ? superAdminNavData : adminNavData;
@@ -63,7 +62,7 @@ export function NavigationCommand({
     <>
       <Button
         className={className}
-        onClick={() => setCommandOpen(!commandOpen)}
+        onClick={() => setCommandOpen(true)}
         size={size}
         variant={variant}
       >
@@ -87,18 +86,28 @@ export function NavigationCommand({
                     setCommandOpen(false);
                   }}
                 >
-                  <HugeiconsIcon icon={item.icon} />
+                  <item.icon />
                   <span>{item.title}</span>
                 </CommandItem>
               ))}
             </CommandGroup>
             <CommandGroup heading="Settings">
-              <CommandItem onSelect={() => setTheme("dark")}>
-                <IconMoonStars />
+              <CommandItem
+                onSelect={() => {
+                  setTheme("dark");
+                  setCommandOpen(false);
+                }}
+              >
+                <MoonStar />
                 <span>Set Dark Mode</span>
               </CommandItem>
-              <CommandItem onSelect={() => setTheme("light")}>
-                <IconSun />
+              <CommandItem
+                onSelect={() => {
+                  setTheme("light");
+                  setCommandOpen(false);
+                }}
+              >
+                <Sun />
                 <span>Set Light Mode</span>
               </CommandItem>
             </CommandGroup>

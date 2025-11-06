@@ -21,7 +21,7 @@ type Props = {
 };
 
 export function DateTimePicker({
-  date = undefined,
+  date,
   onChange,
   dateLabel = "",
   timeLabel = "",

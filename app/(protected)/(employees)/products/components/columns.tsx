@@ -1,20 +1,14 @@
 "use client";
 
-import { IconAdjustments, IconEdit, IconTrash } from "@tabler/icons-react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import Image from "next/image";
+import Link from "next/link";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-// import { formatCurrency } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import type { ProductData } from "../data";
-import {
-  type ProductID,
-  type UpdateData,
-  type UpdateQTY,
-  useProductDialog,
-} from "./state";
 
 export const columns: ColumnDef<ProductData>[] = [
   {
@@ -28,7 +22,7 @@ export const columns: ColumnDef<ProductData>[] = [
           alt="Product Image"
           className="max-h-[60px] rounded-lg"
           height={60}
-          src={row.getValue("image") || "placeholder.svg"}
+          src={row.getValue("image") || "/placeholder.svg"}
           unoptimized
           width={60}
         />
@@ -43,9 +37,15 @@ export const columns: ColumnDef<ProductData>[] = [
       <DataTableColumnHeader column={column} title="ID" />
     ),
     cell: ({ row }) => (
-      <div className="line-clamp-1 min-w-max font-medium uppercase">
+      <Link
+        className={cn(
+          "line-clamp-1 min-w-max font-medium uppercase",
+          buttonVariants({ variant: "link", size: "sm" })
+        )}
+        href={`/products/${row.getValue("id")}`}
+      >
         {row.getValue("id")}
-      </div>
+      </Link>
     ),
   },
   {
@@ -139,57 +139,6 @@ export const columns: ColumnDef<ProductData>[] = [
       return (
         <div className="line-clamp-1 min-w-max font-medium">
           {formattedDate}
-        </div>
-      );
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    header: () => <div>Actions</div>,
-    cell: ({ row }) => {
-      const { setProductState } = useProductDialog<
-        ProductID | UpdateData | UpdateQTY
-      >();
-
-      const openDeleteDialog = () => {
-        setProductState({
-          open: "delete",
-          data: {
-            id: row.original.id,
-          },
-        });
-      };
-
-      const openAdjustDialog = () => {
-        setProductState({
-          open: "adjust",
-          data: {
-            id: row.original.id,
-            name: row.original.name,
-            currentQuantity: row.original.currentQuantity,
-          },
-        });
-      };
-
-      const openUpdateDialog = () => {
-        setProductState({
-          open: "update",
-          data: row.original,
-        });
-      };
-
-      return (
-        <div className="flex items-center gap-2">
-          <Button onClick={openUpdateDialog} size="icon" variant="outline">
-            <IconEdit />
-          </Button>
-          <Button onClick={openAdjustDialog} size="icon" variant="outline">
-            <IconAdjustments />
-          </Button>
-          <Button onClick={openDeleteDialog} size="icon" variant="outline">
-            <IconTrash />
-          </Button>
         </div>
       );
     },

@@ -1,6 +1,6 @@
 "use client";
 
-import { IconDeviceDesktop, IconMoonStars, IconSun } from "@tabler/icons-react";
+import { Monitor, MoonStar, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import {
@@ -14,20 +14,17 @@ import { Button } from "./ui/button";
 
 const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
+
   const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  useEffect(() => setMounted(true), []);
   if (!mounted) {
     return null;
   }
 
   const selectedTheme = {
-    light: IconSun,
-    dark: IconMoonStars,
-    system: IconDeviceDesktop,
+    light: Sun,
+    dark: MoonStar,
+    system: Monitor,
   };
   const SelectedIcon = selectedTheme[theme as keyof typeof selectedTheme];
 
@@ -39,7 +36,7 @@ const ThemeSwitcher = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="w-9 rounded-full" variant="ghost">
-          <SelectedIcon aria-hidden="true" size={22} />
+          {SelectedIcon && <SelectedIcon aria-hidden="true" size={22} />}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={4}>

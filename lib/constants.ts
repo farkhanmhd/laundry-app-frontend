@@ -1,39 +1,38 @@
 import {
-  Analytics01Icon,
-  AnalyticsUpIcon,
-  Cash02Icon,
-  Clock02Icon,
-  DatabaseIcon,
-  DollarSquareIcon,
-  FavouriteSquareIcon,
-  ServingFoodIcon,
-  ShoppingCart02Icon,
-  Ticket01Icon,
-  UserAccountIcon,
-  UserGroup02Icon,
-} from "@hugeicons/core-free-icons";
+  CircleDollarSign,
+  Database,
+  DollarSign,
+  HandPlatter,
+  LayoutDashboard,
+  Logs,
+  ShoppingCart,
+  Ticket,
+  Timer,
+  UserCircle,
+  Users,
+} from "lucide-react";
 import type { SidebarItem } from "@/component-types";
 
 export const adminNavData: SidebarItem[] = [
   {
     title: "Point of Sales",
     url: "/pos",
-    icon: Cash02Icon,
+    icon: Logs,
   },
   {
     title: "Shifts",
     url: "#",
-    icon: Clock02Icon,
+    icon: Timer,
   },
   {
     title: "Members",
     url: "/members",
-    icon: UserGroup02Icon,
+    icon: Users,
   },
   {
     title: "Orders",
     url: "#",
-    icon: ShoppingCart02Icon,
+    icon: ShoppingCart,
   },
 ];
 
@@ -41,42 +40,42 @@ export const superAdminNavData: SidebarItem[] = [
   {
     title: "Report",
     url: "/dashboard",
-    icon: Analytics01Icon,
+    icon: LayoutDashboard,
   },
   ...adminNavData,
   {
     title: "Inventory",
     url: "/products",
-    icon: DatabaseIcon,
+    icon: Database,
   },
   {
     title: "Services",
     url: "/services",
-    icon: ServingFoodIcon,
+    icon: HandPlatter,
   },
   {
     title: "Vouchers",
     url: "/vouchers",
-    icon: Ticket01Icon,
+    icon: Ticket,
   },
   {
     title: "Staff",
     url: "/staff",
-    icon: UserAccountIcon,
+    icon: Users,
   },
   {
     title: "Sales Report",
     url: "#",
-    icon: DollarSquareIcon,
+    icon: DollarSign,
   },
   {
     title: "Profit Report",
     url: "#",
-    icon: AnalyticsUpIcon,
+    icon: CircleDollarSign,
   },
   {
     title: "Loyalty Report",
     url: "#",
-    icon: FavouriteSquareIcon,
+    icon: UserCircle,
   },
 ];

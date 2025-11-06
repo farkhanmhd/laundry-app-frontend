@@ -72,7 +72,7 @@ const ImageUploadDropzone: React.FC<Props> = ({
   }, [setImage]);
 
   return (
-    <div className="mx-auto w-full">
+    <div className="mx-auto h-full w-full">
       {label && (
         <Label
           className={cn("mb-4 flex gap-x-2 font-semibold", {
@@ -91,47 +91,61 @@ const ImageUploadDropzone: React.FC<Props> = ({
       <div
         {...getRootProps()}
         className={cn(
-          "flex h-full flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition-colors",
-          image ? "bg-secondary" : "cursor-pointer"
+          "flex h-full min-h-[200px] flex-col items-center justify-center rounded-lg transition-colors",
+          image ? "bg-background" : "cursor-pointer",
+          {
+            "border border-dashed": !image,
+          }
         )}
       >
         {image ? (
           <div className="group relative w-full">
             <Image
               alt="Uploaded"
-              className="h-auto w-full rounded-lg"
+              className="aspect-square h-auto w-full rounded-lg"
               height={300}
               src={previewUrl as string}
               width={300}
             />
-            <div className="absolute inset-0 flex items-center justify-center bg-background/50 opacity-0 duration-200 group-hover:opacity-100">
+            <div
+              className={cn(
+                "absolute inset-0 flex items-center justify-center bg-background/50 opacity-0 duration-200",
+                {
+                  "group-hover:opacity-100": !disabled,
+                }
+              )}
+            >
               <div className="flex space-x-2">
-                <Button
-                  disabled={disabled}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    document.getElementById("image-upload")?.click();
-                  }}
-                  size="sm"
-                  type="button"
-                  variant="secondary"
-                >
-                  <FilePenLine className="mr-2 h-4 w-4" />
-                  Replace
-                </Button>
-                <Button
-                  disabled={disabled}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    removeImage();
-                  }}
-                  size="sm"
-                  type="button"
-                  variant="destructive"
-                >
-                  <Trash className="mr-2 h-4 w-4" />
-                  Remove
-                </Button>
+                {!disabled && (
+                  <>
+                    <Button
+                      disabled={disabled}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        document.getElementById("image-upload")?.click();
+                      }}
+                      size="sm"
+                      type="button"
+                      variant="secondary"
+                    >
+                      <FilePenLine className="mr-2 h-4 w-4" />
+                      Replace
+                    </Button>
+                    <Button
+                      disabled={disabled}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeImage();
+                      }}
+                      size="sm"
+                      type="button"
+                      variant="destructive"
+                    >
+                      <Trash className="mr-2 h-4 w-4" />
+                      Remove
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </div>

@@ -1,7 +1,6 @@
 "use client";
 
-import { MoreVerticalIcon, UserCircleIcon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { MoreVertical, User } from "lucide-react";
 import type { SessionUser } from "@/component-types";
 import {
   SidebarMenu,
@@ -45,7 +44,7 @@ export function NavUser({ user }: { user: SessionUser }) {
                   {user.email}
                 </span>
               </div>
-              <HugeiconsIcon icon={MoreVerticalIcon} />
+              <MoreVertical />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -73,7 +72,7 @@ export function NavUser({ user }: { user: SessionUser }) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <HugeiconsIcon icon={UserCircleIcon} />
+                <User />
                 Account
               </DropdownMenuItem>
             </DropdownMenuGroup>

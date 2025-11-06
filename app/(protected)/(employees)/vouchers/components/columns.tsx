@@ -1,9 +1,8 @@
 "use client";
 
-import { PencilEdit02Icon, UnavailableIcon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { Pencil, Trash } from "lucide-react";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -117,7 +116,6 @@ export const columns: ColumnDef<Voucher>[] = [
   {
     id: "actions",
     enableHiding: false,
-    header: () => <div>Actions</div>,
     cell: ({ row }) => {
       const { setVoucherState } = useVoucherDialog<VoucherID | UpdateData>();
 
@@ -140,15 +138,10 @@ export const columns: ColumnDef<Voucher>[] = [
       return (
         <div className="flex items-center gap-2">
           <Button onClick={openUpdateDialog} size="icon" variant="outline">
-            <HugeiconsIcon icon={PencilEdit02Icon} />
+            <Pencil />
           </Button>
-          <Button
-            className="h-10 w-10"
-            onClick={openDeleteDialog}
-            size="icon"
-            variant="outline"
-          >
-            <HugeiconsIcon icon={UnavailableIcon} />
+          <Button onClick={openDeleteDialog} size="icon" variant="outline">
+            <Trash />
           </Button>
         </div>
       );

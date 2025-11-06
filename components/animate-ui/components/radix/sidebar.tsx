@@ -1,7 +1,5 @@
 "use client";
 
-import { SidebarLeftIcon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { Transition } from "motion/react";
 import { Slot } from "radix-ui";
@@ -30,6 +28,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getStrictContext } from "@/lib/get-strict-context";
 import { cn } from "@/lib/utils";
+import { SidebarIcon } from "lucide-react";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -309,7 +308,7 @@ function SidebarTrigger({ className, onClick, ...props }: SidebarTriggerProps) {
       variant="ghost"
       {...props}
     >
-      <HugeiconsIcon icon={SidebarLeftIcon} />
+      <SidebarIcon />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );

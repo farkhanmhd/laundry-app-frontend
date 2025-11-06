@@ -8,14 +8,13 @@ import {
   addProduct,
   adjustQuantity,
   deleteProduct,
-  updateProduct,
+  updateProductData,
 } from "./data";
 import {
   type AddProductSchema,
   addProductSchema,
   adjustQuantitySchema,
   deleteProductSchema,
-  type UpdateProductBody,
   updateProductSchema,
 } from "./schema";
 
@@ -83,22 +82,16 @@ const errorResult = {
 export const updateProductAction = actionClient
   .inputSchema(updateProductSchema)
   .action(async ({ parsedInput }) => {
-    const { id, name, price, reorderPoint, image } = parsedInput;
+    const { id, ...data } = parsedInput;
 
-    const data: UpdateProductBody = {
-      name,
-      price,
-      reorderPoint,
-      image,
-    };
-
-    const result = await updateProduct(id, data);
+    const result = await updateProductData(id, data);
 
     if (!result || result.error) {
       return errorResult;
     }
 
     revalidatePath("/products");
+    revalidatePath(`/products/${id}`);
     return {
       status: "success",
       message: "Product updated",
@@ -108,8 +101,9 @@ export const updateProductAction = actionClient
 export const adjustQuantityAction = actionClient
   .inputSchema(adjustQuantitySchema)
   .action(async ({ parsedInput }) => {
-    const { productId, ...rest } = parsedInput;
-    const result = await adjustQuantity(productId, rest);
+    console.log(parsedInput);
+    const { id, newQuantity, reason } = parsedInput;
+    const result = await adjustQuantity(id, { newQuantity, reason });
 
     if (!result || result.error) {
       return errorResult;

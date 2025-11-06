@@ -1,12 +1,11 @@
 "use client";
 
-import { IconEdit, IconTrash } from "@tabler/icons-react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { Pencil, Trash } from "lucide-react"; // Assuming these are used elsewhere or will be
 import Image from "next/image";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import { Button } from "@/components/ui/button";
-// import { formatCurrency } from "@/lib/utils";
 import type { ServiceData } from "../data";
 import { type UpdateData, useServiceDialog } from "./state";
 
@@ -23,6 +22,7 @@ export const columns: ColumnDef<ServiceData>[] = [
           className="max-h-[60px] rounded-lg"
           height={60}
           src={row.getValue("image") || "/placeholder.svg"}
+          unoptimized
           width={60}
         />
       </div>
@@ -96,7 +96,6 @@ export const columns: ColumnDef<ServiceData>[] = [
   {
     id: "actions",
     enableHiding: false,
-    header: () => <div>Actions</div>,
     cell: ({ row }) => {
       const { setServiceState } = useServiceDialog<UpdateData>();
 
@@ -119,10 +118,10 @@ export const columns: ColumnDef<ServiceData>[] = [
       return (
         <div className="flex items-center gap-2">
           <Button onClick={openUpdateDialog} size="icon" variant="outline">
-            <IconEdit />
+            <Pencil />
           </Button>
           <Button onClick={openDeleteDialog} size="icon" variant="outline">
-            <IconTrash />
+            <Trash />
           </Button>
         </div>
       );

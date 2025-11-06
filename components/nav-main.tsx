@@ -1,6 +1,5 @@
 "use client";
 
-import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { SidebarItem } from "@/component-types";
@@ -35,7 +34,7 @@ export function NavMain({ items }: { items: SidebarItem[] }) {
                       tooltip={item.title}
                     >
                       <Link href={item.url}>
-                        {item.icon && <HugeiconsIcon icon={item.icon} />}
+                        {item.icon && <item.icon />}
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
@@ -47,7 +46,7 @@ export function NavMain({ items }: { items: SidebarItem[] }) {
                     tooltip={item.title}
                   >
                     <Link href={item.url}>
-                      {item.icon && <HugeiconsIcon icon={item.icon} />}
+                      {item.icon && <item.icon />}
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>

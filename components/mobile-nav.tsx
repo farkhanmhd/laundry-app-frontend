@@ -1,10 +1,4 @@
-import {
-  Cash02Icon,
-  Menu01Icon,
-  Search01Icon,
-  ShoppingCart02Icon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { Logs, Menu, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
 import type { SessionUser } from "@/component-types";
@@ -41,7 +35,7 @@ export const MobileNav = ({ user }: { user: SessionUser }) => {
               )}
               href="/pos"
             >
-              <HugeiconsIcon className="size-5" icon={Cash02Icon} />
+              <Logs className="size-5" />
             </Link>
           </li>
           <li>
@@ -50,7 +44,7 @@ export const MobileNav = ({ user }: { user: SessionUser }) => {
               user={user}
               variant="ghost"
             >
-              <HugeiconsIcon className="size-5" icon={Search01Icon} />
+              <Search />
             </NavigationCommand>
           </li>
           <li>
@@ -59,7 +53,7 @@ export const MobileNav = ({ user }: { user: SessionUser }) => {
               onClick={handleCartClick}
               variant="ghost"
             >
-              <HugeiconsIcon className="size-5" icon={ShoppingCart02Icon} />
+              <ShoppingCart />
               {posProduct.items.length > 0 && (
                 <Badge className="absolute top-0.5 right-[-0.5px] h-4 w-4 rounded-full p-0 text-[10px]">
                   {totalItems}
@@ -73,7 +67,7 @@ export const MobileNav = ({ user }: { user: SessionUser }) => {
               onClick={toggleSidebar}
               variant="ghost"
             >
-              <HugeiconsIcon className="size-5" icon={Menu01Icon} />
+              <Menu />
             </Button>
           </li>
         </ul>

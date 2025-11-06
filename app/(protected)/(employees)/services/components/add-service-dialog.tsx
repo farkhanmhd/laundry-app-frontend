@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IconPlus } from "@tabler/icons-react";
+import { Plus } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -62,7 +62,7 @@ export default function AddServiceDialog() {
     <AlertDialog onOpenChange={setOpen} open={open}>
       <AlertDialogTrigger asChild>
         <Button className="h-8">
-          <IconPlus />
+          <Plus />
           <span>Service</span>
         </Button>
       </AlertDialogTrigger>

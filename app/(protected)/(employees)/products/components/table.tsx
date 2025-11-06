@@ -25,9 +25,6 @@ import {
 import { cn } from "@/lib/utils";
 import type { ProductData } from "../data";
 import AddProductDialog from "./add-product-dialog";
-import AdjustQuantityDialog from "./adjust-quantity-dialog";
-import DeleteProductDialog from "./delete-product-dialog";
-import UpdateProductDialog from "./update-product-dialog";
 
 interface ProductsTableProps<TData extends ProductData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -103,7 +100,7 @@ const ProductsTable = <TData extends ProductData, TValue>({
 
       <DataTable
         className={cn(
-          "max-h-[calc(100dvh-248px)] md:max-h-[calc(100dvh-184px)] lg:max-h-[calc(100dvh-216px)]",
+          "max-h-[calc(100dvh-248px)] md:max-h-[calc(100dvh-184px)] lg:max-h-[calc(100dvh-216px)] [&>div]:max-h-[calc(100dvh-248px)] [&>div]:md:max-h-[calc(100dvh-184px)] [&>div]:lg:max-h-[calc(100dvh-216px)]",
           {
             "max-w-[calc(100svw-32px)] md:max-w-[calc(100svw-336px)]": open,
             "max-w-[calc(100svw-32px)] md:max-w-[calc(100svw-98px)] lg:max-w-[calc(100svw-114px)]":
@@ -117,9 +114,6 @@ const ProductsTable = <TData extends ProductData, TValue>({
       <div className="mt-auto">
         <DataTablePagination table={table} />
       </div>
-      <UpdateProductDialog />
-      <AdjustQuantityDialog />
-      <DeleteProductDialog />
     </div>
   );
 };

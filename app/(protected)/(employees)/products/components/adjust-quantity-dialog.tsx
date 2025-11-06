@@ -95,7 +95,7 @@ export default function AdjustQuantityDialog() {
 
   const onSubmit = (data: UpdateQTY) => {
     const submittedData: AdjustQuantitySchema = {
-      productId: data.id,
+      id: data.id,
       newQuantity: data.newQuantity,
       reason: data.reason,
     };

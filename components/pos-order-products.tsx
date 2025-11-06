@@ -1,6 +1,6 @@
 "use client";
 
-import { IconPencil } from "@tabler/icons-react";
+import { Pencil } from "lucide-react";
 import Image from "next/image";
 import NumberInput from "@/components/number-input";
 import { Button } from "@/components/ui/button";
@@ -110,7 +110,7 @@ export function PosOrderProducts() {
                         </span>
                       </div>
                       <Button className="rounded-full" size="icon">
-                        <IconPencil />
+                        <Pencil />
                       </Button>
                     </div>
                   </div>

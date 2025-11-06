@@ -1,8 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IconBrandGoogle, IconInnerShadowTop } from "@tabler/icons-react";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { Command, EyeIcon, EyeOffIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -81,7 +80,7 @@ export function LoginForm({
       <div className="flex flex-col items-center gap-2 text-center">
         <div className="flex flex-col items-center gap-2 font-medium">
           <div className="flex size-12 items-center justify-center rounded-md font-medium">
-            <IconInnerShadowTop className="h-12 w-12" />
+            <Command className="h-12 w-12" />
           </div>
         </div>
         <FieldDescription className="font-medium text-foreground text-xl">
@@ -157,7 +156,6 @@ export function LoginForm({
       <FieldGroup>
         <Field>
           <Button type="button" variant="outline">
-            <IconBrandGoogle />
             Continue with Google
           </Button>
         </Field>

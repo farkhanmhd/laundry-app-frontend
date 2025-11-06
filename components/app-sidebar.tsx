@@ -1,8 +1,7 @@
 "use client";
 
-import { IconInnerShadowTop } from "@tabler/icons-react";
+import { Command } from "lucide-react";
 import Link from "next/link";
-import type * as React from "react";
 import type { SessionUser } from "@/component-types";
 import {
   Sidebar,
@@ -35,7 +34,7 @@ export function AppSidebar({ user, ...props }: Props) {
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <Link href="/dashboard">
-                <IconInnerShadowTop className="!size-5" />
+                <Command className="!size-5" />
                 <span className="font-semibold text-base">Laundry App</span>
               </Link>
             </SidebarMenuButton>
